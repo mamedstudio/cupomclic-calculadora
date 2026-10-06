@@ -1,1031 +1,667 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CupomClic Marília - Calculadora de Tráfego Inteligente & Agrupador</title>
-  
-  <!-- Tailwind CSS CDN -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CupomClic • Inteligência de Tráfego & Clusterização</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Google Fonts: Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
-      darkMode: 'class',
       theme: {
         extend: {
-          fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-            mono: ['"JetBrains Mono"', 'monospace'],
-          },
+          fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
           colors: {
             brand: {
-              400: '#fb923c',
-              500: '#f97316',
-              600: '#ea580c',
-              700: '#c2410c',
-            },
-            surface: {
-              950: '#070b12',
-              900: '#0f172a',
-              850: '#131e36',
-              800: '#1e293b',
-              700: '#334155',
+              orange: '#FF5500',
+              orangeDark: '#E04B00',
+              bg: '#0A0D14',
+              card: '#121722',
+              cardBorder: '#1E2638',
+              input: '#0F131C'
             }
           }
         }
       }
     }
   </script>
-
   <style>
-    /* Custom scrollbars */
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #070b12; }
-    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 9999px; }
-    ::-webkit-scrollbar-thumb:hover { background: #334155; }
-
-    /* Remove number spin buttons */
     input[type=number]::-webkit-inner-spin-button, 
     input[type=number]::-webkit-outer-spin-button { 
       -webkit-appearance: none; 
       margin: 0; 
     }
-    input[type=number] { -moz-appearance: textfield; }
-
-    .glow-orange {
-      box-shadow: 0 0 25px -5px rgba(249, 115, 22, 0.25);
-    }
-    .glow-emerald {
-      box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.25);
-    }
   </style>
 </head>
-<body class="bg-surface-950 text-slate-100 min-h-screen font-sans antialiased selection:bg-brand-500 selection:text-white pb-20">
+<body class="bg-brand-bg text-slate-100 min-h-screen font-sans pb-16">
 
-  <!-- Main Navigation Bar -->
-  <header class="border-b border-slate-800/80 bg-surface-900/80 backdrop-blur-xl sticky top-0 z-40">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
-      
-      <!-- Brand & City Tag -->
+  <!-- TOPBAR -->
+  <header class="border-b border-brand-cardBorder bg-brand-card/80 backdrop-blur sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-brand-600 via-brand-500 to-amber-400 flex items-center justify-center shadow-lg shadow-brand-500/25 font-black text-xl text-white">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-orange to-amber-500 flex items-center justify-center font-extrabold text-xl shadow-lg shadow-brand-orange/20">
           %
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <h1 class="text-base sm:text-lg font-extrabold text-white tracking-tight">CupomClic</h1>
-            <span class="text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded-full bg-brand-500/20 text-brand-400 border border-brand-500/30">
-              MARÍLIA • SP
-            </span>
+            <span class="font-extrabold tracking-tight text-lg text-white">Cupom<span class="text-brand-orange">Clic</span></span>
+            <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-brand-orange/20 text-brand-orange border border-brand-orange/30">Marília • SP</span>
           </div>
-          <p class="text-[11px] text-slate-400">Inteligência de Tráfego Pago & Otimizador de Margem (15%)</p>
+          <p class="text-xs text-slate-400">Algoritmo de Equilíbrio & Inteligência Meta Ads</p>
         </div>
       </div>
 
-      <!-- Action Buttons -->
-      <div class="flex flex-wrap items-center gap-2 sm:gap-2.5">
-        
-        <!-- Save to PC (.json) -->
-        <button id="btn-save-pc" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-surface-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 hover:border-slate-600 transition shadow-sm active:scale-95" title="Baixa o arquivo JSON com os cálculos e zera a tela">
-          <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
-          <span>Salvar no PC (.json)</span>
-        </button>
-
-        <!-- Restore from PC (.json) -->
-        <label for="input-file-load" class="cursor-pointer inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-surface-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 hover:border-slate-600 transition shadow-sm active:scale-95" title="Carregar análise anterior">
-          <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-          <span>Recuperar do PC</span>
-          <input type="file" id="input-file-load" accept=".json" class="hidden">
-        </label>
-
-        <!-- Direct Shortcut to Meta Ads Manager -->
-        <a href="https://adsmanager.facebook.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-700 to-indigo-600 hover:from-blue-600 hover:to-indigo-500 text-white text-xs font-semibold border border-blue-400/30 transition shadow-sm shadow-blue-500/20 active:scale-95" title="Abrir Gerenciador de Anúncios da Meta">
-          <svg class="w-4 h-4 text-blue-200" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v7.005C18.343 21.144 22 17.009 22 12c0-5.523-4.477-10-10-10z"/></svg>
-          <span>Meta Ads Manager</span>
-          <svg class="w-3 h-3 text-blue-300 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+      <!-- BOTÕES DE AÇÃO RÁPIDA -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <a href="https://adsmanager.facebook.com" target="_blank" rel="noopener noreferrer" 
+           class="inline-flex items-center gap-2 text-xs font-semibold px-3 py-2 rounded-lg bg-blue-600/20 text-blue-400 border border-blue-500/30 hover:bg-blue-600/30 transition-all">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/></svg>
+          <span class="hidden md:inline">Meta Ads Manager</span>
         </a>
 
-        <!-- WhatsApp Copy -->
-        <button id="btn-copy-plan" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold transition shadow-md shadow-brand-600/30 active:scale-95">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
-          <span class="hidden sm:inline">Copiar Plano (WhatsApp)</span>
-          <span class="sm:hidden">WhatsApp</span>
-        </button>
+        <label class="cursor-pointer inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition-all">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+          <span>Recuperar (.json)</span>
+          <input type="file" id="importFileInput" accept=".json" class="hidden" onchange="importData(event)">
+        </label>
 
+        <button onclick="saveAndReset()" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-600/30 transition-all">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
+          <span>Salvar & Limpar</span>
+        </button>
       </div>
     </div>
   </header>
 
-  <!-- Notification Toast -->
-  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 pointer-events-none transition-all duration-300 bg-surface-900 border border-slate-700 text-white px-4 py-3 rounded-2xl shadow-2xl text-xs font-medium flex items-center gap-3">
-    <div id="toast-icon-wrapper" class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-    </div>
-    <span id="toast-message">Notificação</span>
-  </div>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+    
+    <!-- DASHBOARD KPIs DE VISÃO GERAL -->
+    <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <div class="bg-brand-card border border-brand-cardBorder p-4 rounded-2xl relative overflow-hidden">
+        <div class="text-xs text-slate-400 font-semibold mb-1">FATURAMENTO PREVISTO</div>
+        <div class="text-2xl font-extrabold text-white" id="kpiGrossRevenue">R$ 0,00</div>
+        <div class="text-[11px] text-slate-500 mt-1" id="kpiTotalUnits">0 cupons estimados</div>
+      </div>
+      <div class="bg-brand-card border border-brand-cardBorder p-4 rounded-2xl relative overflow-hidden">
+        <div class="text-xs text-brand-orange font-semibold mb-1">COMISSÃO 15% (CUPOMCLIC)</div>
+        <div class="text-2xl font-extrabold text-brand-orange" id="kpiTotalFee">R$ 0,00</div>
+        <div class="text-[11px] text-slate-500 mt-1">Margem Bruta Garantida</div>
+      </div>
+      <div class="bg-brand-card border border-brand-cardBorder p-4 rounded-2xl relative overflow-hidden">
+        <div class="text-xs text-blue-400 font-semibold mb-1">INVESTIMENTO SUGERIDO</div>
+        <div class="text-2xl font-extrabold text-blue-400" id="kpiTotalAds">R$ 0,00</div>
+        <div class="text-[11px] text-slate-500 mt-1" id="kpiReinvestRatio">50% da margem CupomClic</div>
+      </div>
+      <div class="bg-brand-card border border-brand-cardBorder p-4 rounded-2xl relative overflow-hidden">
+        <div class="text-xs text-emerald-400 font-semibold mb-1">LUCRO LÍQUIDO FINAL</div>
+        <div class="text-2xl font-extrabold text-emerald-400" id="kpiNetProfit">R$ 0,00</div>
+        <div class="text-[11px] text-emerald-500/80 mt-1" id="kpiNetMargin">Sobra após mídia</div>
+      </div>
+    </section>
 
-  <!-- Main Content Container -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 space-y-6">
+    <!-- CONFIGURAÇÕES DE CAMPANHA & DIRECIONAMENTO -->
+    <section class="bg-brand-card border border-brand-cardBorder p-5 rounded-2xl mb-6">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">Público-Alvo em Marília</label>
+          <select id="targetAudience" onchange="calculate()" class="w-full bg-brand-input border border-brand-cardBorder rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-orange">
+            <option value="gastronomia">Gastronomia Noturna & Delivery</option>
+            <option value="geral">Geral / Varejo Urbano & Promoções</option>
+            <option value="jovens">Jovens / Universitários (Univem, Unimar, Famema)</option>
+            <option value="servicos">Serviços & Automotivo</option>
+          </select>
+        </div>
 
-    <!-- Top KPI Cards Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      
-      <!-- Investimento Ideal -->
-      <div class="bg-surface-900/90 border border-slate-800/80 p-5 rounded-2xl relative overflow-hidden group hover:border-brand-500/40 transition">
-        <div class="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate-400">
-          <span>Investimento Ideal</span>
-          <span class="text-xs px-2 py-0.5 rounded-md bg-brand-500/10 text-brand-400 font-semibold" id="kpi-budget-percent-tag">50% Margem</span>
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">CPM Estimado Marília (Meta)</label>
+          <div class="relative">
+            <span class="absolute left-3 top-2 text-xs text-slate-500">R$</span>
+            <input type="number" id="cpmInput" value="18.00" step="0.50" oninput="calculate()" class="w-full bg-brand-input border border-brand-cardBorder rounded-xl pl-9 pr-3 py-2 text-sm text-white focus:outline-none focus:border-brand-orange">
+          </div>
         </div>
-        <div class="text-2xl sm:text-3xl font-extrabold text-brand-400 mt-2 font-mono tracking-tight" id="kpi-invest-total">R$ 0,00</div>
-        <div class="text-[12px] text-slate-400 mt-1 flex items-center justify-between">
-          <span id="kpi-invest-daily">R$ 0,00 / dia</span>
-          <span class="text-[11px] text-slate-500" id="kpi-active-view-tag">Visualizando: Todas</span>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">Reinvestimento em Tráfego</label>
+          <div class="flex items-center gap-3">
+            <input type="range" id="reinvestRate" min="20" max="70" value="50" oninput="calculate()" class="w-full accent-brand-orange">
+            <span class="text-sm font-bold text-brand-orange w-12 text-right" id="reinvestRateLabel">50%</span>
+          </div>
         </div>
-        <div class="absolute right-2 -bottom-2 opacity-5 text-brand-500 font-black text-6xl pointer-events-none select-none">⚡</div>
+
+        <div class="flex items-end gap-2">
+          <button onclick="loadSampleOffers()" class="w-full text-xs font-semibold py-2.5 px-3 rounded-xl bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition">
+            Carregar 10 Ofertas Exemplo
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ÁREA DE CADASTRO E GERENCIAMENTO DAS OFERTAS -->
+    <section class="bg-brand-card border border-brand-cardBorder p-5 rounded-2xl mb-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4">
+        <div>
+          <h2 class="text-lg font-extrabold text-white flex items-center gap-2">
+            Base de Ofertas Cadastradas
+            <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-brand-orange/20 text-brand-orange" id="offersCountBadge">0 ofertas</span>
+          </h2>
+          <p class="text-xs text-slate-400">Insira 10 ou mais ofertas para o algoritmo balancear e criar os carrosséis ideais.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="addEmptyOffer()" class="text-xs font-bold px-3 py-2 rounded-xl bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 transition flex items-center gap-1.5">
+            <span>+ Adicionar Oferta</span>
+          </button>
+          <button onclick="runBalancedClustering()" class="text-xs font-extrabold px-4 py-2 rounded-xl bg-gradient-to-r from-brand-orange to-amber-500 text-white shadow-lg shadow-brand-orange/25 hover:brightness-110 transition flex items-center gap-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+            <span>Gerar Blocos de 5 Balanceados</span>
+          </button>
+        </div>
       </div>
 
-      <!-- Comissão Prevista 15% -->
-      <div class="bg-surface-900/90 border border-slate-800/80 p-5 rounded-2xl relative overflow-hidden group hover:border-emerald-500/40 transition">
-        <div class="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate-400">
-          <span>Comissão Prevista</span>
-          <span class="text-xs px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 font-semibold">15% Fixo</span>
+      <!-- TABELA / LISTA DE OFERTAS -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm">
+          <thead>
+            <tr class="text-slate-500 border-b border-brand-cardBorder text-xs uppercase">
+              <th class="py-2.5 px-3">Loja & Oferta</th>
+              <th class="py-2.5 px-3">Categoria</th>
+              <th class="py-2.5 px-3">Preço (R$)</th>
+              <th class="py-2.5 px-3">Vendas Previstas</th>
+              <th class="py-2.5 px-3">Comissão (15%)</th>
+              <th class="py-2.5 px-3">Tração Estimada</th>
+              <th class="py-2.5 px-3 text-right">Ação</th>
+            </tr>
+          </thead>
+          <tbody id="offersTableBody" class="divide-y divide-brand-cardBorder/60">
+            <!-- Inserido dinamicamente -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- BLOCOS DE CARROSSEL BALANCEADOS -->
+    <section class="mb-8">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h2 class="text-lg font-extrabold text-white flex items-center gap-2">
+            Blocos de Carrossel Gerados (5 Lojas por Anúncio)
+          </h2>
+          <p class="text-xs text-slate-400">Distribuídos de forma homogênea para que nenhum anúncio tenha tração ou comissão prejudicada.</p>
         </div>
-        <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400 mt-2 font-mono tracking-tight" id="kpi-commission-total">R$ 0,00</div>
-        <div class="text-[12px] text-slate-400 mt-1 flex items-center justify-between">
-          <span id="kpi-gmv-total">Faturamento: R$ 0,00</span>
-          <span class="text-[11px] text-emerald-500/90 font-semibold" id="kpi-total-units">0 un.</span>
-        </div>
-        <div class="absolute right-2 -bottom-2 opacity-5 text-emerald-500 font-black text-6xl pointer-events-none select-none">💰</div>
       </div>
 
-      <!-- Lucro Líquido CupomClic -->
-      <div class="bg-surface-900/90 border border-slate-800/80 p-5 rounded-2xl relative overflow-hidden group hover:border-cyan-500/40 transition">
-        <div class="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate-400">
-          <span>Lucro Líquido CupomClic</span>
-          <span class="text-xs px-2 py-0.5 rounded-md bg-cyan-500/10 text-cyan-400 font-semibold" id="kpi-net-margin-percent">50% líq</span>
-        </div>
-        <div class="text-2xl sm:text-3xl font-extrabold text-cyan-400 mt-2 font-mono tracking-tight" id="kpi-net-profit">R$ 0,00</div>
-        <div class="text-[12px] text-slate-400 mt-1 flex items-center justify-between">
-          <span id="kpi-margin-status">Margem Segura</span>
-          <span class="text-[11px] text-slate-500" id="kpi-roas-target">ROAS 13.3x</span>
-        </div>
-        <div class="absolute right-2 -bottom-2 opacity-5 text-cyan-500 font-black text-6xl pointer-events-none select-none">📈</div>
+      <div id="balancedClustersContainer" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Blocos gerados via script -->
       </div>
+    </section>
 
-      <!-- Alcance Estimado em Marília -->
-      <div class="bg-surface-900/90 border border-slate-800/80 p-5 rounded-2xl relative overflow-hidden group hover:border-purple-500/40 transition">
-        <div class="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate-400">
-          <span>Alcance Local</span>
-          <span class="text-xs px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-400 font-semibold">Marília ~240k</span>
+    <!-- MÓDULO DE PÓS-CAMPANHA & APRENDIZADO DE MÁQUINA (META ADS) -->
+    <section class="bg-brand-card border border-brand-cardBorder p-6 rounded-2xl">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-6 border-b border-brand-cardBorder pb-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-blue-500 animate-pulse"></span>
+            <h2 class="text-lg font-extrabold text-white">Retroalimentação & Otimização Meta Ads</h2>
+          </div>
+          <p class="text-xs text-slate-400 mt-1">Insira os resultados reais do anúncio veiculado para a IA diagnosticar anomalias e calibrar os próximos blocos em Marília.</p>
         </div>
-        <div class="text-2xl sm:text-3xl font-extrabold text-purple-400 mt-2 font-mono tracking-tight" id="kpi-reach">0 pessoas</div>
-        <div class="text-[12px] text-slate-400 mt-1 flex items-center justify-between">
-          <span id="kpi-reach-percent">~0% dos moradores</span>
-          <span class="text-[11px] text-slate-500" id="kpi-impressions">0 views</span>
-        </div>
-        <div class="absolute right-2 -bottom-2 opacity-5 text-purple-500 font-black text-6xl pointer-events-none select-none">📍</div>
-      </div>
-
-    </div>
-
-    <!-- Cluster Bar / Carousel Block Selector -->
-    <div class="bg-surface-900 border border-slate-800 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-4">
-      <div class="flex flex-wrap items-center gap-2" id="block-tabs-container">
-        <!-- Rendered dynamically: [Ver Todas as Ofertas], [Carrossel Bloco A (5)], [Carrossel Bloco B (5)], etc. -->
-      </div>
-
-      <div class="flex items-center gap-2">
-        <button id="btn-clusterize" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-brand-600 via-amber-500 to-brand-500 hover:from-brand-500 hover:to-amber-400 text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-brand-500/20 active:scale-95 transition">
-          <svg class="w-4 h-4 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
-          <span>Agrupar em Blocos de 5 (Cluster IA)</span>
+        <button onclick="analyzeFeedback()" class="text-xs font-bold px-4 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-500 transition shadow-lg shadow-blue-600/20">
+          Analisar Desempenho Real
         </button>
       </div>
-    </div>
 
-    <!-- Main Workspace: Left (Offers & Intelligence) + Right (Campaign Rules & Target Metrics) -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-      
-      <!-- Left Column: 10+ Offers & Ranking (Col 7) -->
-      <section class="lg:col-span-7 space-y-6">
-        
-        <!-- Header Controls for Offers -->
-        <div class="bg-surface-900/90 border border-slate-800 rounded-3xl p-5 shadow-xl">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
-            <div>
-              <div class="flex items-center gap-2">
-                <h2 class="text-base font-bold text-white flex items-center gap-2">
-                  <span>Banco de Ofertas</span>
-                  <span id="offers-count-badge" class="text-xs px-2.5 py-0.5 rounded-full bg-surface-800 text-brand-400 border border-slate-700 font-mono font-semibold">
-                    0 ofertas
-                  </span>
-                </h2>
-              </div>
-              <p class="text-xs text-slate-400 mt-0.5">Cadastre 10 ou mais ofertas locais. O sistema ranqueia da mais quente à mais fria e otimiza carrosséis de 5.</p>
-            </div>
-
-            <div class="flex items-center gap-2">
-              <button id="btn-load-sample" class="text-xs font-semibold px-3 py-1.5 rounded-xl bg-surface-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" title="Preencher com 10 lojas reais de Marília para simular">
-                ⚡ Carregar 10 Exemplo
-              </button>
-              <button id="btn-add-offer" class="text-xs font-semibold px-3 py-1.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white transition flex items-center gap-1.5 shadow-sm shadow-brand-600/30">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                <span>Nova Oferta</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Audience & Strategy Selector -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4 pb-2">
-            <div>
-              <label class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 block mb-1.5 flex items-center gap-1">
-                <span>🎯 Público-Alvo do Anúncio (Meta)</span>
-              </label>
-              <select id="select-audience" class="w-full bg-surface-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500">
-                <option value="all">Marília Geral (Homens e Mulheres 18-65+)</option>
-                <option value="food_night">Jovens & Adultos (18-35) • Gastronomia Noturna & Delivery</option>
-                <option value="family">Famílias & Casais (25-55) • Almoço, Pizzas e Lazer</option>
-                <option value="auto_services">Serviços & Automotivo • Homens & Mulheres (24-60)</option>
-                <option value="beauty_wellness">Beleza, Estética & Bem-Estar • Cuidados Pessoais</option>
-              </select>
-            </div>
-
-            <div>
-              <label class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 block mb-1.5 flex items-center gap-1">
-                <span>Ordenação Atual</span>
-              </label>
-              <div class="flex items-center gap-2">
-                <select id="select-sort-mode" class="w-full bg-surface-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500">
-                  <option value="smart">Temperatura (Mais Quente 🔥 ➔ Mais Fria ❄️)</option>
-                  <option value="commission">Maior Comissão Gerada (R$)</option>
-                  <option value="price_asc">Menor Preço (Produtos Isca)</option>
-                  <option value="units_desc">Mais Vendas Estimadas</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <!-- Active Filter Alert -->
-          <div id="filter-status-banner" class="hidden mt-3 px-3 py-2 rounded-xl bg-brand-500/10 border border-brand-500/20 text-brand-300 text-xs flex items-center justify-between">
-            <span id="filter-status-text">Visualizando Carrossel Bloco A</span>
-            <button id="btn-clear-filter" class="text-[11px] underline hover:text-white">Ver todas as ofertas</button>
-          </div>
-
-          <!-- Dynamic Offer Cards List -->
-          <div id="offers-list" class="space-y-3.5 mt-5">
-            <!-- Rendered by JS -->
-          </div>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Gasto Real no Anúncio (R$)</label>
+          <input type="number" id="realAdSpend" value="135.00" class="w-full bg-brand-input border border-brand-cardBorder rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500">
         </div>
-
-        <!-- Strategy Hints for Local Ads in Marília -->
-        <div class="bg-surface-900/60 border border-slate-800 rounded-3xl p-5 text-xs text-slate-400 space-y-2.5">
-          <div class="flex items-center gap-2 text-white font-bold uppercase tracking-wider text-[11px]">
-            <span class="w-2 h-2 rounded-full bg-brand-500 animate-ping"></span>
-            <span>Inteligência de Tráfego Local: Marília/SP</span>
-          </div>
-          <p>
-            • <strong class="text-slate-200">Slide #1 (O Ímã de Cliques):</strong> O algoritmo posiciona automaticamente a oferta com maior tração de clique na primeira lâmina. Isso derruba o CPC médio do carrossel no Meta Ads.
-          </p>
-          <p>
-            • <strong class="text-slate-200">Divisão em Blocos de 5:</strong> Ao agrupar 10+ ofertas em blocos de 5 lojas de categorias complementares, o anúncio não satura o usuário e evita canibalização de pedidos entre concorrentes diretos no mesmo criativo.
-          </p>
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Cliques no Link (Meta)</label>
+          <input type="number" id="realLinkClicks" value="280" class="w-full bg-brand-input border border-brand-cardBorder rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500">
         </div>
-
-      </section>
-
-      <!-- Right Column: Campaign Parameters & Mathematical Breakdown (Col 5) -->
-      <section class="lg:col-span-5 space-y-6">
-        
-        <!-- Campaign Parameters Card -->
-        <div class="bg-surface-900/90 border border-slate-800 rounded-3xl p-5 sm:p-6 shadow-xl space-y-5">
-          <h2 class="text-base font-bold text-white pb-3 border-b border-slate-800 flex items-center justify-between">
-            <span>Configuração do Anúncio</span>
-            <span class="text-[11px] font-mono text-slate-400">Meta Ads • Marília</span>
-          </h2>
-
-          <!-- Reinvestment % on 15% Commission -->
-          <div>
-            <div class="flex justify-between items-center text-xs mb-1.5">
-              <label for="range-reinvest" class="font-medium text-slate-300">Reinvestimento da Margem em Mídia</label>
-              <span class="font-bold text-brand-400 font-mono text-sm" id="label-reinvest">50%</span>
-            </div>
-            <input type="range" id="range-reinvest" min="20" max="80" step="5" value="50" class="w-full h-2 bg-surface-950 rounded-lg appearance-none cursor-pointer accent-brand-500 border border-slate-800">
-            <div class="flex justify-between text-[10px] text-slate-500 mt-1.5">
-              <span>20% (Alta Margem Líquida)</span>
-              <span class="text-brand-400 font-semibold">50% (Padrão Ouro)</span>
-              <span>80% (Escala Máxima)</span>
-            </div>
-          </div>
-
-          <!-- Campaign Duration in Days -->
-          <div>
-            <div class="flex justify-between items-center text-xs mb-1.5">
-              <label class="font-medium text-slate-300">Duração da Campanha no Meta</label>
-              <span class="font-bold text-brand-400 font-mono" id="label-duration">4 dias</span>
-            </div>
-            <div class="grid grid-cols-4 gap-2">
-              <button type="button" class="btn-days py-2 rounded-xl text-xs font-semibold bg-surface-950 text-slate-300 border border-slate-800 hover:border-slate-700 transition" data-days="3">3 dias</button>
-              <button type="button" class="btn-days py-2 rounded-xl text-xs font-semibold bg-brand-600 text-white border border-brand-500 shadow-md shadow-brand-600/30" data-days="4">4 dias</button>
-              <button type="button" class="btn-days py-2 rounded-xl text-xs font-semibold bg-surface-950 text-slate-300 border border-slate-800 hover:border-slate-700 transition" data-days="5">5 dias</button>
-              <button type="button" class="btn-days py-2 rounded-xl text-xs font-semibold bg-surface-950 text-slate-300 border border-slate-800 hover:border-slate-700 transition" data-days="7">7 dias</button>
-            </div>
-            <input type="hidden" id="input-days" value="4">
-          </div>
-
-          <!-- CPM Setting for Marília -->
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label for="input-cpm" class="text-xs font-medium text-slate-300 block mb-1">CPM Marília (R$)</label>
-              <div class="relative">
-                <span class="absolute left-3 top-2.5 text-xs text-slate-500 font-bold">R$</span>
-                <input type="number" id="input-cpm" value="18.00" step="0.5" min="5" max="50" class="w-full bg-surface-950 border border-slate-800 rounded-xl pl-8 pr-2.5 py-2 text-xs text-white focus:outline-none focus:border-brand-500">
-              </div>
-            </div>
-
-            <div>
-              <label for="input-commission-pct" class="text-xs font-medium text-slate-300 block mb-1">Comissão CupomClic</label>
-              <div class="relative">
-                <input type="number" id="input-commission-pct" value="15" min="5" max="30" class="w-full bg-surface-950 border border-slate-800 rounded-xl pl-3 pr-7 py-2 text-xs text-white focus:outline-none focus:border-brand-500">
-                <span class="absolute right-3 top-2 text-xs text-slate-500 font-bold">%</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Visual Bar Chart of Budget & Margins -->
-          <div class="pt-3 border-t border-slate-800/80 space-y-2">
-            <div class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 flex items-center justify-between">
-              <span>Distribuição da Receita Total</span>
-              <span id="chart-gmv-label" class="font-mono text-white text-xs">R$ 0,00</span>
-            </div>
-
-            <!-- Stacked CSS Bar -->
-            <div class="w-full h-4 bg-surface-950 rounded-full overflow-hidden flex border border-slate-800">
-              <div id="bar-merchants" class="bg-slate-600 transition-all duration-500" style="width: 85%;" title="Repasse Lojistas (85%)"></div>
-              <div id="bar-traffic" class="bg-brand-500 transition-all duration-500" style="width: 7.5%;" title="Tráfego Pago (50% da margem)"></div>
-              <div id="bar-profit" class="bg-cyan-400 transition-all duration-500" style="width: 7.5%;" title="Lucro Líquido CupomClic (50% da margem)"></div>
-            </div>
-
-            <div class="flex items-center justify-between text-[10px] text-slate-400 pt-1">
-              <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-slate-500"></span> Lojas (85%)</span>
-              <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-brand-500"></span> Anúncio Meta</span>
-              <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-cyan-400"></span> Sobra Líquida</span>
-            </div>
-          </div>
-
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Cupons Efetivamente Resgatados</label>
+          <input type="number" id="realCouponsRedeemed" value="48" class="w-full bg-brand-input border border-brand-cardBorder rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500">
         </div>
-
-        <!-- Target Metrics & Unit Economics -->
-        <div class="bg-surface-900/90 border border-slate-800 rounded-3xl p-5 sm:p-6 shadow-xl space-y-4">
-          <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-            <h2 class="text-base font-bold text-white">Métricas de Equilíbrio (Break-Even)</h2>
-            <span id="badge-health" class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-              Alta Lucratividade
-            </span>
-          </div>
-
-          <div class="space-y-3 text-xs">
-            <div class="flex justify-between items-center py-1.5 border-b border-slate-800/60">
-              <span class="text-slate-400">Total de Cupons Projetados:</span>
-              <span class="font-bold text-white font-mono" id="sub-total-units">0 un</span>
-            </div>
-            
-            <div class="flex justify-between items-center py-1.5 border-b border-slate-800/60">
-              <span class="text-slate-400">Ticket Médio das Ofertas:</span>
-              <span class="font-bold text-white font-mono" id="sub-avg-ticket">R$ 0,00</span>
-            </div>
-
-            <div class="flex justify-between items-center py-1.5 border-b border-slate-800/60">
-              <div class="flex items-center gap-1">
-                <span class="text-slate-400">CPA Máximo de Equilíbrio (Zero a Zero):</span>
-                <span class="text-slate-500 cursor-help" title="Custo máximo por cupom vendido para não ter prejuízo">(?)</span>
-              </div>
-              <span class="font-bold text-amber-400 font-mono" id="sub-cpa-breakeven">R$ 0,00 / venda</span>
-            </div>
-
-            <div class="flex justify-between items-center py-1.5 border-b border-slate-800/60">
-              <div class="flex items-center gap-1">
-                <span class="text-slate-400">CPA Meta Seguro (Com o Reinvestimento):</span>
-                <span class="text-slate-500 cursor-help" title="Custo alvo ideal por venda no gerenciador da Meta">(?)</span>
-              </div>
-              <span class="font-bold text-emerald-400 font-mono" id="sub-cpa-target">R$ 0,00 / venda</span>
-            </div>
-
-            <div class="flex justify-between items-center py-1.5 border-b border-slate-800/60">
-              <span class="text-slate-400">ROAS Mínimo Global (Receita/Gasto):</span>
-              <span class="font-bold text-purple-400 font-mono" id="sub-roas-target">13.33x</span>
-            </div>
-
-            <div class="flex justify-between items-center py-1.5">
-              <span class="text-slate-400">Custo Diário Sugerido no Meta:</span>
-              <span class="font-bold text-brand-400 font-mono text-sm" id="sub-daily-budget">R$ 0,00 / dia</span>
-            </div>
-          </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Faturamento Bruto Real (R$)</label>
+          <input type="number" id="realRevenue" value="2450.00" class="w-full bg-brand-input border border-brand-cardBorder rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500">
         </div>
+      </div>
 
-      </section>
+      <!-- PAINEL DE INSIGHTS DA IA -->
+      <div id="feedbackInsightsBox" class="bg-brand-input/70 border border-brand-cardBorder p-5 rounded-xl">
+        <div class="text-sm text-slate-300 font-medium mb-3 flex items-center gap-2">
+          <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Diagnóstico Inteligente de Eficiência
+        </div>
+        <div id="feedbackAnalysisContent" class="text-xs text-slate-400 space-y-2">
+          Preencha os dados reais do anúncio acima e clique em <strong>"Analisar Desempenho Real"</strong> para receber as recomendações de ajuste de leilão, saturação de público e atratividade do carrossel.
+        </div>
+      </div>
+    </section>
 
-    </div>
   </main>
 
-  <!-- JavaScript Engine -->
   <script>
-    // Constants
-    const MARILIA_POPULATION = 240000;
+    // ESTADO GLOBAL DA APLICAÇÃO
+    let offers = [];
+    let generatedClusters = [];
 
-    // Categories with strategic conversion weight
-    const CATEGORIES = {
-      food_fast: { label: 'Gastronomia Rápida / Burgers', weight: 1.25 },
-      pizza_dinner: { label: 'Pizzaria / Almoço Família', weight: 1.15 },
-      dessert_snack: { label: 'Açaí, Sobremesas & Doces', weight: 1.20 },
-      auto_care: { label: 'Serviços Automotivos', weight: 0.90 },
-      beauty_barber: { label: 'Salão, Barbearia & Estética', weight: 0.95 },
-      fashion_retail: { label: 'Moda, Calçados & Roupas', weight: 0.85 },
-      services_general: { label: 'Serviços Gerais / Casa', weight: 0.80 }
-    };
-
-    // 10 Sample Offers from Marília (Restaurants, Bakeries, Auto, Barber, etc.)
-    const SAMPLE_MARILIA_OFFERS = [
-      { id: 1, store: 'Hamburgueria Central', offer: 'Combo Smash Duplo + Fritas', price: 38.00, units: 25, category: 'food_fast' },
-      { id: 2, store: 'Pizzaria Bella Marília', offer: 'Pizza Grande Especial 8 Fatias', price: 62.00, units: 14, category: 'pizza_dinner' },
-      { id: 3, store: 'Açaí Tropical Sampaio Vidal', offer: 'Copo Turbo 500ml c/ Nutella', price: 24.00, units: 35, category: 'dessert_snack' },
-      { id: 4, store: 'Lavacar Express Cascata', offer: 'Lavagem Ecológica c/ Cera', price: 75.00, units: 12, category: 'auto_care' },
-      { id: 5, store: 'Barbearia Vip Tiradentes', offer: 'Corte Degradê + Barba Navalhada', price: 50.00, units: 18, category: 'beauty_barber' },
-      { id: 6, store: 'Rotisseria da Vovó', offer: 'Frango Assado com Farofa Especial', price: 48.00, units: 20, category: 'pizza_dinner' },
-      { id: 7, store: 'Sushi Marília Prime', offer: 'Combo Salmão 20 Peças', price: 79.90, units: 15, category: 'food_fast' },
-      { id: 8, store: 'Troca de Óleo Avenida', offer: 'Revisão Filtro + Óleo Sintético', price: 160.00, units: 8, category: 'auto_care' },
-      { id: 9, store: 'Gelateria Itália Centro', offer: 'Taça Fondue Dupla Especial', price: 32.00, units: 22, category: 'dessert_snack' },
-      { id: 10, store: 'Espaço Estética Real', offer: 'Limpeza de Pele Profunda', price: 89.00, units: 10, category: 'beauty_barber' }
+    // CATEGORIAS DISPONÍVEIS
+    const CATEGORIES = [
+      { id: 'burger', name: 'Hamburgueria / Lanches', baseHeat: 95 },
+      { id: 'pizza', name: 'Pizzaria', baseHeat: 90 },
+      { id: 'acai', name: 'Açaí / Sorvetes', baseHeat: 88 },
+      { id: 'sushi', name: 'Culinária Oriental', baseHeat: 84 },
+      { id: 'auto', name: 'Automotivo / Lavacar', baseHeat: 68 },
+      { id: 'beauty', name: 'Barbearia / Estética', baseHeat: 75 },
+      { id: 'fashion', name: 'Moda / Calçados', baseHeat: 65 },
+      { id: 'fitness', name: 'Academia / Suplementos', baseHeat: 72 }
     ];
 
-    // State Variables
-    let offers = JSON.parse(JSON.stringify(SAMPLE_MARILIA_OFFERS));
-    let activeBlockFilter = null; // null = all; 'A' = Block A, 'B' = Block B, etc.
-    let clusterBlocks = []; // Array of arrays containing offer IDs for blocks of 5
-
-    // DOM Elements Cache
-    const offersListEl = document.getElementById('offers-list');
-    const offersCountBadge = document.getElementById('offers-count-badge');
-    const blockTabsContainer = document.getElementById('block-tabs-container');
-    const filterStatusBanner = document.getElementById('filter-status-banner');
-    const filterStatusText = document.getElementById('filter-status-text');
-    const btnClearFilter = document.getElementById('btn-clear-filter');
-
-    // Controls
-    const rangeReinvest = document.getElementById('range-reinvest');
-    const labelReinvest = document.getElementById('label-reinvest');
-    const inputDays = document.getElementById('input-days');
-    const labelDuration = document.getElementById('label-duration');
-    const dayButtons = document.querySelectorAll('.btn-days');
-    const inputCpm = document.getElementById('input-cpm');
-    const inputCommissionPct = document.getElementById('input-commission-pct');
-    const selectAudience = document.getElementById('select-audience');
-    const selectSortMode = document.getElementById('select-sort-mode');
-
-    // Top KPIs
-    const kpiInvestTotal = document.getElementById('kpi-invest-total');
-    const kpiInvestDaily = document.getElementById('kpi-invest-daily');
-    const kpiCommissionTotal = document.getElementById('kpi-commission-total');
-    const kpiGmvTotal = document.getElementById('kpi-gmv-total');
-    const kpiNetProfit = document.getElementById('kpi-net-profit');
-    const kpiNetMarginPercent = document.getElementById('kpi-net-margin-percent');
-    const kpiMarginStatus = document.getElementById('kpi-margin-status');
-    const kpiReach = document.getElementById('kpi-reach');
-    const kpiReachPercent = document.getElementById('kpi-reach-percent');
-    const kpiImpressions = document.getElementById('kpi-impressions');
-    const kpiTotalUnits = document.getElementById('kpi-total-units');
-    const kpiRoasTarget = document.getElementById('kpi-roas-target');
-    const kpiBudgetPercentTag = document.getElementById('kpi-budget-percent-tag');
-    const kpiActiveViewTag = document.getElementById('kpi-active-view-tag');
-
-    // Sub Metrics
-    const subTotalUnits = document.getElementById('sub-total-units');
-    const subAvgTicket = document.getElementById('sub-avg-ticket');
-    const subCpaBreakeven = document.getElementById('sub-cpa-breakeven');
-    const subCpaTarget = document.getElementById('sub-cpa-target');
-    const subRoasTarget = document.getElementById('sub-roas-target');
-    const subDailyBudget = document.getElementById('sub-daily-budget');
-    const badgeHealth = document.getElementById('badge-health');
-
-    // Chart bars
-    const chartGmvLabel = document.getElementById('chart-gmv-label');
-    const barMerchants = document.getElementById('bar-merchants');
-    const barTraffic = document.getElementById('bar-traffic');
-    const barProfit = document.getElementById('bar-profit');
-
-    // Utility formatting
-    function formatBRL(value) {
-      return (value || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    // CARGA DE 10 OFERTAS REAIS DE MARÍLIA
+    function loadSampleOffers() {
+      offers = [
+        { id: 1, store: "Hamburgueria Central", title: "Combo Smash Duplo + Fritas", category: "burger", price: 38.00, salesEst: 20 },
+        { id: 2, store: "Pizzaria Bella Marília", title: "Pizza Grande Especial 8 Fatias", category: "pizza", price: 65.00, salesEst: 15 },
+        { id: 3, store: "Açaí Tropical Tiradentes", title: "Copo 500ml Turbinado", category: "acai", price: 24.00, salesEst: 30 },
+        { id: 4, store: "Lavacar Cascata Express", title: "Ducha Completa + Cera Líquida", category: "auto", price: 60.00, salesEst: 12 },
+        { id: 5, store: "Barbearia Dom Marília", title: "Corte Degradê + Barba Terapia", category: "beauty", price: 55.00, salesEst: 14 },
+        { id: 6, store: "Sushi Marília Premium", title: "Combo 30 Peças Tradicional", category: "sushi", price: 89.00, salesEst: 10 },
+        { id: 7, store: "Pastelaria da Avenida", title: "Super Pastel 30cm + Caldo de Cana", category: "burger", price: 28.00, salesEst: 25 },
+        { id: 8, store: "Marília Fitness Suplementos", title: "Whey Concentrado 900g Refil", category: "fitness", price: 95.00, salesEst: 8 },
+        { id: 9, store: "Ótica Esmeralda", title: "Armação Solar Proteção UV", category: "fashion", price: 120.00, salesEst: 6 },
+        { id: 10, store: "Troca de Óleo Confiança", title: "Revisão Básica + Troca Filtro", category: "auto", price: 150.00, salesEst: 5 }
+      ];
+      renderOffersTable();
+      calculate();
+      runBalancedClustering();
     }
 
-    function escapeHtml(text) {
-      if (!text) return '';
-      return String(text).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    // ADICIONAR OFERTA MANUAL VAZIA
+    function addEmptyOffer() {
+      const newId = offers.length > 0 ? Math.max(...offers.map(o => o.id)) + 1 : 1;
+      offers.push({
+        id: newId,
+        store: "Nova Loja Marília",
+        title: "Oferta Exclusiva",
+        category: "burger",
+        price: 50.00,
+        salesEst: 10
+      });
+      renderOffersTable();
+      calculate();
     }
 
-    /**
-     * Calculates Temperature Score (0 to 100%) for an offer
-     * based on:
-     * 1. Price accessibility (lower price = higher initial click-through rate)
-     * 2. Volume projection (demonstrated demand)
-     * 3. Audience affinity match
-     */
-    function calculateOfferScore(offer, audience) {
-      let score = 50; // Base score
-
-      // 1. Price attractiveness
-      if (offer.price <= 35) score += 25;
-      else if (offer.price <= 55) score += 15;
-      else if (offer.price <= 85) score += 5;
-      else score -= 10;
-
-      // 2. Volume projected
-      if (offer.units >= 25) score += 20;
-      else if (offer.units >= 15) score += 12;
-      else if (offer.units >= 10) score += 5;
-      else score -= 5;
-
-      // 3. Category weight
-      const catInfo = CATEGORIES[offer.category] || { weight: 1.0 };
-      score = score * catInfo.weight;
-
-      // 4. Target audience bonus
-      if (audience === 'food_night') {
-        if (offer.category === 'food_fast' || offer.category === 'dessert_snack') score += 18;
-        if (offer.category === 'auto_care') score -= 20;
-      } else if (audience === 'family') {
-        if (offer.category === 'pizza_dinner' || offer.category === 'dessert_snack') score += 18;
-      } else if (audience === 'auto_services') {
-        if (offer.category === 'auto_care') score += 30;
-      } else if (audience === 'beauty_wellness') {
-        if (offer.category === 'beauty_barber') score += 30;
-      }
-
-      // Clamp between 15 and 99
-      return Math.min(99, Math.max(15, Math.round(score)));
+    // REMOVER OFERTA
+    function removeOffer(id) {
+      offers = offers.filter(o => o.id !== id);
+      renderOffersTable();
+      calculate();
     }
 
-    function getTemperatureData(score) {
-      if (score >= 82) {
-        return {
-          label: 'Ultra Hot 🔥',
-          role: 'Slide #1 Âncora (Isca)',
-          barColor: 'from-amber-500 to-rose-600',
-          textColor: 'text-rose-400',
-          badgeBg: 'bg-rose-500/10 border-rose-500/30'
-        };
-      } else if (score >= 68) {
-        return {
-          label: 'Hot ⚡',
-          role: 'Conversão Alta',
-          barColor: 'from-amber-400 to-brand-500',
-          textColor: 'text-brand-400',
-          badgeBg: 'bg-brand-500/10 border-brand-500/30'
-        };
-      } else if (score >= 48) {
-        return {
-          label: 'Warm 🟡',
-          role: 'Equilíbrio de Ticket',
-          barColor: 'from-yellow-400 to-amber-500',
-          textColor: 'text-amber-400',
-          badgeBg: 'bg-amber-500/10 border-amber-500/30'
-        };
-      } else {
-        return {
-          label: 'Cold ❄️',
-          role: 'Reavaliar Oferta/Preço',
-          barColor: 'from-cyan-400 to-blue-500',
-          textColor: 'text-cyan-400',
-          badgeBg: 'bg-cyan-500/10 border-cyan-500/30'
-        };
+    // ATUALIZAR DADOS DA OFERTA
+    function updateOffer(id, field, value) {
+      const item = offers.find(o => o.id === id);
+      if (item) {
+        if (field === 'price' || field === 'salesEst') {
+          item[field] = parseFloat(value) || 0;
+        } else {
+          item[field] = value;
+        }
+        calculate();
       }
     }
 
-    /**
-     * Intelligent Clustering:
-     * Sorts all offers by conversion temperature score.
-     * Divides offers into optimal carousels of 5 items.
-     * Each block gets 1 Top Anchor (Slide 1), followed by balanced complementary offers.
-     */
-    function clusterizeOffers() {
-      if (offers.length < 5) {
-        showToast("Cadastre pelo menos 5 ofertas para agrupar em carrossel!", "warning");
+    // CALCULAR TEMPERATURA DINÂMICA
+    function getHeatScore(offer, audience) {
+      const cat = CATEGORIES.find(c => c.id === offer.category) || { baseHeat: 70 };
+      let heat = cat.baseHeat;
+
+      // Ponderação por público-alvo selecionado
+      if (audience === 'gastronomia' && ['burger', 'pizza', 'acai', 'sushi'].includes(offer.category)) heat += 10;
+      if (audience === 'jovens' && ['burger', 'acai', 'fitness'].includes(offer.category)) heat += 8;
+      if (audience === 'servicos' && ['auto', 'beauty'].includes(offer.category)) heat += 15;
+
+      // Ofertas de ticket baixo (< R$ 40) ganham tração de clique imediato
+      if (offer.price <= 35) heat += 6;
+      if (offer.price >= 110) heat -= 8;
+
+      return Math.min(Math.max(heat, 30), 99);
+    }
+
+    function getHeatBadge(score) {
+      if (score >= 90) return { label: "Ultra Hot 🔥", color: "bg-red-500/20 text-red-400 border-red-500/30" };
+      if (score >= 78) return { label: "Hot ⚡", color: "bg-amber-500/20 text-amber-400 border-amber-500/30" };
+      if (score >= 60) return { label: "Warm 🟡", color: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30" };
+      return { label: "Cold ❄️", color: "bg-blue-500/20 text-blue-400 border-blue-500/30" };
+    }
+
+    // RENDERIZAR TABELA DE OFERTAS
+    function renderOffersTable() {
+      const tbody = document.getElementById("offersTableBody");
+      const badge = document.getElementById("offersCountBadge");
+      badge.textContent = `${offers.length} ofertas`;
+
+      if (offers.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-500 text-xs">Nenhuma oferta cadastrada. Clique em "+ Adicionar Oferta" ou "Carregar 10 Ofertas Exemplo".</td></tr>`;
         return;
       }
 
-      const audience = selectAudience.value;
-      const scoredOffers = [...offers].map(o => ({
-        ...o,
-        score: calculateOfferScore(o, audience)
-      }));
+      const audience = document.getElementById("targetAudience").value;
 
-      // Sort by score descending
-      scoredOffers.sort((a, b) => b.score - a.score);
+      tbody.innerHTML = offers.map(o => {
+        const fee = (o.price * o.salesEst * 0.15);
+        const heat = getHeatScore(o, audience);
+        const heatBadge = getHeatBadge(heat);
 
-      // Divide into chunks of 5
-      const totalBlocks = Math.ceil(scoredOffers.length / 5);
-      clusterBlocks = [];
-
-      for (let i = 0; i < totalBlocks; i++) {
-        const slice = scoredOffers.slice(i * 5, (i + 1) * 5);
-        clusterBlocks.push({
-          letter: String.fromCharCode(65 + i), // A, B, C...
-          ids: slice.map(item => item.id)
-        });
-      }
-
-      // Automatically select Block A
-      activeBlockFilter = 'A';
-      renderClusterTabs();
-      renderOffers();
-      showToast(`Otimizado com sucesso! ${clusterBlocks.length} bloco(s) de 5 gerados.`, "success");
-    }
-
-    function renderClusterTabs() {
-      blockTabsContainer.innerHTML = '';
-
-      // Tab 'Ver Todas'
-      const btnAll = document.createElement('button');
-      btnAll.className = `px-3 py-1.5 rounded-xl text-xs font-semibold transition ${
-        activeBlockFilter === null
-          ? 'bg-brand-600 text-white shadow shadow-brand-500/30'
-          : 'bg-surface-950 text-slate-400 hover:text-white border border-slate-800'
-      }`;
-      btnAll.innerText = `Todas (${offers.length})`;
-      btnAll.addEventListener('click', () => {
-        activeBlockFilter = null;
-        renderClusterTabs();
-        renderOffers();
-      });
-      blockTabsContainer.appendChild(btnAll);
-
-      // Render Block buttons
-      clusterBlocks.forEach(blk => {
-        const btnBlock = document.createElement('button');
-        const isActive = activeBlockFilter === blk.letter;
-        btnBlock.className = `px-3 py-1.5 rounded-xl text-xs font-semibold transition flex items-center gap-1.5 ${
-          isActive
-            ? 'bg-gradient-to-r from-brand-600 to-amber-500 text-white shadow shadow-brand-500/30 font-bold'
-            : 'bg-surface-950 text-slate-400 hover:text-white border border-slate-800'
-        }`;
-        btnBlock.innerHTML = `<span>Carrossel Bloco ${blk.letter}</span> <span class="text-[10px] px-1.5 py-0.2 rounded-full ${isActive ? 'bg-white/20' : 'bg-slate-800 text-brand-400'}">${blk.ids.length}</span>`;
-        btnBlock.addEventListener('click', () => {
-          activeBlockFilter = blk.letter;
-          renderClusterTabs();
-          renderOffers();
-        });
-        blockTabsContainer.appendChild(btnBlock);
-      });
-
-      if (activeBlockFilter) {
-        filterStatusBanner.classList.remove('hidden');
-        filterStatusText.innerText = `Visualizando dados do Carrossel Bloco ${activeBlockFilter} (${getFilteredOffers().length} lojas selecionadas)`;
-      } else {
-        filterStatusBanner.classList.add('hidden');
-      }
-    }
-
-    function getFilteredOffers() {
-      if (!activeBlockFilter) return offers;
-      const blk = clusterBlocks.find(b => b.letter === activeBlockFilter);
-      if (!blk) return offers;
-      return offers.filter(o => blk.ids.includes(o.id));
-    }
-
-    function renderOffers() {
-      const audience = selectAudience.value;
-      const sortMode = selectSortMode.value;
-      let displayOffers = getFilteredOffers().map(o => ({
-        ...o,
-        score: calculateOfferScore(o, audience)
-      }));
-
-      // Apply sorting
-      if (sortMode === 'smart') {
-        displayOffers.sort((a, b) => b.score - a.score);
-      } else if (sortMode === 'commission') {
-        displayOffers.sort((a, b) => (b.price * b.units) - (a.price * a.units));
-      } else if (sortMode === 'price_asc') {
-        displayOffers.sort((a, b) => a.price - b.price);
-      } else if (sortMode === 'units_desc') {
-        displayOffers.sort((a, b) => b.units - a.units);
-      }
-
-      offersCountBadge.innerText = `${displayOffers.length} de ${offers.length} ofertas`;
-      offersListEl.innerHTML = '';
-
-      if (displayOffers.length === 0) {
-        offersListEl.innerHTML = `
-          <div class="p-8 text-center border border-dashed border-slate-800 rounded-2xl bg-surface-950/50">
-            <p class="text-sm text-slate-400">Nenhuma oferta cadastrada neste momento.</p>
-            <button id="btn-empty-add" class="mt-3 px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold">
-              Adicionar Primeira Oferta
-            </button>
-          </div>
-        `;
-        document.getElementById('btn-empty-add')?.addEventListener('click', () => {
-          addNewOffer();
-        });
-        updateCalculations();
-        return;
-      }
-
-      const commissionRate = (parseFloat(inputCommissionPct.value) || 15) / 100;
-
-      displayOffers.forEach((offer, index) => {
-        const tempData = getTemperatureData(offer.score);
-        const offerRev = (offer.price || 0) * (offer.units || 0);
-        const offerComm = offerRev * commissionRate;
-
-        const card = document.createElement('div');
-        card.className = "bg-surface-950/80 border border-slate-800/90 rounded-2xl p-4 transition hover:border-slate-700 relative overflow-hidden group space-y-3";
-        
-        card.innerHTML = `
-          <!-- Header of Offer Card: Rank, Temp Badge & Actions -->
-          <div class="flex items-center justify-between gap-2">
-            <div class="flex items-center gap-2">
-              <span class="text-xs font-mono font-bold px-2 py-0.5 rounded-lg bg-surface-800 text-slate-300 border border-slate-700">
-                #${index + 1} ${activeBlockFilter ? `Slide ${index + 1}` : ''}
-              </span>
-              <span class="text-xs font-bold px-2.5 py-0.5 rounded-lg border ${tempData.badgeBg} ${tempData.textColor} flex items-center gap-1.5">
-                <span>${tempData.label}</span>
-                <span class="text-[10px] opacity-75 font-mono">${offer.score}%</span>
-              </span>
-              <span class="hidden sm:inline text-[11px] text-slate-400 font-medium">
-                • ${tempData.role}
-              </span>
-            </div>
-
-            <div class="flex items-center gap-1">
-              <button data-id="${offer.id}" class="btn-remove-offer text-slate-500 hover:text-rose-400 p-1.5 rounded-lg transition" title="Excluir oferta">
+        return `
+          <tr class="hover:bg-brand-card/40 transition">
+            <td class="py-2.5 px-3">
+              <input type="text" value="${o.store}" onchange="updateOffer(${o.id}, 'store', this.value)" class="block w-full font-bold text-slate-200 bg-transparent focus:bg-brand-input focus:outline-none rounded px-1.5 py-0.5 text-xs">
+              <input type="text" value="${o.title}" onchange="updateOffer(${o.id}, 'title', this.value)" class="block w-full text-slate-400 bg-transparent focus:bg-brand-input focus:outline-none rounded px-1.5 py-0.5 text-xs">
+            </td>
+            <td class="py-2.5 px-3">
+              <select onchange="updateOffer(${o.id}, 'category', this.value)" class="bg-brand-input border border-brand-cardBorder rounded-lg px-2 py-1 text-xs text-slate-300 focus:outline-none">
+                ${CATEGORIES.map(c => `<option value="${c.id}" ${c.id === o.category ? 'selected' : ''}>${c.name}</option>`).join('')}
+              </select>
+            </td>
+            <td class="py-2.5 px-3">
+              <div class="flex items-center gap-1">
+                <span class="text-xs text-slate-500">R$</span>
+                <input type="number" step="0.5" value="${o.price}" oninput="updateOffer(${o.id}, 'price', this.value)" class="w-20 bg-brand-input border border-brand-cardBorder rounded px-2 py-1 text-xs text-white text-right">
+              </div>
+            </td>
+            <td class="py-2.5 px-3">
+              <input type="number" value="${o.salesEst}" oninput="updateOffer(${o.id}, 'salesEst', this.value)" class="w-16 bg-brand-input border border-brand-cardBorder rounded px-2 py-1 text-xs text-white text-center">
+            </td>
+            <td class="py-2.5 px-3 font-semibold text-brand-orange text-xs">
+              R$ ${fee.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            </td>
+            <td class="py-2.5 px-3">
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded border ${heatBadge.color}">${heatBadge.label}</span>
+                <span class="text-xs text-slate-400 font-mono">${heat}%</span>
+              </div>
+            </td>
+            <td class="py-2.5 px-3 text-right">
+              <button onclick="removeOffer(${o.id})" class="text-slate-500 hover:text-red-400 transition p-1">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
               </button>
-            </div>
-          </div>
-
-          <!-- Inputs Row 1: Store Name & Offer Description -->
-          <div class="grid grid-cols-1 sm:grid-cols-12 gap-2.5">
-            <div class="sm:col-span-4">
-              <label class="text-[10px] font-semibold uppercase text-slate-400 block mb-1">Estabelecimento</label>
-              <input type="text" data-id="${offer.id}" data-field="store" value="${escapeHtml(offer.store)}" class="input-offer-field w-full bg-surface-900 border border-slate-800 rounded-xl px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-brand-500">
-            </div>
-            <div class="sm:col-span-5">
-              <label class="text-[10px] font-semibold uppercase text-slate-400 block mb-1">Título do Produto / Combo</label>
-              <input type="text" data-id="${offer.id}" data-field="offer" value="${escapeHtml(offer.offer)}" class="input-offer-field w-full bg-surface-900 border border-slate-800 rounded-xl px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-brand-500">
-            </div>
-            <div class="sm:col-span-3">
-              <label class="text-[10px] font-semibold uppercase text-slate-400 block mb-1">Categoria</label>
-              <select data-id="${offer.id}" data-field="category" class="select-offer-field w-full bg-surface-900 border border-slate-800 rounded-xl px-2 py-1.5 text-xs text-white focus:outline-none focus:border-brand-500">
-                ${Object.keys(CATEGORIES).map(k => `
-                  <option value="${k}" ${offer.category === k ? 'selected' : ''}>${CATEGORIES[k].label}</option>
-                `).join('')}
-              </select>
-            </div>
-          </div>
-
-          <!-- Inputs Row 2: Price, Projected Units, Sub-commission & Meter -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1 border-t border-slate-900">
-            <div>
-              <label class="text-[10px] font-semibold uppercase text-slate-400 block mb-1">Preço c/ Desconto</label>
-              <div class="relative">
-                <span class="absolute left-2.5 top-1.5 text-[11px] text-slate-500 font-bold">R$</span>
-                <input type="number" step="0.5" min="1" data-id="${offer.id}" data-field="price" value="${offer.price}" class="input-offer-field w-full bg-surface-900 border border-slate-800 rounded-xl pl-7 pr-2 py-1.5 text-xs font-mono text-white focus:outline-none focus:border-brand-500">
-              </div>
-            </div>
-
-            <div>
-              <label class="text-[10px] font-semibold uppercase text-slate-400 block mb-1">Vendas Estimadas</label>
-              <input type="number" min="1" data-id="${offer.id}" data-field="units" value="${offer.units}" class="input-offer-field w-full bg-surface-900 border border-slate-800 rounded-xl px-2.5 py-1.5 text-xs font-mono text-white focus:outline-none focus:border-brand-500">
-            </div>
-
-            <div>
-              <label class="text-[10px] font-semibold uppercase text-slate-400 block mb-1">Comissão (15%)</label>
-              <div class="bg-surface-900/60 border border-slate-800/80 rounded-xl px-2.5 py-1.5 text-xs font-mono font-bold text-emerald-400">
-                ${formatBRL(offerComm)}
-              </div>
-            </div>
-
-            <!-- Visual Temperature Progress Bar -->
-            <div>
-              <div class="flex items-center justify-between text-[10px] font-semibold uppercase text-slate-400 mb-1">
-                <span>Temperatura</span>
-                <span class="${tempData.textColor}">${offer.score}%</span>
-              </div>
-              <div class="w-full h-2.5 bg-surface-900 rounded-full overflow-hidden border border-slate-800">
-                <div class="h-full bg-gradient-to-r ${tempData.barColor} transition-all duration-300" style="width: ${offer.score}%;"></div>
-              </div>
-            </div>
-          </div>
+            </td>
+          </tr>
         `;
-
-        offersListEl.appendChild(card);
-      });
-
-      attachOfferEvents();
-      updateCalculations();
+      }).join('');
     }
 
-    function attachOfferEvents() {
-      document.querySelectorAll('.input-offer-field').forEach(input => {
-        input.addEventListener('input', (e) => {
-          const id = parseInt(e.target.dataset.id);
-          const field = e.target.dataset.field;
-          const target = offers.find(o => o.id === id);
-          if (target) {
-            if (field === 'price' || field === 'units') {
-              target[field] = parseFloat(e.target.value) || 0;
-            } else {
-              target[field] = e.target.value;
-            }
-            updateCalculations();
-          }
-        });
-      });
+    // CÁLCULOS GERAIS
+    function calculate() {
+      const reinvestPct = parseInt(document.getElementById("reinvestRate").value) / 100;
+      document.getElementById("reinvestRateLabel").textContent = `${Math.round(reinvestPct * 100)}%`;
+      document.getElementById("kpiReinvestRatio").textContent = `${Math.round(reinvestPct * 100)}% da comissão CupomClic`;
 
-      document.querySelectorAll('.select-offer-field').forEach(select => {
-        select.addEventListener('change', (e) => {
-          const id = parseInt(e.target.dataset.id);
-          const target = offers.find(o => o.id === id);
-          if (target) {
-            target.category = e.target.value;
-            renderOffers();
-          }
-        });
-      });
-
-      document.querySelectorAll('.btn-remove-offer').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const id = parseInt(btn.dataset.id);
-          offers = offers.filter(o => o.id !== id);
-          // If offer removed from cluster
-          clusterBlocks.forEach(b => {
-            b.ids = b.ids.filter(item => item !== id);
-          });
-          renderOffers();
-          renderClusterTabs();
-          showToast("Oferta removida com sucesso.");
-        });
-      });
-    }
-
-    function addNewOffer() {
-      const newId = Date.now();
-      offers.unshift({
-        id: newId,
-        store: `Loja Marília #${offers.length + 1}`,
-        offer: 'Super Oferta Especial',
-        price: 49.90,
-        units: 15,
-        category: 'food_fast'
-      });
-      renderOffers();
-      showToast("Nova oferta adicionada no topo!");
-    }
-
-    function updateCalculations() {
-      const targetOffers = getFilteredOffers();
-      const commissionPct = (parseFloat(inputCommissionPct.value) || 15) / 100;
-      const reinvestPct = (parseFloat(rangeReinvest.value) || 50) / 100;
-      const days = parseInt(inputDays.value) || 4;
-      const cpm = parseFloat(inputCpm.value) || 18.00;
-
-      // Labels
-      labelReinvest.innerText = `${(reinvestPct * 100).toFixed(0)}%`;
-      labelDuration.innerText = `${days} dias`;
-      kpiBudgetPercentTag.innerText = `${(reinvestPct * 100).toFixed(0)}% Margem`;
-      kpiActiveViewTag.innerText = activeBlockFilter ? `Bloco ${activeBlockFilter} (${targetOffers.length} lojas)` : 'Todas as Lojas';
-
-      // Totals
-      let totalGmv = 0;
+      let totalGross = 0;
       let totalUnits = 0;
+      let totalFee = 0;
 
-      targetOffers.forEach(o => {
-        const itemRev = (o.price || 0) * (o.units || 0);
-        totalGmv += itemRev;
-        totalUnits += (o.units || 0);
+      offers.forEach(o => {
+        const rev = (o.price || 0) * (o.salesEst || 0);
+        totalGross += rev;
+        totalUnits += (o.salesEst || 0);
+        totalFee += rev * 0.15;
       });
 
-      const totalCommission = totalGmv * commissionPct;
-      const totalBudget = totalCommission * reinvestPct;
-      const dailyBudget = days > 0 ? (totalBudget / days) : 0;
-      const netProfit = totalCommission - totalBudget;
-      const netMarginPct = totalCommission > 0 ? ((netProfit / totalCommission) * 100).toFixed(0) : 0;
+      const totalAds = totalFee * reinvestPct;
+      const netProfit = totalFee - totalAds;
 
-      // Marketing Reach
-      const impressions = cpm > 0 ? (totalBudget / cpm) * 1000 : 0;
-      const estimatedReach = Math.min(Math.round(impressions / 1.4), MARILIA_POPULATION);
-      const reachPercentage = ((estimatedReach / MARILIA_POPULATION) * 100).toFixed(1);
-
-      // Financial Metrics
-      const avgTicket = totalUnits > 0 ? (totalGmv / totalUnits) : 0;
-      const cpaBreakeven = totalUnits > 0 ? (totalCommission / totalUnits) : 0;
-      const cpaTarget = totalUnits > 0 ? (totalBudget / totalUnits) : 0;
-      const roasTarget = totalBudget > 0 ? (totalGmv / totalBudget) : 0;
-
-      // Inject in Dashboard
-      kpiInvestTotal.innerText = formatBRL(totalBudget);
-      kpiInvestDaily.innerText = `${formatBRL(dailyBudget)} / dia (${days}d)`;
-      kpiCommissionTotal.innerText = formatBRL(totalCommission);
-      kpiGmvTotal.innerText = `Faturamento: ${formatBRL(totalGmv)}`;
-      kpiTotalUnits.innerText = `${totalUnits} cupons/un.`;
-      kpiNetProfit.innerText = formatBRL(netProfit);
-      kpiNetMarginPercent.innerText = `${netMarginPct}% líq`;
-      kpiRoasTarget.innerText = `ROAS ${roasTarget.toFixed(1)}x`;
-
-      kpiReach.innerText = `${estimatedReach.toLocaleString('pt-BR')} pessoas`;
-      kpiReachPercent.innerText = `~${reachPercentage}% de Marília`;
-      kpiImpressions.innerText = `~${Math.round(impressions).toLocaleString('pt-BR')} views`;
-
-      subTotalUnits.innerText = `${totalUnits} cupons`;
-      subAvgTicket.innerText = formatBRL(avgTicket);
-      subCpaBreakeven.innerText = `${formatBRL(cpaBreakeven)} / venda`;
-      subCpaTarget.innerText = `${formatBRL(cpaTarget)} / venda`;
-      subRoasTarget.innerText = `${roasTarget.toFixed(2)}x`;
-      subDailyBudget.innerText = `${formatBRL(dailyBudget)} / dia`;
-
-      // Visual Breakdown Bar
-      chartGmvLabel.innerText = formatBRL(totalGmv);
-      const merchantPct = (1 - commissionPct) * 100;
-      const trafficPct = commissionPct * reinvestPct * 100;
-      const profitPct = commissionPct * (1 - reinvestPct) * 100;
-
-      barMerchants.style.width = `${merchantPct}%`;
-      barTraffic.style.width = `${trafficPct}%`;
-      barProfit.style.width = `${profitPct}%`;
-
-      // Health badge
-      if (reinvestPct <= 0.40) {
-        badgeHealth.className = "text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
-        badgeHealth.innerText = "Altamente Conservador";
-        kpiMarginStatus.innerText = "Margem líquida > 60%";
-      } else if (reinvestPct <= 0.60) {
-        badgeHealth.className = "text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30";
-        badgeHealth.innerText = "Equilíbrio Ouro";
-        kpiMarginStatus.innerText = "Margem líquida saudável";
-      } else {
-        badgeHealth.className = "text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30";
-        badgeHealth.innerText = "Escala Rápida";
-        kpiMarginStatus.innerText = "Monitore o CPA diário";
-      }
+      document.getElementById("kpiGrossRevenue").textContent = `R$ ${totalGross.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      document.getElementById("kpiTotalUnits").textContent = `${totalUnits} cupons estimados`;
+      document.getElementById("kpiTotalFee").textContent = `R$ ${totalFee.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      document.getElementById("kpiTotalAds").textContent = `R$ ${totalAds.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      document.getElementById("kpiNetProfit").textContent = `R$ ${netProfit.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      document.getElementById("kpiNetMargin").textContent = totalFee > 0 ? `Sobra líquida de ${((netProfit / totalFee) * 100).toFixed(0)}%` : `Sobra após mídia`;
     }
 
-    /**
-     * Save to PC (.json)
-     * Creates and triggers download of a structured JSON payload with full campaign state.
-     * Clears local state and resets the workspace for a fresh calculation.
-     */
-    function saveToPCAndClear() {
-      if (offers.length === 0) {
-        showToast("Não há dados para salvar. O banco já está vazio.", "warning");
+    // ALGORITMO SNAKE / BALANCED CLUSTERING (EQUILÍBRIO ENTRE BLOCOS)
+    function runBalancedClustering() {
+      if (offers.length < 5) {
+        alert("Cadastre no mínimo 5 ofertas para estruturar um carrossel completo.");
         return;
       }
 
-      const campaignData = {
-        app: "CupomClic Traffic & Margin Planner",
-        city: "Marília - SP",
-        savedAt: new Date().toISOString(),
-        settings: {
-          audience: selectAudience.value,
-          reinvestmentPercent: parseFloat(rangeReinvest.value),
-          durationDays: parseInt(inputDays.value),
-          cpm: parseFloat(inputCpm.value),
-          commissionPct: parseFloat(inputCommissionPct.value)
-        },
-        clusterBlocks: clusterBlocks,
-        offers: offers
-      };
+      const audience = document.getElementById("targetAudience").value;
+      const reinvestPct = parseInt(document.getElementById("reinvestRate").value) / 100;
 
-      const jsonStr = JSON.stringify(campaignData, null, 2);
-      const blob = new Blob([jsonStr], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      
-      const fileName = `CupomClic_Marilia_${new Date().toISOString().slice(0, 10)}_${Date.now().toString().slice(-4)}.json`;
-      link.href = url;
-      link.download = fileName;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
+      // 1. Calcula o Score e ordena do maior para o menor
+      const sortedOffers = [...offers].map(o => ({
+        ...o,
+        heat: getHeatScore(o, audience),
+        fee: (o.price * o.salesEst * 0.15)
+      })).sort((a, b) => b.heat - a.heat);
 
-      // Reset workspace
-      offers = [];
-      clusterBlocks = [];
-      activeBlockFilter = null;
-      renderClusterTabs();
-      renderOffers();
+      const numClusters = Math.floor(sortedOffers.length / 5);
+      const clusters = Array.from({ length: numClusters }, () => []);
 
-      showToast("Cálculo salvo no PC com sucesso! Área de trabalho zerada para novo anúncio.", "success");
+      // 2. Distribuição Serpentina (Snake distribution) para manter paridade absoluta
+      let clusterIndex = 0;
+      let forward = true;
+
+      sortedOffers.slice(0, numClusters * 5).forEach((item) => {
+        clusters[clusterIndex].push(item);
+        if (forward) {
+          if (clusterIndex === numClusters - 1) {
+            forward = false;
+          } else {
+            clusterIndex++;
+          }
+        } else {
+          if (clusterIndex === 0) {
+            forward = true;
+          } else {
+            clusterIndex--;
+          }
+        }
+      });
+
+      // 3. Organiza cada bloco: coloca a oferta de maior calor no Slide #1 (Âncora)
+      generatedClusters = clusters.map((block, idx) => {
+        block.sort((a, b) => b.heat - a.heat); // O primeiro do bloco é sempre o Slide 1 (Isca de cliques)
+        
+        const totalBlockFee = block.reduce((acc, curr) => acc + curr.fee, 0);
+        const totalBlockRev = block.reduce((acc, curr) => acc + (curr.price * curr.salesEst), 0);
+        const avgHeat = Math.round(block.reduce((acc, curr) => acc + curr.heat, 0) / block.length);
+        const recommendedAds = totalBlockFee * reinvestPct;
+
+        return {
+          id: `Bloco ${String.fromCharCode(65 + idx)}`,
+          offers: block,
+          totalRev: totalBlockRev,
+          totalFee: totalBlockFee,
+          recommendedAds: recommendedAds,
+          avgHeat: avgHeat,
+          anchor: block[0]
+        };
+      });
+
+      renderClusters();
     }
 
-    /**
-     * Restore from PC (.json)
-     * Reads imported JSON and restores the complete workspace state.
-     */
-    function restoreFromPC(event) {
+    // RENDERIZAR OS BLOCOS BALANCEADOS NA TELA
+    function renderClusters() {
+      const container = document.getElementById("balancedClustersContainer");
+
+      if (generatedClusters.length === 0) {
+        container.innerHTML = `<div class="col-span-2 text-center py-8 text-slate-500 text-xs">Nenhum bloco gerado ainda. Clique no botão de agrupamento balanceado.</div>`;
+        return;
+      }
+
+      container.innerHTML = generatedClusters.map(cluster => {
+        return `
+          <div class="bg-brand-card border border-brand-cardBorder rounded-2xl p-5 relative overflow-hidden flex flex-col justify-between shadow-xl">
+            <div>
+              <div class="flex items-center justify-between border-b border-brand-cardBorder pb-3 mb-4">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-brand-orange"></span>
+                  <h3 class="font-extrabold text-white text-base">${cluster.id} (Carrossel 5 Lojas)</h3>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-[11px] font-bold px-2 py-0.5 rounded-md bg-slate-800 text-slate-300 border border-slate-700">
+                    Tração Média: <strong class="text-amber-400">${cluster.avgHeat}%</strong>
+                  </span>
+                </div>
+              </div>
+
+              <!-- RESUMO FINANCEIRO DO BLOCO -->
+              <div class="grid grid-cols-3 gap-2 bg-brand-input p-3 rounded-xl mb-4 text-center">
+                <div>
+                  <div class="text-[10px] text-slate-500 font-bold uppercase">Fat. Previsto</div>
+                  <div class="text-xs font-extrabold text-white">R$ ${cluster.totalRev.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</div>
+                </div>
+                <div>
+                  <div class="text-[10px] text-brand-orange font-bold uppercase">Comissão 15%</div>
+                  <div class="text-xs font-extrabold text-brand-orange">R$ ${cluster.totalFee.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</div>
+                </div>
+                <div>
+                  <div class="text-[10px] text-blue-400 font-bold uppercase">Anúncio Ideal</div>
+                  <div class="text-xs font-extrabold text-blue-400">R$ ${cluster.recommendedAds.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</div>
+                </div>
+              </div>
+
+              <div class="text-[11px] font-bold text-slate-400 mb-2 uppercase tracking-wide">Ordem Estratégica dos Slides:</div>
+
+              <div class="space-y-2 mb-5">
+                ${cluster.offers.map((item, idx) => {
+                  const isAnchor = idx === 0;
+                  return `
+                    <div class="flex items-center justify-between p-2 rounded-lg ${isAnchor ? 'bg-brand-orange/10 border border-brand-orange/40' : 'bg-slate-900/60 border border-brand-cardBorder'}">
+                      <div class="flex items-center gap-2">
+                        <span class="w-5 h-5 rounded-full ${isAnchor ? 'bg-brand-orange text-white' : 'bg-slate-800 text-slate-400'} text-[10px] font-extrabold flex items-center justify-center">
+                          #${idx + 1}
+                        </span>
+                        <div>
+                          <div class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
+                            ${item.store}${isAnchor ? '<span class="text-[9px] bg-brand-orange text-white px-1.5 py-0.2 rounded font-black tracking-wider uppercase">Slide Âncora</span>' : ''}
+                          </div>
+                          <div class="text-[11px] text-slate-400">${item.title} • R$ ${item.price.toFixed(2)}</div>
+                        </div>
+                      </div>
+                      <div class="text-right">
+                        <div class="text-xs font-bold text-slate-300">${item.heat}% Tração</div>
+                        <div class="text-[10px] text-brand-orange">R$ ${item.fee.toFixed(2)} fee</div>
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+
+            <!-- BOTÃO PARA GERAR ANÚNCIO NO META ADS -->
+            <div class="pt-3 border-t border-brand-cardBorder flex items-center justify-between gap-3">
+              <span class="text-[11px] text-slate-500">Orçamento Diário: <strong>R$ ${(cluster.recommendedAds / 4).toFixed(2)} / dia</strong> (4 dias)</span>
+              <a href="https://adsmanager.facebook.com" target="_blank" rel="noopener noreferrer" class="text-xs font-extrabold px-3 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white transition flex items-center gap-1.5 shadow-md shadow-blue-600/20">
+                Criar no Meta Ads ➔
+              </a>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // DIAGNÓSTICO DE RETROALIMENTAÇÃO & MACHINE LEARNING
+    function analyzeFeedback() {
+      const spend = parseFloat(document.getElementById("realAdSpend").value) || 0;
+      const clicks = parseInt(document.getElementById("realLinkClicks").value) || 0;
+      const redeems = parseInt(document.getElementById("realCouponsRedeemed").value) || 0;
+      const rev = parseFloat(document.getElementById("realRevenue").value) || 0;
+
+      if (spend <= 0 || clicks <= 0) {
+        alert("Preencha ao menos o valor gasto e a quantidade de cliques para gerar a análise.");
+        return;
+      }
+
+      const cpc = spend / clicks;
+      const cpa = redeems > 0 ? (spend / redeems) : 0;
+      const realFee = rev * 0.15;
+      const roas = spend > 0 ? (rev / spend) : 0;
+      const conversionRate = clicks > 0 ? ((redeems / clicks) * 100) : 0;
+      const netProfit = realFee - spend;
+
+      let recommendations = [];
+
+      if (cpc > 0.80) {
+        recommendations.push("⚠️ <strong>CPC elevado para Marília (R$ " + cpc.toFixed(2) + "):</strong> O criativo do Slide #1 precisa de maior apelo visual ou foto real do prato/produto para baratear o clique no leilão.");
+      } else {
+        recommendations.push("✅ <strong>Excelente custo por clique (R$ " + cpc.toFixed(2) + "):</strong> A oferta âncora escolhida atraiu grande interesse local.");
+      }
+
+      if (conversionRate < 10) {
+        recommendations.push("⚠️ <strong>Taxa de Resgate Baixa (" + conversionRate.toFixed(1) + "%):</strong> As pessoas estão clicando, mas não finalizam o cupom. Verifique se o valor do desconto está suficientemente claro ou reduza o valor do cupom de entrada.");
+      } else {
+        recommendations.push("🔥 <strong>Alta conversão no app (" + conversionRate.toFixed(1) + "%):</strong> A retenção e resgate em Marília estão acima da média de varejo.");
+      }
+
+      if (netProfit > 0) {
+        recommendations.push("💰 <strong>Operação Lucrativa:</strong> Sobra líquida de R$ " + netProfit.toFixed(2) + " para o CupomClic após pagar os anúncios (ROAS Bruto de " + roas.toFixed(2) + "x).");
+      } else {
+        recommendations.push("🚨 <strong>Alerta de Margem:</strong> O gasto com anúncios superou os 15% de comissão gerada. Recomendado calibrar o slider de reinvestimento para no máximo 40% na próxima rodada.");
+      }
+
+      const contentBox = document.getElementById("feedbackAnalysisContent");
+      contentBox.innerHTML = `
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 bg-slate-900 p-3 rounded-lg border border-slate-800 mb-3">
+          <div><span class="text-slate-500">CPC Real:</span> <strong class="text-white font-mono">R$ ${cpc.toFixed(2)}</strong></div>
+          <div><span class="text-slate-500">CPA Cupom:</span> <strong class="text-white font-mono">R$ ${cpa.toFixed(2)}</strong></div>
+          <div><span class="text-slate-500">Taxa Conversão:</span> <strong class="text-amber-400 font-mono">${conversionRate.toFixed(1)}%</strong></div>
+          <div><span class="text-slate-500">ROAS Bruto:</span> <strong class="text-emerald-400 font-mono">${roas.toFixed(2)}x</strong></div>
+        </div>
+        <div class="space-y-1.5">
+          ${recommendations.map(r => `<div>${r}</div>`).join('')}
+        </div>
+      `;
+    }
+
+    // SALVAR DADOS NO PC (.JSON) E LIMPAR A TELA
+    function saveAndReset() {
+      if (offers.length === 0) {
+        alert("Nenhum dado para salvar.");
+        return;
+      }
+
+      const exportPayload = {
+        app: "CupomClic_Marilia",
+        savedAt: new Date().toISOString(),
+        settings: {
+          audience: document.getElementById("targetAudience").value,
+          cpm: document.getElementById("cpmInput").value,
+          reinvestRate: document.getElementById("reinvestRate").value
+        },
+        offers: offers,
+        clusters: generatedClusters
+      };
+
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportPayload, null, 2));
+      const downloadAnchor = document.createElement('a');
+      const filename = `CupomClic_Marilia_${new Date().toISOString().slice(0, 10)}.json`;
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", filename);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+
+      // Limpeza imediata da área de trabalho
+      offers = [];
+      generatedClusters = [];
+      renderOffersTable();
+      renderClusters();
+      calculate();
+
+      alert(`Cálculo exportado com sucesso (${filename}) e área de trabalho resetada para o próximo anúncio.`);
+    }
+
+    // RECUPERAR DADOS DO PC (.JSON)
+    function importData(event) {
       const file = event.target.files[0];
       if (!file) return;
 
@@ -1033,204 +669,32 @@
       reader.onload = function(e) {
         try {
           const imported = JSON.parse(e.target.result);
-          if (!imported.offers || !Array.isArray(imported.offers)) {
-            throw new Error("Arquivo JSON incompatível.");
-          }
-
-          offers = imported.offers;
-
-          if (imported.settings) {
-            if (imported.settings.reinvestmentPercent) {
-              rangeReinvest.value = imported.settings.reinvestmentPercent;
+          if (imported.offers && Array.isArray(imported.offers)) {
+            offers = imported.offers;
+            if (imported.settings) {
+              if (imported.settings.audience) document.getElementById("targetAudience").value = imported.settings.audience;
+              if (imported.settings.cpm) document.getElementById("cpmInput").value = imported.settings.cpm;
+              if (imported.settings.reinvestRate) document.getElementById("reinvestRate").value = imported.settings.reinvestRate;
             }
-            if (imported.settings.durationDays) {
-              inputDays.value = imported.settings.durationDays;
-              dayButtons.forEach(b => {
-                const match = parseInt(b.dataset.days) === imported.settings.durationDays;
-                b.className = match 
-                  ? "btn-days py-2 rounded-xl text-xs font-semibold bg-brand-600 text-white border border-brand-500 shadow-md shadow-brand-600/30"
-                  : "btn-days py-2 rounded-xl text-xs font-semibold bg-surface-950 text-slate-300 border border-slate-800 hover:border-slate-700 transition";
-              });
-            }
-            if (imported.settings.cpm) inputCpm.value = imported.settings.cpm;
-            if (imported.settings.commissionPct) inputCommissionPct.value = imported.settings.commissionPct;
-            if (imported.settings.audience) selectAudience.value = imported.settings.audience;
+            renderOffersTable();
+            calculate();
+            runBalancedClustering();
+            alert("Planejamento recuperado com sucesso!");
+          } else {
+            alert("Arquivo JSON inválido para a estrutura do CupomClic.");
           }
-
-          clusterBlocks = imported.clusterBlocks || [];
-          activeBlockFilter = null;
-
-          renderClusterTabs();
-          renderOffers();
-          showToast(`Arquivo "${file.name}" carregado com sucesso (${offers.length} ofertas)!`, "success");
         } catch (err) {
-          showToast("Erro ao ler arquivo JSON. Verifique a formatação.", "error");
+          alert("Erro ao ler o arquivo JSON selecionado.");
         }
       };
       reader.readAsText(file);
-      // Reset input
-      event.target.value = '';
+      event.target.value = ''; // Reseta input
     }
 
-    function copyWhatsAppSummary() {
-      const targetOffers = getFilteredOffers();
-      if (targetOffers.length === 0) {
-        showToast("Nenhuma oferta para exportar!", "warning");
-        return;
-      }
-
-      const commissionPct = parseFloat(inputCommissionPct.value) || 15;
-      const reinvestPct = parseFloat(rangeReinvest.value) || 50;
-      const days = parseInt(inputDays.value) || 4;
-      const cpm = parseFloat(inputCpm.value) || 18;
-
-      let totalGmv = 0;
-      let totalUnits = 0;
-      let offersText = '';
-
-      targetOffers.forEach((o, i) => {
-        const rev = o.price * o.units;
-        totalGmv += rev;
-        totalUnits += o.units;
-        offersText += `  ${i + 1}. *${o.store}* - ${o.offer} | ${o.units}un x ${formatBRL(o.price)} = ${formatBRL(rev)}\n`;
-      });
-
-      const totalCommission = totalGmv * (commissionPct / 100);
-      const totalBudget = totalCommission * (reinvestPct / 100);
-      const dailyBudget = totalBudget / days;
-      const netProfit = totalCommission - totalBudget;
-      const cpaTarget = totalUnits > 0 ? (totalBudget / totalUnits) : 0;
-      const impressions = cpm > 0 ? (totalBudget / cpm) * 1000 : 0;
-      const reach = Math.min(Math.round(impressions / 1.4), MARILIA_POPULATION);
-
-      const blockLabel = activeBlockFilter ? `(Carrossel Bloco ${activeBlockFilter})` : `(Geral - ${targetOffers.length} Lojas)`;
-
-      const text = 
-`🚀 *CUPOMCLIC MARÍLIA - PLANO DE IMPULSIONAMENTO* ${blockLabel}
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📍 *Praça de Veiculação:* Marília • SP (~240 mil hab.)
-👥 *Público:* ${selectAudience.options[selectAudience.selectedIndex].text}
-
-🛍️ *Ofertas do Carrossel:*
-${offersText}
-📊 *Projeção de Faturamento:*
-• Vendas Estimadas: *${totalUnits} cupons/unid.*
-• Faturamento Total (GMV): *${formatBRL(totalGmv)}*
-• Comissão CupomClic (${commissionPct}%): *${formatBRL(totalCommission)}*
-
-🎯 *Plano de Mídia Meta Ads:*
-• Investimento Recomendado (${reinvestPct}%): *${formatBRL(totalBudget)}*
-• Orçamento Diário: *${formatBRL(dailyBudget)}/dia* (${days} dias)
-• Custo por Venda Alvo (CPA Meta): até *${formatBRL(cpaTarget)}*
-• Alcance Local Projetado: ~*${reach.toLocaleString('pt-BR')} pessoas* em Marília
-
-💰 *Sobra Líquida CupomClic:*
-• Lucro Líquido: *${formatBRL(netProfit)}*
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Gerado pela Inteligência de Tráfego CupomClic`;
-
-      copyToClipboard(text);
-      showToast("Resumo formatado copiado para o WhatsApp!", "success");
-    }
-
-    function copyToClipboard(text) {
-      if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
-      } else {
-        fallbackCopy(text);
-      }
-    }
-
-    function fallbackCopy(text) {
-      const textarea = document.createElement("textarea");
-      textarea.value = text;
-      textarea.style.position = "fixed";
-      textarea.style.left = "-9999px";
-      document.body.appendChild(textarea);
-      textarea.focus();
-      textarea.select();
-      try {
-        document.execCommand('copy');
-      } catch (err) {
-        console.error(err);
-      }
-      document.body.removeChild(textarea);
-    }
-
-    function showToast(message, type = "success") {
-      const toastEl = document.getElementById('toast');
-      const toastMsg = document.getElementById('toast-message');
-      const toastIcon = document.getElementById('toast-icon-wrapper');
-
-      toastMsg.innerText = message;
-
-      if (type === "warning") {
-        toastIcon.className = "w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center";
-      } else if (type === "error") {
-        toastIcon.className = "w-7 h-7 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center";
-      } else {
-        toastIcon.className = "w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center";
-      }
-
-      toastEl.classList.remove('translate-y-24', 'opacity-0', 'pointer-events-none');
-      toastEl.classList.add('translate-y-0', 'opacity-100');
-
-      setTimeout(() => {
-        toastEl.classList.add('translate-y-24', 'opacity-0', 'pointer-events-none');
-        toastEl.classList.remove('translate-y-0', 'opacity-100');
-      }, 3200);
-    }
-
-    // Button Listeners
-    document.getElementById('btn-add-offer').addEventListener('click', addNewOffer);
-    document.getElementById('btn-load-sample').addEventListener('click', () => {
-      offers = JSON.parse(JSON.stringify(SAMPLE_MARILIA_OFFERS));
-      activeBlockFilter = null;
-      clusterBlocks = [];
-      renderClusterTabs();
-      renderOffers();
-      showToast("10 ofertas reais de Marília carregadas!");
-    });
-
-    document.getElementById('btn-clusterize').addEventListener('click', clusterizeOffers);
-    document.getElementById('btn-save-pc').addEventListener('click', saveToPCAndClear);
-    document.getElementById('input-file-load').addEventListener('change', restoreFromPC);
-    document.getElementById('btn-copy-plan').addEventListener('click', copyWhatsAppSummary);
-
-    btnClearFilter.addEventListener('click', () => {
-      activeBlockFilter = null;
-      renderClusterTabs();
-      renderOffers();
-    });
-
-    // Strategy controls
-    selectAudience.addEventListener('change', () => {
-      renderOffers();
-      showToast(`Público alterado: as pontuações e temperaturas foram recalculadas.`);
-    });
-
-    selectSortMode.addEventListener('change', renderOffers);
-
-    rangeReinvest.addEventListener('input', updateCalculations);
-    inputCpm.addEventListener('input', updateCalculations);
-    inputCommissionPct.addEventListener('input', () => {
-      renderOffers();
-    });
-
-    dayButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        dayButtons.forEach(b => {
-          b.className = "btn-days py-2 rounded-xl text-xs font-semibold bg-surface-950 text-slate-300 border border-slate-800 hover:border-slate-700 transition";
-        });
-        btn.className = "btn-days py-2 rounded-xl text-xs font-semibold bg-brand-600 text-white border border-brand-500 shadow-md shadow-brand-600/30";
-        inputDays.value = btn.dataset.days;
-        updateCalculations();
-      });
-    });
-
-    // Initial render
-    renderClusterTabs();
-    renderOffers();
+    // INICIALIZAÇÃO
+    window.onload = () => {
+      loadSampleOffers();
+    };
   </script>
 </body>
 </html>
