@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CupomClic - Calculadora de Impulsionamento Marília</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#fff7ed',
+              100: '#ffedd5',
+              500: '#f97316',
+              600: '#ea580c',
+              700: '#c2410c',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { 
+      -webkit-appearance: none; 
+      margin: 0; 
+    }
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased selection:bg-brand-500 selection:text-white">
+
+  <header class="border-b border-slate-800 bg-slate-900/60 backdrop-blur-md sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-amber-400 flex items-center justify-center shadow-lg shadow-brand-500/20 font-black text-xl text-white">
+          %
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-lg font-bold text-white tracking-tight">CupomClic</h1>
+            <span class="text-[10px] font-semibold tracking-wider uppercase px-2 py-0.5 rounded-full bg-brand-500/20 text-brand-400 border border-brand-500/30">
+              Marília • SP
+            </span>
+          </div>
+          <p class="text-xs text-slate-400">Calculadora de Tráfego Pago & Margem de 15%</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="btn-copy-plan" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-all border border-slate-700 shadow-sm active:scale-95">
+          <svg class="w-4 h-4 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+          <span>Copiar Plano (WhatsApp)</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 pointer-events-none transition-all duration-300 bg-emerald-600 text-white px-4 py-2.5 rounded-xl shadow-xl text-sm font-medium flex items-center gap-2">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+    <span id="toast-message">Resumo copiado com sucesso!</span>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl relative overflow-hidden">
+        <div class="text-xs uppercase font-semibold tracking-wider text-slate-400">Investimento Ideal</div>
+        <div class="text-2xl font-extrabold text-brand-400 mt-1" id="stat-invest-total">R$ 0,00</div>
+        <div class="text-[11px] text-slate-400 mt-1" id="stat-invest-daily">R$ 0,00 / dia</div>
+        <div class="absolute right-3 top-3 opacity-10 text-brand-500 font-black text-4xl">⚡</div>
+      </div>
+      <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl relative overflow-hidden">
+        <div class="text-xs uppercase font-semibold tracking-wider text-slate-400">Comissão Prevista (15%)</div>
+        <div class="text-2xl font-extrabold text-emerald-400 mt-1" id="stat-commission">R$ 0,00</div>
+        <div class="text-[11px] text-slate-400 mt-1" id="stat-gmv">Faturamento: R$ 0,00</div>
+        <div class="absolute right-3 top-3 opacity-10 text-emerald-500 font-black text-4xl">💰</div>
+      </div>
+      <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl relative overflow-hidden">
+        <div class="text-xs uppercase font-semibold tracking-wider text-slate-400">Lucro Líquido CupomClic</div>
+        <div class="text-2xl font-extrabold text-cyan-400 mt-1" id="stat-net-profit">R$ 0,00</div>
+        <div class="text-[11px] text-slate-400 mt-1" id="stat-margin-status">Margem Segura</div>
+        <div class="absolute right-3 top-3 opacity-10 text-cyan-500 font-black text-4xl">📈</div>
+      </div>
+      <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl relative overflow-hidden">
+        <div class="text-xs uppercase font-semibold tracking-wider text-slate-400">Alcance Estimado (Marília)</div>
+        <div class="text-2xl font-extrabold text-purple-400 mt-1" id="stat-reach">0 pessoas</div>
+        <div class="text-[11px] text-slate-400 mt-1" id="stat-city-percent">~0% da população</div>
+        <div class="absolute right-3 top-3 opacity-10 text-purple-500 font-black text-4xl">📍</div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Left Column: Products Form -->
+      <section class="lg:col-span-7 space-y-6">
+        <div class="bg-slate-900/90 border border-slate-800 rounded-3xl p-5 sm:p-6 shadow-xl">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-800 mb-5">
+            <div>
+              <h2 class="text-base font-bold text-white flex items-center gap-2">
+                <span>Produtos do Carrossel</span>
+                <span id="product-count-badge" class="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-brand-400 border border-slate-700">
+                  5 ofertas
+                </span>
+              </h2>
+              <p class="text-xs text-slate-400 mt-0.5">Cadastre até 5 lojas para compor o mesmo anúncio conjunto.</p>
+            </div>
+            <button id="btn-add-product" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white transition-all shadow shadow-brand-600/30 flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              <span>Adicionar Loja</span>
+            </button>
+          </div>
+
+          <div id="products-list" class="space-y-4">
+            <!-- Dynamic Items injected via JS -->
+          </div>
+        </div>
+
+        <!-- Strategy Recommendations -->
+        <div class="bg-gradient-to-br from-slate-900 to-slate-900/60 border border-slate-800 rounded-3xl p-5 sm:p-6">
+          <h3 class="text-xs uppercase font-bold tracking-wider text-slate-400 mb-3 flex items-center gap-2">
+            <svg class="w-4 h-4 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Boas Práticas de Anúncio para Marília/SP
+          </h3>
+          <ul class="text-xs text-slate-400 space-y-2">
+            <li class="flex items-start gap-2">
+              <span class="text-brand-400 font-bold">•</span>
+              <span><strong>Lâmina 1 (A Chave do Clique):</strong> Posicione na primeira foto o produto de maior apelo visual ou menor ticket para reduzir o CPC.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-brand-400 font-bold">•</span>
+              <span><strong>Frequência Local:</strong> Marília tem ~240 mil habitantes. Ciclos de 3 a 5 dias evitam que o mesmo usuário veja a oferta 6+ vezes e canse.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-brand-400 font-bold">•</span>
+              <span><strong>Regra de Ouro da Comissão:</strong> Reinvestir no máximo 50% da margem do CupomClic assegura que você mantenha lucro mesmo se as vendas ficarem um pouco abaixo da projeção.</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="lg:col-span-5 space-y-6">
+        
+        <!-- Parameters Card -->
+        <div class="bg-slate-900/90 border border-slate-800 rounded-3xl p-5 sm:p-6 shadow-xl space-y-5">
+          <h2 class="text-base font-bold text-white pb-3 border-b border-slate-800">
+            Parâmetros da Campanha
+          </h2>
+
+          <!-- Commission Rate -->
+          <div>
+            <div class="flex justify-between items-center text-xs mb-1.5">
+              <label for="input-commission-rate" class="font-medium text-slate-300">Taxa de Comissão CupomClic</label>
+              <span class="font-bold text-brand-400" id="label-commission-rate">15%</span>
+            </div>
+            <div class="relative">
+              <input type="number" id="input-commission-rate" value="15" min="1" max="100" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all">
+              <span class="absolute right-3.5 top-2.5 text-xs text-slate-500 font-bold">%</span>
+            </div>
+          </div>
+
+          <!-- Reinvestment slider -->
+          <div>
+            <div class="flex justify-between items-center text-xs mb-1.5">
+              <label for="range-reinvest" class="font-medium text-slate-300">Reinvestimento em Tráfego (sobre os 15%)</label>
+              <span class="font-bold text-brand-400" id="label-reinvest-percent">50%</span>
+            </div>
+            <input type="range" id="range-reinvest" min="20" max="80" step="5" value="50" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-500">
+            <div class="flex justify-between text-[10px] text-slate-500 mt-1">
+              <span>20% (Muito Conservador)</span>
+              <span class="text-brand-400 font-semibold">50% Recomendado</span>
+              <span>80% (Agressivo)</span>
+            </div>
+          </div>
+
+          <!-- Campaign Duration -->
+          <div>
+            <div class="flex justify-between items-center text-xs mb-1.5">
+              <label for="input-days" class="font-medium text-slate-300">Duração da Campanha</label>
+              <span class="font-bold text-brand-400" id="label-days">4 dias</span>
+            </div>
+            <div class="grid grid-cols-4 gap-2">
+              <button type="button" class="btn-day-preset py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700" data-days="3">3 dias</button>
+              <button type="button" class="btn-day-preset py-2 rounded-xl text-xs font-semibold bg-brand-600 text-white border border-brand-500" data-days="4">4 dias</button>
+              <button type="button" class="btn-day-preset py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700" data-days="5">5 dias</button>
+              <button type="button" class="btn-day-preset py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700" data-days="7">7 dias</button>
+            </div>
+            <input type="hidden" id="input-days" value="4">
+          </div>
+
+          <!-- Estimated CPM for Marília -->
+          <div>
+            <div class="flex justify-between items-center text-xs mb-1.5">
+              <label for="input-cpm" class="font-medium text-slate-300">CPM Estimado em Marília (Custo por mil)</label>
+              <span class="font-bold text-brand-400" id="label-cpm">R$ 18,00</span>
+            </div>
+            <div class="relative">
+              <span class="absolute left-3.5 top-2.5 text-xs text-slate-500 font-bold">R$</span>
+              <input type="number" id="input-cpm" value="18.00" step="0.50" min="5" max="60" class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-3 py-2.5 text-sm text-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all">
+            </div>
+            <p class="text-[10px] text-slate-500 mt-1">Marília oscila entre R$ 14,00 e R$ 22,00 para carrosséis locais no Meta Ads.</p>
+          </div>
+
+        </div>
+
+        <div class="bg-slate-900/90 border border-slate-800 rounded-3xl p-5 sm:p-6 shadow-xl space-y-4">
+          <h2 class="text-base font-bold text-white pb-3 border-b border-slate-800 flex items-center justify-between">
+            <span>Métricas de Performance Alvo</span>
+            <span id="badge-health" class="text-[10px] font-semibold tracking-wider uppercase px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+              Alta Lucratividade
+            </span>
+          </h2>
+
+          <div class="space-y-3 text-xs">
+            <div class="flex justify-between items-center py-1.5 border-b border-slate-800/60">
+              <span class="text-slate-400">Total de Cupons/Unidades Projetadas:</span>
+              <span class="font-bold text-white text-sm" id="detail-total-units">0 un</span>
+            </div>
+            <div class="flex justify-between items-center py-1.5 border-b border-slate-800/60">
+              <span class="text-slate-400">Ticket Médio por Produto:</span>
+              <span class="font-bold text-white" id="detail-avg-ticket">R$ 0,00</span>
+            </div>
+            <div class="flex justify-between items-center py-1.5 border-b border-slate-800/60">
+              <span class="text-slate-400">CPA Máximo de Equilíbrio (Break-Even):</span>
+              <span class="font-bold text-amber-400" id="detail-cpa-breakeven">R$ 0,00 / venda</span>
+            </div>
+            <div class="flex justify-between items-center py-1.5 border-b border-slate-800/60">
+              <span class="text-slate-400">CPA Alvo com a Margem Escolhida:</span>
+              <span class="font-bold text-emerald-400" id="detail-cpa-target">R$ 0,00 / venda</span>
+            </div>
+            <div class="flex justify-between items-center py-1.5 border-b border-slate-800/60">
+              <span class="text-slate-400">ROAS Mínimo Global de Equilíbrio:</span>
+              <span class="font-bold text-purple-400" id="detail-roas">6.67x</span>
+            </div>
+            <div class="flex justify-between items-center py-1.5">
+              <span class="text-slate-400">Impressões Totais Estimadas:</span>
+              <span class="font-bold text-slate-200" id="detail-impressions">0 impressões</span>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <script>
+    // State management
+    const MARILIA_POPULATION = 240000;
+
+    let products = [
+      { id: 1, store: 'Hamburgueria Central', offer: 'Combo Smash + Batata', price: 42.00, units: 18 },
+      { id: 2, store: 'Pizzaria Bella Marília', offer: 'Pizza Grande Especial', price: 65.00, units: 12 },
+      { id: 3, store: 'Açaí Tropical Marília', offer: 'Copo 500ml Duplo', price: 26.00, units: 25 },
+      { id: 4, store: 'Lavacar Express', offer: 'Lavagem Completa Cera', price: 80.00, units: 10 },
+      { id: 5, store: 'Salão & Barbearia Vip', offer: 'Corte + Barboterapia', price: 55.00, units: 14 },
+    ];
+
+    // DOM Elements
+    const productsListEl = document.getElementById('products-list');
+    const btnAddProduct = document.getElementById('btn-add-product');
+    const productCountBadge = document.getElementById('product-count-badge');
+
+    // Controls
+    const inputCommissionRate = document.getElementById('input-commission-rate');
+    const labelCommissionRate = document.getElementById('label-commission-rate');
+    const rangeReinvest = document.getElementById('range-reinvest');
+    const labelReinvestPercent = document.getElementById('label-reinvest-percent');
+    const inputDays = document.getElementById('input-days');
+    const labelDays = document.getElementById('label-days');
+    const inputCpm = document.getElementById('input-cpm');
+    const labelCpm = document.getElementById('label-cpm');
+    const dayButtons = document.querySelectorAll('.btn-day-preset');
+
+    // Top Stats
+    const statInvestTotal = document.getElementById('stat-invest-total');
+    const statInvestDaily = document.getElementById('stat-invest-daily');
+    const statCommission = document.getElementById('stat-commission');
+    const statGmv = document.getElementById('stat-gmv');
+    const statNetProfit = document.getElementById('stat-net-profit');
+    const statMarginStatus = document.getElementById('stat-margin-status');
+    const statReach = document.getElementById('stat-reach');
+    const statCityPercent = document.getElementById('stat-city-percent');
+
+    // Details
+    const detailTotalUnits = document.getElementById('detail-total-units');
+    const detailAvgTicket = document.getElementById('detail-avg-ticket');
+    const detailCpaBreakeven = document.getElementById('detail-cpa-breakeven');
+    const detailCpaTarget = document.getElementById('detail-cpa-target');
+    const detailRoas = document.getElementById('detail-roas');
+    const detailImpressions = document.getElementById('detail-impressions');
+    const badgeHealth = document.getElementById('badge-health');
+
+    const btnCopyPlan = document.getElementById('btn-copy-plan');
+    const toast = document.getElementById('toast');
+    const toastMessage = document.getElementById('toast-message');
+
+    // Helper currency formatter
+    function formatBRL(val) {
+      return (val || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    function renderProducts() {
+      productsListEl.innerHTML = '';
+      productCountBadge.innerText = `${products.length} ${products.length === 1 ? 'oferta' : 'ofertas'}`;
+
+      if (products.length >= 5) {
+        btnAddProduct.classList.add('opacity-50', 'pointer-events-none');
+      } else {
+        btnAddProduct.classList.remove('opacity-50', 'pointer-events-none');
+      }
+
+      products.forEach((prod, index) => {
+        const itemRow = document.createElement('div');
+        itemRow.className = "bg-slate-950/70 border border-slate-800/80 rounded-2xl p-4 transition-all hover:border-slate-700 space-y-3";
+        itemRow.innerHTML = `
+          <div class="flex items-center justify-between gap-2">
+            <span class="text-xs font-bold text-brand-400 bg-brand-500/10 px-2 py-0.5 rounded-md border border-brand-500/20">
+              #${index + 1} Carrossel
+            </span>
+            ${products.length > 1 ? `
+              <button data-id="${prod.id}" class="btn-remove-prod text-slate-500 hover:text-rose-400 p-1 rounded-lg transition-colors" title="Remover oferta">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+              </button>
+            ` : ''}
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="text-[11px] font-medium text-slate-400 block mb-1">Loja / Estabelecimento</label>
+              <input type="text" data-id="${prod.id}" data-field="store" value="${escapeHtml(prod.store)}" class="prod-input w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500">
+            </div>
+            <div>
+              <label class="text-[11px] font-medium text-slate-400 block mb-1">Título da Oferta / Produto</label>
+              <input type="text" data-id="${prod.id}" data-field="offer" value="${escapeHtml(prod.offer)}" class="prod-input w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-1 border-t border-slate-900">
+            <div>
+              <label class="text-[11px] font-medium text-slate-400 block mb-1">Preço c/ Desconto (R$)</label>
+              <input type="number" step="0.5" min="0" data-id="${prod.id}" data-field="price" value="${prod.price}" class="prod-input w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500">
+            </div>
+            <div>
+              <label class="text-[11px] font-medium text-slate-400 block mb-1">Vendas Estimadas (un)</label>
+              <input type="number" min="0" data-id="${prod.id}" data-field="units" value="${prod.units}" class="prod-input w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500">
+            </div>
+            <div class="col-span-2 sm:col-span-1 bg-slate-900/40 p-2 rounded-xl flex flex-col justify-center">
+              <span class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Comissão (15%)</span>
+              <span class="text-xs font-bold text-emerald-400">
+                ${formatBRL((prod.price * prod.units) * (parseFloat(inputCommissionRate.value) / 100 || 0.15))}
+              </span>
+            </div>
+          </div>
+        `;
+        productsListEl.appendChild(itemRow);
+      });
+
+      attachProductEventListeners();
+      calculatePlan();
+    }
+
+    function escapeHtml(string) {
+      return String(string).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function attachProductEventListeners() {
+      document.querySelectorAll('.prod-input').forEach(input => {
+        input.addEventListener('input', (e) => {
+          const id = parseInt(e.target.dataset.id);
+          const field = e.target.dataset.field;
+          const targetItem = products.find(p => p.id === id);
+          if (targetItem) {
+            if (field === 'price' || field === 'units') {
+              targetItem[field] = parseFloat(e.target.value) || 0;
+            } else {
+              targetItem[field] = e.target.value;
+            }
+            calculatePlan();
+          }
+        });
+      });
+
+      document.querySelectorAll('.btn-remove-prod').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = parseInt(btn.dataset.id);
+          if (products.length > 1) {
+            products = products.filter(p => p.id !== id);
+            renderProducts();
+          }
+        });
+      });
+    }
+
+    btnAddProduct.addEventListener('click', () => {
+      if (products.length < 5) {
+        products.push({
+          id: Date.now(),
+          store: `Loja Parceira ${products.length + 1}`,
+          offer: 'Super Oferta Exclusiva',
+          price: 50.00,
+          units: 10
+        });
+        renderProducts();
+      }
+    });
+
+    function calculatePlan() {
+      const commissionRate = (parseFloat(inputCommissionRate.value) || 0) / 100;
+      const reinvestRate = (parseFloat(rangeReinvest.value) || 0) / 100;
+      const days = parseInt(inputDays.value) || 4;
+      const cpm = parseFloat(inputCpm.value) || 18.00;
+
+      // Update text labels
+      labelCommissionRate.innerText = `${(commissionRate * 100).toFixed(0)}%`;
+      labelReinvestPercent.innerText = `${(reinvestRate * 100).toFixed(0)}%`;
+      labelDays.innerText = `${days} dias`;
+      labelCpm.innerText = formatBRL(cpm);
+
+      // Calculations
+      let totalGmv = 0;
+      let totalUnits = 0;
+
+      products.forEach(p => {
+        const itemRevenue = (p.price || 0) * (p.units || 0);
+        totalGmv += itemRevenue;
+        totalUnits += (p.units || 0);
+      });
+
+      const totalCommission = totalGmv * commissionRate;
+      const totalBudget = totalCommission * reinvestRate;
+      const dailyBudget = days > 0 ? (totalBudget / days) : 0;
+      const netProfit = totalCommission - totalBudget;
+
+      // Marketing Metrics
+      const impressions = cpm > 0 ? (totalBudget / cpm) * 1000 : 0;
+      // Estimated local reach (assuming 1.35x average frequency in local radius)
+      const estimatedReach = Math.min(Math.round(impressions / 1.35), MARILIA_POPULATION);
+      const reachPercentage = ((estimatedReach / MARILIA_POPULATION) * 100).toFixed(1);
+
+      // Unit Economics
+      const avgTicket = totalUnits > 0 ? (totalGmv / totalUnits) : 0;
+      const cpaBreakeven = totalUnits > 0 ? (totalCommission / totalUnits) : 0;
+      const cpaTarget = totalUnits > 0 ? (totalBudget / totalUnits) : 0;
+      const roasTarget = totalBudget > 0 ? (totalGmv / totalBudget) : 0;
+
+      // Render Outputs
+      statInvestTotal.innerText = formatBRL(totalBudget);
+      statInvestDaily.innerText = `${formatBRL(dailyBudget)} / dia (${days}d)`;
+      statCommission.innerText = formatBRL(totalCommission);
+      statGmv.innerText = `Faturamento: ${formatBRL(totalGmv)}`;
+      statNetProfit.innerText = formatBRL(netProfit);
+      statReach.innerText = `${estimatedReach.toLocaleString('pt-BR')} pessoas`;
+      statCityPercent.innerText = `~${reachPercentage}% da população de Marília`;
+
+      detailTotalUnits.innerText = `${totalUnits} cupons/unid.`;
+      detailAvgTicket.innerText = formatBRL(avgTicket);
+      detailCpaBreakeven.innerText = `${formatBRL(cpaBreakeven)} / venda`;
+      detailCpaTarget.innerText = `${formatBRL(cpaTarget)} / venda`;
+      detailRoas.innerText = `${roasTarget.toFixed(2)}x`;
+      detailImpressions.innerText = `~${Math.round(impressions).toLocaleString('pt-BR')} views`;
+
+      // Health badge
+      if (reinvestRate <= 0.40) {
+        badgeHealth.className = "text-[10px] font-semibold tracking-wider uppercase px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
+        badgeHealth.innerText = "Altamente Conservador";
+        statMarginStatus.innerText = "Margem líquida > 60%";
+      } else if (reinvestRate <= 0.55) {
+        badgeHealth.className = "text-[10px] font-semibold tracking-wider uppercase px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30";
+        badgeHealth.innerText = "Equilíbrio Ideal";
+        statMarginStatus.innerText = "Margem líquida saudável (~50%)";
+      } else {
+        badgeHealth.className = "text-[10px] font-semibold tracking-wider uppercase px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30";
+        badgeHealth.innerText = "Tração Agressiva";
+        statMarginStatus.innerText = "Atenção ao CAC diário";
+      }
+    }
+
+    inputCommissionRate.addEventListener('input', calculatePlan);
+    rangeReinvest.addEventListener('input', calculatePlan);
+    inputCpm.addEventListener('input', calculatePlan);
+
+    dayButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        dayButtons.forEach(b => {
+          b.classList.remove('bg-brand-600', 'text-white', 'border-brand-500');
+          b.classList.add('bg-slate-800', 'text-slate-300', 'border-slate-700');
+        });
+        btn.classList.add('bg-brand-600', 'text-white', 'border-brand-500');
+        btn.classList.remove('bg-slate-800', 'text-slate-300', 'border-slate-700');
+        inputDays.value = btn.dataset.days;
+        calculatePlan();
+      });
+    });
+
+    btnCopyPlan.addEventListener('click', () => {
+      const commissionRate = (parseFloat(inputCommissionRate.value) || 15);
+      const reinvestRate = (parseFloat(rangeReinvest.value) || 50);
+      const days = parseInt(inputDays.value) || 4;
+      const cpm = parseFloat(inputCpm.value) || 18;
+
+      let totalGmv = 0;
+      let totalUnits = 0;
+      let prodListText = '';
+
+      products.forEach((p, idx) => {
+        const itemRev = p.price * p.units;
+        totalGmv += itemRev;
+        totalUnits += p.units;
+        prodListText += `  ${idx + 1}. ${p.store} - ${p.offer}: ${p.units} un x ${formatBRL(p.price)} = ${formatBRL(itemRev)}\n`;
+      });
+
+      const totalCommission = totalGmv * (commissionRate / 100);
+      const totalBudget = totalCommission * (reinvestRate / 100);
+      const dailyBudget = totalBudget / days;
+      const netProfit = totalCommission - totalBudget;
+      const cpaTarget = totalUnits > 0 ? (totalBudget / totalUnits) : 0;
+
+      const summaryText = 
+`🚀 *PLANO DE MÍDIA - CUPOMCLIC MARÍLIA*
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🛍️ *Ofertas do Carrossel (${products.length} Lojas):*
+${prodListText}
+📊 *Projeção Geral:*
+• Faturamento Total Estimado (GMV): ${formatBRL(totalGmv)}
+• Meta de Cupons/Vendas: ${totalUnits} unidades
+• Comissão CupomClic (${commissionRate}%): ${formatBRL(totalCommission)}
+
+🎯 *Estratégia de Tráfego Pago (Meta Ads):*
+• % Reinvestido em Anúncio: ${reinvestRate}% da comissão
+• Investimento Total Sugerido: *${formatBRL(totalBudget)}*
+• Orçamento Diário: *${formatBRL(dailyBudget)}/dia* por ${days} dias
+• CPM Base Marília: ${formatBRL(cpm)}
+• Custo Alvo por Cupom (CPA Meta): até ${formatBRL(cpaTarget)}
+
+💰 *Resultado Líquido CupomClic:*
+• Sobra Líquida Prevista: *${formatBRL(netProfit)}*
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Gerado via CupomClic Traffic Planner`;
+
+      copyToClipboard(summaryText);
+      showToast("Plano copiado para a área de transferência!");
+    });
+
+    function copyToClipboard(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
+      } else {
+        fallbackCopy(text);
+      }
+    }
+
+    function fallbackCopy(text) {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.style.position = "fixed";
+      textarea.style.left = "-9999px";
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+      try {
+        document.execCommand('copy');
+      } catch (err) {
+        console.error('Falha ao copiar:', err);
+      }
+      document.body.removeChild(textarea);
+    }
+
+    function showToast(msg) {
+      toastMessage.innerText = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 3000);
+    }
+
+    // Initialize
+    renderProducts();
+  </script>
+</body>
+</html>
