@@ -50,13 +50,13 @@
         <div>
           <div class="flex items-center gap-2">
             <span class="text-[11px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md bg-brand-orange/20 text-brand-orange border border-brand-orange/30">Marília • SP</span>
-            <span class="text-xs text-slate-400 font-medium hidden sm:inline">• Gerador de Lâminas Virais 4:5</span>
+            <span class="text-xs text-slate-400 font-medium hidden sm:inline">• Safe Zone Instagram Ativa</span>
           </div>
           <p class="text-xs text-slate-300 font-semibold mt-0.5">Margem Operacional: <span class="text-brand-orange font-bold">12% Lucro CupomClic</span></p>
         </div>
       </div>
 
-      <!-- BOTÕES DE AÇÃO -->
+      <!-- BOTÕES DE CONTROLE -->
       <div class="flex items-center gap-2 sm:gap-3">
         <a href="https://adsmanager.facebook.com" target="_blank" rel="noopener noreferrer" 
            class="inline-flex items-center gap-1.5 text-xs font-bold px-3.5 py-2 rounded-xl bg-blue-600/20 text-blue-400 border border-blue-500/30 hover:bg-blue-600/30 transition">
@@ -149,7 +149,7 @@
             Base de Ofertas Cadastradas
             <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-brand-orange/20 text-brand-orange" id="offersCountBadge">0 ofertas</span>
           </h2>
-          <p class="text-xs text-slate-400">Insira a foto, o preço original (De) e o promocional (Por) para ativar a ancoragem visual com desconto real.</p>
+          <p class="text-xs text-slate-400">Insira a foto, o preço original (De) e o promocional (Por) para ancorar o desconto no anúncio.</p>
         </div>
         <div class="flex items-center gap-2">
           <button onclick="addEmptyOffer()" class="text-xs font-bold px-3 py-2 rounded-xl bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 transition">
@@ -188,9 +188,9 @@
       <div class="flex items-center justify-between mb-4">
         <div>
           <h2 class="text-lg font-extrabold text-white flex items-center gap-2">
-            Lâminas de Carrossel 4:5 (1080 x 1350 px) • Visual de Alta Conversão
+            Lâminas de Carrossel 4:5 (1080 x 1350 px) • Safe Zone Instagram Shopping
           </h2>
-          <p class="text-xs text-slate-400">Layout cinematográfico com fundo geométrico vibrante, logo oficial com margem ampla, preço âncora DE/POR e exportação em .ZIP.</p>
+          <p class="text-xs text-slate-400">Layout profissional com canto inferior esquerdo preservado para a tag expansível nativa da Meta não cobrir nenhum texto.</p>
         </div>
       </div>
 
@@ -418,18 +418,16 @@
       renderClusters();
     }
 
-    // DESENHO PROCEDURAL DO FUNDO GEOMÉTRICO (INSPIRADO EM back.jpg)
+    // FUNDO GEOMÉTRICO
     function drawGeometricBackground(ctx, w, h) {
-      // 1. Gradiente Base Dinâmico (Amarelo Ouro -> Laranja CupomClic -> Vermelho)
       const grad = ctx.createLinearGradient(0, h, w, 0);
-      grad.addColorStop(0, '#FFA800');   // Amarelo dourado vivo
-      grad.addColorStop(0.35, '#FF5500'); // Laranja vibrante oficial
-      grad.addColorStop(0.75, '#E02600'); // Vermelho alaranjado
-      grad.addColorStop(1, '#B30B00');    // Carmesim profundo
+      grad.addColorStop(0, '#FFA800');
+      grad.addColorStop(0.35, '#FF5500');
+      grad.addColorStop(0.75, '#E02600');
+      grad.addColorStop(1, '#B30B00');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, w, h);
 
-      // 2. Camadas de Losangos / Quadrados Rotacionados Translúcidos (Glassmorphism)
       function drawGlassRhombus(cx, cy, size, alpha, fillAlpha, strokeWidth) {
         ctx.save();
         ctx.translate(cx, cy);
@@ -446,7 +444,6 @@
         ctx.restore();
       }
 
-      // Geometrias no canto superior direito e espalhadas pelo fundo
       drawGlassRhombus(900, 180, 280, 0.40, 0.08, 3);
       drawGlassRhombus(820, 260, 200, 0.50, 0.15, 3.5);
       drawGlassRhombus(980, 320, 160, 0.35, 0.06, 2.5);
@@ -454,24 +451,20 @@
       drawGlassRhombus(860, 420, 240, 0.35, 0.10, 3);
       drawGlassRhombus(1020, 480, 180, 0.25, 0.04, 2);
       drawGlassRhombus(680, 380, 150, 0.20, 0.04, 2);
-      
-      // Geometrias sutis no centro e canto inferior esquerdo
       drawGlassRhombus(320, 920, 220, 0.25, 0.05, 2);
       drawGlassRhombus(180, 1050, 260, 0.30, 0.08, 3);
       drawGlassRhombus(480, 1180, 190, 0.20, 0.04, 2);
     }
 
-    // MOTOR GRÁFICO VIRAL 4:5 COM TODOS OS 4 REFINAMENTOS
+    // MOTOR GRÁFICO VIRAL 4:5 COM SAFE ZONE INSTAGRAM SHOPPING ATIVA
     function renderCanvasViral4x5(item, idx, blockId, callback) {
       const canvas = document.createElement('canvas');
       canvas.width = 1080;
       canvas.height = 1350;
       const ctx = canvas.getContext('2d');
 
-      // 1. FUNDO GEOMÉTRICO DINÂMICO
       drawGeometricBackground(ctx, 1080, 1350);
 
-      // Carrega Logo Oficial com fallback
       const logoImg = new Image();
       logoImg.crossOrigin = "anonymous";
       logoImg.src = "./logo.png";
@@ -485,13 +478,12 @@
       };
 
       function drawSlideElements(brandLogo) {
-        // 2. FOTO PRINCIPAL CENTRALIZADA
+        // FOTO PRINCIPAL
         const photoX = 60;
         const photoY = 175;
         const photoW = 960;
         const photoH = 780;
 
-        // Sombra suave na moldura da foto
         ctx.save();
         ctx.shadowColor = 'rgba(0, 0, 0, 0.35)';
         ctx.shadowBlur = 30;
@@ -502,7 +494,6 @@
         ctx.fill();
         ctx.restore();
 
-        // Enquadramento da foto (cover com clipping)
         ctx.save();
         ctx.beginPath();
         ctx.roundRect(photoX, photoY, photoW, photoH, 32);
@@ -544,18 +535,17 @@
         }
 
         function continueDrawing() {
-          // Borda translúcida moderna sobre a foto
           ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
           ctx.lineWidth = 3;
           ctx.beginPath();
           ctx.roundRect(photoX, photoY, photoW, photoH, 32);
           ctx.stroke();
 
-          // 3. REFINAMENTO 1: CABEÇALHO COM PÍLULA AMPLA (Sem cortar a espiral à direita)
-          const pillW = 420;
-          const pillH = 92;
+          // 1. PÍLULA DA LOGO COM PROPORÇÃO PRECISA
+          const pillW = 320;
+          const pillH = 88;
           const pillX = 60;
-          const pillY = 50;
+          const pillY = 52;
 
           ctx.save();
           ctx.shadowColor = 'rgba(0, 0, 0, 0.18)';
@@ -563,50 +553,48 @@
           ctx.shadowOffsetY = 6;
           ctx.fillStyle = '#FFFFFF';
           ctx.beginPath();
-          ctx.roundRect(pillX, pillY, pillW, pillH, 26);
+          ctx.roundRect(pillX, pillY, pillW, pillH, 22);
           ctx.fill();
           ctx.restore();
 
-          // Desenho rigorosamente proporcional da logo oficial
-          const logoMaxW = 340;
-          const logoMaxH = 64;
+          const logoMaxW = 270;
+          const logoMaxH = 60;
           const logoNaturalW = brandLogo.naturalWidth || 760;
           const logoNaturalH = brandLogo.naturalHeight || 220;
           const logoRatio = logoNaturalW / logoNaturalH;
 
           let renderW = logoMaxW;
           let renderH = logoMaxW / logoRatio;
-
           if (renderH > logoMaxH) {
             renderH = logoMaxH;
             renderW = logoMaxH * logoRatio;
           }
 
-          const logoDrawX = pillX + 35;
+          const logoDrawX = pillX + (pillW - renderW) / 2;
           const logoDrawY = pillY + (pillH - renderH) / 2;
           ctx.drawImage(brandLogo, logoDrawX, logoDrawY, renderW, renderH);
 
           // Pílula da Cidade (Direita)
           ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
           ctx.beginPath();
-          ctx.roundRect(810, 52, 210, 84, 22);
+          ctx.roundRect(810, 52, 210, 88, 22);
           ctx.fill();
 
           ctx.fillStyle = '#FFFFFF';
           ctx.font = '800 22px "Plus Jakarta Sans"';
           ctx.textAlign = 'center';
-          ctx.fillText('MARÍLIA • SP', 915, 88);
+          ctx.fillText('MARÍLIA • SP', 915, 90);
 
           ctx.fillStyle = '#F59E0B';
           ctx.font = '700 13px "Plus Jakarta Sans"';
-          ctx.fillText('OFERTA EXCLUSIVA', 915, 114);
+          ctx.fillText('OFERTA EXCLUSIVA', 915, 116);
 
-          // 4. REFINAMENTO 2: PREÇO ÂNCORA COM GATILHO "DE / POR" & % OFF
+          // 2. SELO DE PREÇO (ALARGADO PARA NÃO CORTAR O TEXTO)
           const origPrice = item.originalPrice && item.originalPrice > item.price ? item.originalPrice : (item.price * 1.30);
           const discountPct = Math.round(((origPrice - item.price) / origPrice) * 100);
 
-          const badgeW = 340;
-          const badgeH = 118;
+          const badgeW = 400;
+          const badgeH = 124;
           const badgeX = photoX + photoW - badgeW - 25;
           const badgeY = photoY + 25;
 
@@ -614,51 +602,48 @@
           ctx.shadowColor = 'rgba(0, 0, 0, 0.35)';
           ctx.shadowBlur = 24;
           ctx.shadowOffsetY = 8;
-          ctx.fillStyle = '#0B1E42'; // Azul Marinho Oficial CupomClic
+          ctx.fillStyle = '#0B1E42';
           ctx.beginPath();
           ctx.roundRect(badgeX, badgeY, badgeW, badgeH, 24);
           ctx.fill();
 
-          // Borda decorativa laranja sutil
           ctx.strokeStyle = '#f26522';
           ctx.lineWidth = 3;
           ctx.stroke();
           ctx.restore();
 
-          // Linha "DE R$ XX,XX" (Riscado) + Badge "-XX%"
+          // Preço "DE R$ XX,XX" (Riscado) + Tag "-XX%"
           ctx.fillStyle = '#94A3B8';
           ctx.font = '700 20px "Plus Jakarta Sans"';
           ctx.textAlign = 'left';
           const deText = `DE R$ ${origPrice.toFixed(2).replace('.', ',')}`;
-          ctx.fillText(deText, badgeX + 25, badgeY + 40);
+          ctx.fillText(deText, badgeX + 28, badgeY + 42);
 
-          // Traço riscando o preço original
           const deTextWidth = ctx.measureText(deText).width;
           ctx.strokeStyle = '#EF4444';
           ctx.lineWidth = 2.5;
           ctx.beginPath();
-          ctx.moveTo(badgeX + 23, badgeY + 34);
-          ctx.lineTo(badgeX + 27 + deTextWidth, badgeY + 34);
+          ctx.moveTo(badgeX + 26, badgeY + 35);
+          ctx.lineTo(badgeX + 30 + deTextWidth, badgeY + 35);
           ctx.stroke();
 
-          // Selo com porcentagem de desconto
           ctx.fillStyle = '#EF4444';
           ctx.beginPath();
-          ctx.roundRect(badgeX + 25 + deTextWidth + 12, badgeY + 20, 80, 28, 8);
+          ctx.roundRect(badgeX + 28 + deTextWidth + 14, badgeY + 22, 85, 28, 8);
           ctx.fill();
 
           ctx.fillStyle = '#FFFFFF';
           ctx.font = '800 15px "Plus Jakarta Sans"';
           ctx.textAlign = 'center';
-          ctx.fillText(`-${discountPct}%`, badgeX + 25 + deTextWidth + 52, badgeY + 39);
+          ctx.fillText(`-${discountPct}%`, badgeX + 28 + deTextWidth + 56, badgeY + 41);
 
-          // Linha "POR R$ XX,XX" em grande destaque
+          // Preço "POR R$ XX,XX"
           ctx.fillStyle = '#FFFFFF';
           ctx.textAlign = 'left';
-          ctx.font = '900 50px "Plus Jakarta Sans"';
-          ctx.fillText(`POR R$ ${item.price.toFixed(2).replace('.', ',')}`, badgeX + 22, badgeY + 96);
+          ctx.font = '900 46px "Plus Jakarta Sans"';
+          ctx.fillText(`POR R$ ${item.price.toFixed(2).replace('.', ',')}`, badgeX + 26, badgeY + 100);
 
-          // 5. CAIXA BRANCA DO PRODUTO (Sem colisão)
+          // 3. CAIXA BRANCA DO PRODUTO
           const textCardX = 60;
           const textCardY = 980;
           const textCardW = 960;
@@ -674,13 +659,11 @@
           ctx.fill();
           ctx.restore();
 
-          // Nome do Estabelecimento
           ctx.fillStyle = '#f26522';
           ctx.font = '800 24px "Plus Jakarta Sans"';
           ctx.textAlign = 'left';
           ctx.fillText(item.store.toUpperCase(), textCardX + 35, textCardY + 48);
 
-          // Título do Produto
           ctx.fillStyle = '#0B1E42';
           ctx.font = '900 44px "Plus Jakarta Sans"';
           let title = item.title;
@@ -689,10 +672,11 @@
           }
           ctx.fillText(title, textCardX + 35, textCardY + 104);
 
-          // 6. REFINAMENTO 3: BARRA DA SACOLA DO INSTAGRAM COM GATILHO DE ESCASSEZ LOCAL
-          const barX = 60;
+          // 4. DIRECIONADOR VISUAL COM SAFE ZONE DE 200px NO CANTO INFERIOR ESQUERDO
+          // O card começa em X=260 (deixando os primeiros 200px limpos para o botão nativo da Meta)
+          const barX = 260;
           const barY = 1155;
-          const barW = 960;
+          const barW = 760;
           const barH = 145;
 
           ctx.save();
@@ -705,55 +689,39 @@
           ctx.fill();
           ctx.restore();
 
-          // ÍCONE VETORIAL DA SACOLA DO INSTAGRAM
-          const bagX = barX + 35;
-          const bagY = barY + 38;
-
-          ctx.strokeStyle = '#FFFFFF';
-          ctx.lineWidth = 4.5;
-          ctx.lineCap = 'round';
-          ctx.lineJoin = 'round';
-
-          // Corpo da sacola
-          ctx.beginPath();
-          ctx.roundRect(bagX, bagY + 16, 52, 54, 10);
-          ctx.stroke();
-
-          // Alça da sacola
-          ctx.beginPath();
-          ctx.arc(bagX + 26, bagY + 16, 16, Math.PI, 0);
-          ctx.stroke();
-
-          // Seta animada apontando para a sacola
+          // Seta animada apontando para a Safe Zone (onde a Meta renderiza a etiqueta do produto)
           ctx.strokeStyle = '#f26522';
           ctx.lineWidth = 6;
+          ctx.lineCap = 'round';
+          ctx.lineJoin = 'round';
           ctx.beginPath();
-          ctx.moveTo(bagX + 120, bagY + 24);
-          ctx.lineTo(bagX + 96, bagY + 48);
-          ctx.lineTo(bagX + 120, bagY + 72);
+          ctx.moveTo(barX + 45, barY + 72);
+          ctx.lineTo(barX + 18, barY + 72);
+          ctx.lineTo(barX + 32, barY + 52);
+          ctx.moveTo(barX + 18, barY + 72);
+          ctx.lineTo(barX + 32, barY + 92);
           ctx.stroke();
 
-          // Textos da Sacola + Escassez Local
+          // Textos alinhados e protegidos da sobreposição nativa
           ctx.fillStyle = '#FFFFFF';
-          ctx.font = '900 28px "Plus Jakarta Sans"';
+          ctx.font = '900 25px "Plus Jakarta Sans"';
           ctx.textAlign = 'left';
-          ctx.fillText('TOQUE NA SACOLA PARA COMPRAR', bagX + 145, barY + 54);
+          ctx.fillText('TOQUE NA SACOLA AQUI AO LADO 🛍️', barX + 65, barY + 54);
 
           ctx.fillStyle = '#94A3B8';
-          ctx.font = '600 20px "Plus Jakarta Sans"';
-          ctx.fillText('Clique no produto marcado e resgate no app CupomClic', bagX + 145, barY + 86);
+          ctx.font = '600 18px "Plus Jakarta Sans"';
+          ctx.fillText('Abra a etiqueta de compra e garanta o desconto', barX + 65, barY + 86);
 
-          // Micro-tag de escassez e exclusividade local
           ctx.fillStyle = '#F59E0B';
-          ctx.font = '800 15px "Plus Jakarta Sans"';
-          ctx.fillText('⚡ EXCLUSIVO MARÍLIA • CUPONS LIMITADOS', bagX + 145, barY + 118);
+          ctx.font = '800 14px "Plus Jakarta Sans"';
+          ctx.fillText('⚡ EXCLUSIVO MARÍLIA • CUPONS LIMITADOS', barX + 65, barY + 118);
 
           if (callback) callback(canvas);
         }
       }
     }
 
-    // BAIXAR LÂMINA INDIVIDUAL (PNG)
+    // BAIXAR LÂMINA INDIVIDUAL
     function downloadSingleSlide(item, idx, blockId) {
       renderCanvasViral4x5(item, idx, blockId, (canvas) => {
         const link = document.createElement('a');
@@ -765,10 +733,10 @@
       });
     }
 
-    // REFINAMENTO 4: BAIXAR TODAS AS 5 LÂMINAS COMPACTADAS EM UM ÚNICO ARQUIVO .ZIP
+    // BAIXAR TODAS AS 5 LÂMINAS EM UM ÚNICO ARQUIVO .ZIP
     async function downloadClusterZip(cluster) {
       if (!window.JSZip) {
-        alert("Biblioteca de compactação não carregou. Tentando download individual...");
+        alert("Compactador não disponível. Iniciando downloads individuais...");
         cluster.offers.forEach((item, idx) => setTimeout(() => downloadSingleSlide(item, idx, cluster.id), idx * 600));
         return;
       }
@@ -777,8 +745,6 @@
       const folderName = `CupomClic_Marilia_${cluster.id.replace(/\s+/g, '_')}_5_Laminas`;
       const imgFolder = zip.folder(folderName);
 
-      // Renderiza cada canvas e adiciona ao ZIP como base64
-      let completed = 0;
       for (let i = 0; i < cluster.offers.length; i++) {
         const item = cluster.offers[i];
         await new Promise((resolve) => {
@@ -786,13 +752,11 @@
             const dataUrl = canvas.toDataURL('image/png');
             const base64Data = dataUrl.replace(/^data:image\/png;base64,/, "");
             imgFolder.file(`Slide_${i + 1}_${item.store.replace(/\s+/g, '_')}_4x5.png`, base64Data, { base64: true });
-            completed++;
             resolve();
           });
         });
       }
 
-      // Gera e baixa o arquivo .zip final
       zip.generateAsync({ type: "blob" }).then(function(content) {
         const link = document.createElement('a');
         link.href = URL.createObjectURL(content);
@@ -820,7 +784,6 @@
                   <span class="w-3 h-3 rounded-full bg-brand-orange"></span>
                   <h3 class="font-extrabold text-white text-base">${cluster.id} • Carrossel de 5 Lojas</h3>
                 </div>
-                <!-- BOTÃO 1-CLIQUE .ZIP -->
                 <button onclick='downloadClusterZip(${JSON.stringify(cluster)})' class="text-xs font-bold px-3.5 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:brightness-110 text-white transition flex items-center gap-1.5 shadow-lg shadow-emerald-600/20">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                   <span>Baixar Pacote .ZIP (5 Lâminas)</span>
@@ -895,7 +858,7 @@
       }
 
       const exportPayload = {
-        app: "CupomClic_Marilia_Refinado_ZIP_12pct",
+        app: "CupomClic_Marilia_SafeZone_ZIP_12pct",
         savedAt: new Date().toISOString(),
         settings: {
           audience: document.getElementById("targetAudience").value,
@@ -945,7 +908,7 @@
             renderOffersTable();
             calculate();
             runBalancedClustering();
-            alert("Planejamento recuperado!");
+            alert("Planejamento recuperado com sucesso!");
           } else {
             alert("Arquivo JSON inválido.");
           }
