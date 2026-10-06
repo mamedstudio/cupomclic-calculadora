@@ -3,550 +3,529 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CupomClic Marília • Studio Criativo 4:5 & Tráfego Pago</title>
-  
+  <title>CupomClic • Tráfego, Cluster 4:5 & Design Viral</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-            mono: ['"JetBrains Mono"', 'monospace']
-          },
+          fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
           colors: {
             brand: {
-              navy: '#0E274D',
-              orange: '#F57011',
-              dark: '#070A10',
-              card: '#0F1523',
-              border: '#1E293B',
-              accent: '#38BDF8'
+              navy: '#0b1e42',
+              orange: '#f26522',
+              bg: '#080B11',
+              card: '#101522',
+              cardBorder: '#1A2236',
+              input: '#0A0E17'
             }
           }
         }
       }
     }
   </script>
-
   <style>
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #070A10; }
-    ::-webkit-scrollbar-thumb { background: #1E293B; border-radius: 999px; }
-    ::-webkit-scrollbar-thumb:hover { background: #334155; }
-    input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { 
+      -webkit-appearance: none; 
+      margin: 0; 
+    }
   </style>
 </head>
-<body class="bg-brand-dark text-slate-100 min-h-screen font-sans pb-24 selection:bg-brand-orange selection:text-white">
+<body class="bg-brand-bg text-slate-100 min-h-screen font-sans pb-20">
 
-  <!-- Header -->
-  <header class="border-b border-brand-border bg-brand-card/90 backdrop-blur-md sticky top-0 z-40">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-18 py-3 flex flex-wrap items-center justify-between gap-4">
-      
-      <!-- Brand & City Tag -->
-      <div class="flex items-center gap-3.5">
-        <!-- SVG Oficial CupomClic -->
-        <div class="h-10 flex items-center bg-white/95 px-3 py-1 rounded-xl shadow-md">
-          <svg class="h-7 w-auto" viewBox="0 0 450 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <text x="5" y="98" font-family="'Plus Jakarta Sans', sans-serif" font-size="78" font-weight="900" fill="#0E274D" letter-spacing="-3">cupom</text>
-            <text x="260" y="98" font-family="'Plus Jakarta Sans', sans-serif" font-size="78" font-weight="800" fill="#F57011" letter-spacing="-2">clic</text>
-            <!-- Dots Arc Spiral -->
-            <g transform="translate(385, 70)">
-              <!-- Outer Ring -->
-              <circle cx="28" cy="-38" r="4.2" fill="#E65100"/>
-              <circle cx="44" cy="-18" r="4.2" fill="#F57C00"/>
-              <circle cx="48" cy="8" r="4.2" fill="#FB8C00"/>
-              <circle cx="41" cy="32" r="4.2" fill="#D81B60"/>
-              <circle cx="22" cy="48" r="4.2" fill="#8E24AA"/>
-              <circle cx="-5" cy="52" r="4.2" fill="#5E35B1"/>
-              <circle cx="-30" cy="44" r="4.2" fill="#1E88E5"/>
-              <circle cx="-48" cy="22" r="4.2" fill="#00ACC1"/>
-              <circle cx="-52" cy="-4" r="4.2" fill="#00897B"/>
-              <!-- Mid Ring -->
-              <circle cx="18" cy="-24" r="3.4" fill="#FFA726"/>
-              <circle cx="30" cy="-10" r="3.4" fill="#FF7043"/>
-              <circle cx="32" cy="8" r="3.4" fill="#EC407A"/>
-              <circle cx="25" cy="24" r="3.4" fill="#AB47BC"/>
-              <circle cx="10" cy="35" r="3.4" fill="#7E57C2"/>
-              <circle cx="-8" cy="36" r="3.4" fill="#42A5F5"/>
-              <circle cx="-24" cy="28" r="3.4" fill="#26C6DA"/>
-              <!-- Inner Ring -->
-              <circle cx="8" cy="-12" r="2.8" fill="#FFCC80"/>
-              <circle cx="17" cy="-2" r="2.8" fill="#FF8A65"/>
-              <circle cx="18" cy="10" r="2.8" fill="#F06292"/>
-              <circle cx="11" cy="20" r="2.8" fill="#BA68C8"/>
-              <circle cx="-1" cy="22" r="2.8" fill="#7986CB"/>
-              <circle cx="-14" cy="16" r="2.8" fill="#4FC3F7"/>
-            </g>
-          </svg>
+  <!-- TOPBAR -->
+  <header class="border-b border-brand-cardBorder bg-brand-card/90 backdrop-blur sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-4">
+        <!-- LOGO OFICIAL CUPOMCLIC EMBUTIDA -->
+        <div class="bg-white px-3 py-1.5 rounded-xl shadow-md flex items-center h-12">
+          <img id="headerBrandLogo" alt="CupomClic" class="h-8 object-contain">
         </div>
-
         <div>
           <div class="flex items-center gap-2">
-            <span class="text-xs uppercase font-extrabold tracking-wider px-2 py-0.5 rounded-full bg-brand-orange/15 text-brand-orange border border-brand-orange/30">
-              MARÍLIA • SP
-            </span>
-            <span class="text-xs text-slate-400 font-medium">Studio 4:5 (1080x1350)</span>
+            <span class="text-[11px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md bg-brand-orange/20 text-brand-orange border border-brand-orange/30">Marília • SP</span>
+            <span class="text-xs text-slate-400 font-medium hidden sm:inline">• Motor de Carrosséis 4:5</span>
           </div>
-          <p class="text-[11px] text-slate-400">12% CupomClic • 3% Colaboradores • Gerador Criativo Automático</p>
+          <p class="text-xs text-slate-300 font-semibold mt-0.5">Margem: <span class="text-brand-orange font-bold">12% CupomClic</span> + <span class="text-amber-400 font-bold">3% Equipe</span></p>
         </div>
       </div>
 
-      <!-- Quick Actions -->
-      <div class="flex items-center gap-2">
-        <a href="https://adsmanager.facebook.com" target="_blank" rel="noopener noreferrer" 
-           class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-xl bg-blue-600/20 text-blue-400 border border-blue-500/30 hover:bg-blue-600/30 transition shadow-sm">
-          <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/></svg>
-          <span class="hidden sm:inline">Meta Ads</span>
-        </a>
-
-        <label class="cursor-pointer inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl bg-brand-border text-slate-300 hover:bg-slate-700 transition">
-          <svg class="w-3.5 h-3.5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-          <span class="hidden md:inline">Recuperar</span> .json
-          <input type="file" id="inputLoadJson" accept=".json" class="hidden" onchange="loadFromPC(event)">
+      <!-- BOTÕES DE CONTROLE -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <label class="cursor-pointer inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition" title="Trocar logotipo se desejar">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          <span class="hidden md:inline">Trocar Logo</span>
+          <input type="file" accept="image/*" class="hidden" onchange="changeCustomLogo(this.files[0])">
         </label>
 
-        <button onclick="saveToPCAndClean()" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/25 transition">
+        <a href="https://adsmanager.facebook.com" target="_blank" rel="noopener noreferrer" 
+           class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-xl bg-blue-600/20 text-blue-400 border border-blue-500/30 hover:bg-blue-600/30 transition">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/></svg>
+          <span class="hidden md:inline">Meta Ads</span>
+        </a>
+
+        <label class="cursor-pointer inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+          <span>Recuperar (.json)</span>
+          <input type="file" id="importFileInput" accept=".json" class="hidden" onchange="importData(event)">
+        </label>
+
+        <button onclick="saveAndReset()" class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-xl bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-600/30 transition">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
           <span>Salvar & Limpar</span>
         </button>
       </div>
-
     </div>
   </header>
 
-
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 pt-6 space-y-6">
-
-    <!-- KPI Metrics Strip -->
-    <section class="grid grid-cols-2 md:grid-cols-5 gap-3.5">
-      <div class="bg-brand-card border border-brand-border p-4 rounded-2xl">
-        <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Faturamento Previsto</span>
-        <div class="text-xl font-extrabold text-white mt-1 font-mono" id="kpiGrossRev">R$ 0,00</div>
-        <span class="text-[11px] text-slate-500 font-medium" id="kpiCouponsCount">0 cupons estimados</span>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+    
+    <!-- DASHBOARD FINANCEIRO (12% e 3%) -->
+    <section class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+      <div class="bg-brand-card border border-brand-cardBorder p-4 rounded-2xl">
+        <div class="text-[10px] text-slate-400 font-bold mb-1 uppercase">FATURAMENTO TOTAL</div>
+        <div class="text-xl font-extrabold text-white" id="kpiGrossRevenue">R$ 0,00</div>
+        <div class="text-[11px] text-slate-500 mt-1" id="kpiTotalUnits">0 cupons estimados</div>
       </div>
-
-      <div class="bg-brand-card border border-brand-border p-4 rounded-2xl relative overflow-hidden">
-        <span class="text-[10px] text-brand-orange font-bold uppercase tracking-wider block">Lucro CupomClic (12%)</span>
-        <div class="text-xl font-extrabold text-brand-orange mt-1 font-mono" id="kpiFeeCC">R$ 0,00</div>
-        <span class="text-[11px] text-slate-500">Base da Plataforma</span>
+      <div class="bg-brand-card border border-brand-cardBorder p-4 rounded-2xl border-l-4 border-l-brand-orange">
+        <div class="text-[10px] text-brand-orange font-bold mb-1 uppercase">LUCRO CUPOMCLIC (12%)</div>
+        <div class="text-xl font-extrabold text-brand-orange" id="kpiPlatformProfit">R$ 0,00</div>
+        <div class="text-[11px] text-slate-400 mt-1">Margem Líquida Interna</div>
       </div>
-
-      <div class="bg-brand-card border border-brand-border p-4 rounded-2xl">
-        <span class="text-[10px] text-amber-400 font-bold uppercase tracking-wider block">Colaboradores (3%)</span>
-        <div class="text-xl font-extrabold text-amber-400 mt-1 font-mono" id="kpiFeeStaff">R$ 0,00</div>
-        <span class="text-[11px] text-slate-500">Comissão de Equipe</span>
+      <div class="bg-brand-card border border-brand-cardBorder p-4 rounded-2xl border-l-4 border-l-amber-400">
+        <div class="text-[10px] text-amber-400 font-bold mb-1 uppercase">EQUIPE / SÓCIOS (3%)</div>
+        <div class="text-xl font-extrabold text-amber-400" id="kpiStaffProfit">R$ 0,00</div>
+        <div class="text-[11px] text-slate-400 mt-1">Comissionamento time</div>
       </div>
-
-      <div class="bg-brand-card border border-brand-border p-4 rounded-2xl">
-        <span class="text-[10px] text-sky-400 font-bold uppercase tracking-wider block">Mídia Sugerida (Meta)</span>
-        <div class="text-xl font-extrabold text-sky-400 mt-1 font-mono" id="kpiMediaInvest">R$ 0,00</div>
-        <span class="text-[11px] text-slate-500" id="kpiReinvestLabel">50% do Fee CupomClic</span>
+      <div class="bg-brand-card border border-brand-cardBorder p-4 rounded-2xl">
+        <div class="text-[10px] text-blue-400 font-bold mb-1 uppercase">INVESTIMENTO SUGERIDO</div>
+        <div class="text-xl font-extrabold text-blue-400" id="kpiTotalAds">R$ 0,00</div>
+        <div class="text-[11px] text-slate-500 mt-1" id="kpiReinvestRatio">50% do lucro CupomClic</div>
       </div>
-
-      <div class="bg-brand-card border border-brand-border p-4 rounded-2xl">
-        <span class="text-[10px] text-emerald-400 font-bold uppercase tracking-wider block">Sobra Líquida Final</span>
-        <div class="text-xl font-extrabold text-emerald-400 mt-1 font-mono" id="kpiNetProfit">R$ 0,00</div>
-        <span class="text-[11px] text-emerald-500/90 font-medium" id="kpiNetMargin">Sobra após tráfego</span>
+      <div class="bg-brand-card border border-brand-cardBorder p-4 rounded-2xl border-l-4 border-l-emerald-400">
+        <div class="text-[10px] text-emerald-400 font-bold mb-1 uppercase">SOBRA LÍQUIDA FINAL</div>
+        <div class="text-xl font-extrabold text-emerald-400" id="kpiNetProfit">R$ 0,00</div>
+        <div class="text-[11px] text-emerald-400/80 mt-1" id="kpiNetMargin">Sobra líquida segura</div>
       </div>
     </section>
 
-    <!-- Strategy Settings -->
-    <section class="bg-brand-card border border-brand-border p-4 sm:p-5 rounded-2xl">
+    <!-- CONTROLES DE CAMPANHA & MARÍLIA -->
+    <section class="bg-brand-card border border-brand-cardBorder p-5 rounded-2xl mb-6">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
         <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1.5">Segmentação em Marília</label>
-          <select id="selAudience" onchange="recalculateAll()" class="w-full bg-brand-dark border border-brand-border rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-orange">
-            <option value="gastronomia">Gastronomia Noturna, Delivery & Burgers</option>
-            <option value="geral">Geral Urbano • Promoções & Varejo Marília</option>
-            <option value="jovens">Universitários (Unimar, Univem, Famema)</option>
-            <option value="servicos">Serviços, Beleza & Automotivo</option>
+          <label class="block text-xs font-bold text-slate-300 mb-1">Público-Alvo em Marília</label>
+          <select id="targetAudience" onchange="calculate()" class="w-full bg-brand-input border border-brand-cardBorder rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-orange">
+            <option value="gastronomia">Gastronomia Noturna & Delivery</option>
+            <option value="geral">Geral / Varejo Urbano & Promoções</option>
+            <option value="jovens">Jovens / Universitários (Univem, Unimar, Famema)</option>
+            <option value="servicos">Serviços & Automotivo</option>
           </select>
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1.5">CPM Médio Marília (Meta)</label>
+          <label class="block text-xs font-bold text-slate-300 mb-1">CPM Estimado Marília (Meta)</label>
           <div class="relative">
-            <span class="absolute left-3 top-2 text-xs text-slate-500 font-bold">R$</span>
-            <input type="number" id="inputCpm" value="18.00" step="0.5" oninput="recalculateAll()" class="w-full bg-brand-dark border border-brand-border rounded-xl pl-8 pr-3 py-2 text-xs text-white focus:outline-none focus:border-brand-orange">
+            <span class="absolute left-3 top-2 text-xs text-slate-500">R$</span>
+            <input type="number" id="cpmInput" value="18.00" step="0.50" oninput="calculate()" class="w-full bg-brand-input border border-brand-cardBorder rounded-xl pl-9 pr-3 py-2 text-sm text-white focus:outline-none">
           </div>
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1.5">Reinvestimento em Tráfego (sobre 12%)</label>
+          <label class="block text-xs font-bold text-slate-300 mb-1">Reinvestimento em Tráfego</label>
           <div class="flex items-center gap-3">
-            <input type="range" id="rangeReinvest" min="20" max="70" value="50" step="5" oninput="recalculateAll()" class="w-full accent-brand-orange">
-            <span id="txtReinvest" class="text-xs font-bold text-brand-orange w-10 text-right">50%</span>
+            <input type="range" id="reinvestRate" min="20" max="70" value="50" oninput="calculate()" class="w-full accent-brand-orange">
+            <span class="text-sm font-bold text-brand-orange w-12 text-right" id="reinvestRateLabel">50%</span>
           </div>
         </div>
 
-        <div class="flex items-end gap-2">
-          <button onclick="loadSampleOffers()" class="w-full py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-brand-border transition">
-            ⚡ 10 Ofertas Modelo Marília
+        <div class="flex items-end">
+          <button onclick="loadSampleOffers()" class="w-full text-xs font-bold py-2.5 px-3 rounded-xl bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 transition">
+            Carregar 10 Ofertas Reais de Marília
           </button>
         </div>
       </div>
     </section>
 
-
-    <!-- Base Offers List & Image Upload Table -->
-    <section class="bg-brand-card border border-brand-border p-5 rounded-2xl">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-brand-border">
+    <!-- GESTÃO DAS OFERTAS -->
+    <section class="bg-brand-card border border-brand-cardBorder p-5 rounded-2xl mb-8">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4">
         <div>
-          <h2 class="text-base font-extrabold text-white flex items-center gap-2">
-            Base de Ofertas do Anúncio
-            <span id="badgeCountOffers" class="text-xs font-mono font-bold px-2 py-0.5 rounded-full bg-brand-orange/20 text-brand-orange">0 ofertas</span>
+          <h2 class="text-lg font-extrabold text-white flex items-center gap-2">
+            Base de Ofertas Cadastradas
+            <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-brand-orange/20 text-brand-orange" id="offersCountBadge">0 ofertas</span>
           </h2>
-          <p class="text-xs text-slate-400 mt-0.5">Suba as fotos das ofertas aqui ou no próprio carrossel. O sistema aplica o template da categoria automaticamente.</p>
+          <p class="text-xs text-slate-400">Insira a imagem de cada produto aqui para que o estúdio 4:5 gere o carrossel pronto com a Logo Oficial.</p>
         </div>
-
         <div class="flex items-center gap-2">
-          <button onclick="addEmptyOffer()" class="text-xs font-bold px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-brand-border transition">
+          <button onclick="addEmptyOffer()" class="text-xs font-bold px-3 py-2 rounded-xl bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 transition">
             + Nova Oferta
           </button>
-          <button onclick="clusterBalancedFive()" class="text-xs font-extrabold px-4 py-2 rounded-xl bg-gradient-to-r from-brand-orange to-amber-500 text-white shadow-md shadow-brand-orange/20 hover:brightness-110 transition flex items-center gap-1.5">
+          <button onclick="runBalancedClustering()" class="text-xs font-extrabold px-4 py-2 rounded-xl bg-gradient-to-r from-brand-orange to-amber-500 text-white shadow-lg shadow-brand-orange/25 hover:brightness-110 transition flex items-center gap-1.5">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
-            <span>Gerar Blocos de 5 Balanceados</span>
+            <span>Gerar Carrosséis de 5 Lojas</span>
           </button>
         </div>
       </div>
 
       <div class="overflow-x-auto">
-        <table class="w-full text-left text-xs">
+        <table class="w-full text-left text-sm">
           <thead>
-            <tr class="text-slate-400 uppercase tracking-wider border-b border-brand-border/80 text-[10px]">
-              <th class="py-2.5 px-3">Foto 4:5</th>
-              <th class="py-2.5 px-3">Estabelecimento & Título da Oferta</th>
-              <th class="py-2.5 px-3">Template / Categoria</th>
+            <tr class="text-slate-500 border-b border-brand-cardBorder text-xs uppercase">
+              <th class="py-2.5 px-3">Foto Real</th>
+              <th class="py-2.5 px-3">Loja & Oferta</th>
+              <th class="py-2.5 px-3">Template Categoria</th>
               <th class="py-2.5 px-3">Preço (R$)</th>
-              <th class="py-2.5 px-3">Previsão Vendas</th>
-              <th class="py-2.5 px-3">CC (12%)</th>
-              <th class="py-2.5 px-3">Equipe (3%)</th>
+              <th class="py-2.5 px-3">Vendas Previstas</th>
+              <th class="py-2.5 px-3">CC (12%) | Time (3%)</th>
               <th class="py-2.5 px-3">Tração</th>
               <th class="py-2.5 px-3 text-right">Ação</th>
             </tr>
           </thead>
-          <tbody id="tbodyOffers" class="divide-y divide-brand-border/40">
-            <!-- Dynamic rows -->
+          <tbody id="offersTableBody" class="divide-y divide-brand-cardBorder/60">
+            <!-- Dinâmico -->
           </tbody>
         </table>
       </div>
     </section>
 
-
-    <!-- Generated Balanced Clusters & 4:5 Carousel Slides -->
-    <section class="space-y-6">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+    <!-- ESTÚDIO DE SLIDES 4:5 E BLOCOS DE 5 LOJAS -->
+    <section class="mb-10">
+      <div class="flex items-center justify-between mb-4">
         <div>
-          <h2 class="text-lg font-black text-white flex items-center gap-2">
-            Carrosséis de 5 Lojas • Formato Feed 4:5 (1080 x 1350)
+          <h2 class="text-lg font-extrabold text-white flex items-center gap-2">
+            Carrosséis Prontos no Formato 4:5 (1080 x 1350 px)
           </h2>
-          <p class="text-xs text-slate-400">Padronizado por categoria com identidade do CupomClic, margens de segurança, sem corte de texto.</p>
-        </div>
-        <div id="batchDownloadContainer" class="hidden">
-          <button onclick="downloadAllInActiveBlock()" class="text-xs font-black px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-brand-dark transition flex items-center gap-2 shadow-lg shadow-emerald-500/20">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-            <span>Baixar Todas as 5 Lâminas (PNG 1080x1350)</span>
-          </button>
+          <p class="text-xs text-slate-400">Padronização visual profissional por nicho, com Logo Oficial do CupomClic em alta definição e botão seguro anti-sobreposição.</p>
         </div>
       </div>
 
-      <!-- Cluster Tabs -->
-      <div id="clusterTabsContainer" class="flex flex-wrap items-center gap-2"></div>
-
-      <!-- Main 4:5 Creative Grid for the Selected Block -->
-      <div id="clusterSlidesGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-        <!-- Rendered 4:5 Cards with direct image preview & individual download -->
+      <div id="balancedClustersContainer" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Inserido dinamicamente -->
       </div>
     </section>
 
-    <!-- Post-Campaign Meta ML Auditor -->
-    <section class="bg-brand-card border border-brand-border p-6 rounded-2xl">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-5 pb-3 border-b border-brand-border">
+    <!-- RETROALIMENTAÇÃO IA META ADS -->
+    <section class="bg-brand-card border border-brand-cardBorder p-6 rounded-2xl">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-6 border-b border-brand-cardBorder pb-4">
         <div>
           <div class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-sky-400 animate-pulse"></span>
-            <h2 class="text-sm font-extrabold text-white uppercase tracking-wider">Retroalimentação & Inteligência de Tráfego Local</h2>
+            <span class="w-3 h-3 rounded-full bg-blue-500 animate-pulse"></span>
+            <h2 class="text-lg font-extrabold text-white">Retroalimentação & Otimização de Anúncios</h2>
           </div>
-          <p class="text-xs text-slate-400 mt-0.5">Avalie os cliques e cupons reais do Meta Ads para otimizar os próximos carrosséis em Marília.</p>
+          <p class="text-xs text-slate-400 mt-1">Insira os resultados reais para aferir a assertividade dos blocos veiculados em Marília.</p>
         </div>
-        <button onclick="runAuditML()" class="text-xs font-bold px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white transition">
-          Auditar Desempenho Real
+        <button onclick="analyzeFeedback()" class="text-xs font-bold px-4 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-500 transition shadow-lg shadow-blue-600/20">
+          Analisar Desempenho Real
         </button>
       </div>
 
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 mb-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
         <div>
-          <label class="text-[11px] font-bold text-slate-400 block mb-1">Gasto Real no Meta (R$)</label>
-          <input type="number" id="mlSpend" value="135.00" class="w-full bg-brand-dark border border-brand-border rounded-xl px-3 py-2 text-xs text-white font-mono">
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Gasto Real no Anúncio (R$)</label>
+          <input type="number" id="realAdSpend" value="135.00" class="w-full bg-brand-input border border-brand-cardBorder rounded-xl px-3 py-2 text-sm text-white">
         </div>
         <div>
-          <label class="text-[11px] font-bold text-slate-400 block mb-1">Cliques no Link (Meta)</label>
-          <input type="number" id="mlClicks" value="290" class="w-full bg-brand-dark border border-brand-border rounded-xl px-3 py-2 text-xs text-white font-mono">
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Cliques no Link (Meta)</label>
+          <input type="number" id="realLinkClicks" value="280" class="w-full bg-brand-input border border-brand-cardBorder rounded-xl px-3 py-2 text-sm text-white">
         </div>
         <div>
-          <label class="text-[11px] font-bold text-slate-400 block mb-1">Cupons Efetivos Resgatados</label>
-          <input type="number" id="mlRedeems" value="52" class="w-full bg-brand-dark border border-brand-border rounded-xl px-3 py-2 text-xs text-white font-mono">
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Cupons Efetivamente Resgatados</label>
+          <input type="number" id="realCouponsRedeemed" value="48" class="w-full bg-brand-input border border-brand-cardBorder rounded-xl px-3 py-2 text-sm text-white">
         </div>
         <div>
-          <label class="text-[11px] font-bold text-slate-400 block mb-1">Faturamento Real Gerado (R$)</label>
-          <input type="number" id="mlRevenue" value="2680.00" class="w-full bg-brand-dark border border-brand-border rounded-xl px-3 py-2 text-xs text-white font-mono">
+          <label class="block text-xs font-semibold text-slate-400 mb-1">Faturamento Bruto Real (R$)</label>
+          <input type="number" id="realRevenue" value="2450.00" class="w-full bg-brand-input border border-brand-cardBorder rounded-xl px-3 py-2 text-sm text-white">
         </div>
       </div>
 
-      <div id="mlAuditResultBox" class="bg-brand-dark/80 border border-brand-border p-4 rounded-xl text-xs text-slate-400 space-y-2">
-        Insira os dados reais acima e clique em "Auditar Desempenho Real" para diagnosticar CTR, CPC e conversão de resgate no app.
+      <div id="feedbackInsightsBox" class="bg-brand-input/70 border border-brand-cardBorder p-5 rounded-xl">
+        <div class="text-sm text-slate-300 font-medium mb-3 flex items-center gap-2">
+          <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Diagnóstico Inteligente de Eficiência
+        </div>
+        <div id="feedbackAnalysisContent" class="text-xs text-slate-400 space-y-2">
+          Preencha os dados reais acima e clique em <strong>"Analisar Desempenho Real"</strong>.
+        </div>
       </div>
     </section>
 
   </main>
 
-
   <script>
-    // Templates de Design por Categoria (Cores e Estilos Editoriais)
-    const CATEGORY_TEMPLATES = {
-      gastronomia: {
-        name: 'Gastronomia & Lanches',
-        badge: 'DESTAQUE GOURMET 🔥',
-        primaryColor: '#F57011',
-        secondaryColor: '#FFB74D',
-        bgGradient: ['#120D0A', '#080503'],
-        frameBorder: '#3D2411',
-        ctaBg: '#F57011',
-        ctaTextColor: '#FFFFFF',
-        baseHeat: 94
+    // LOGO OFICIAL DO CUPOMCLIC (Vetor embutido em SVG Data URL para nunca falhar e ter nitidez total)
+    let officialLogoDataURL = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 220" width="760" height="220">
+      <defs>
+        <linearGradient id="clicGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="%23f7931e"/>
+          <stop offset="100%" stop-color="%23ed6b23"/>
+        </linearGradient>
+      </defs>
+      <!-- TEXTO CUPOM (AZUL MARINHO OFICIAL) -->
+      <text x="30" y="142" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="124" font-weight="900" fill="%230b1e42" letter-spacing="-3">cupom</text>
+      <!-- TEXTO CLIC (LARANJA GRADIENTE) -->
+      <text x="445" y="142" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="124" font-weight="900" fill="url(%23clicGrad)" letter-spacing="-3">clic</text>
+      
+      <!-- ARCO DE PONTOS COLORIDOS (CIRCULAR DO CUPOMCLIC) -->
+      <g transform="translate(635, 110)">
+        <!-- PONTOS SUPERIORES (LARANJAS / ROSAS) -->
+        <circle cx="28" cy="-55" r="9" fill="%23f7941d"/>
+        <circle cx="48" cy="-45" r="8.5" fill="%23f9a01b"/>
+        <circle cx="65" cy="-30" r="8" fill="%23f26c4f"/>
+        <circle cx="75" cy="-12" r="7.5" fill="%23ee436b"/>
+        <circle cx="80" cy="8" r="7" fill="%23b82684"/>
+        <circle cx="72" cy="28" r="6.5" fill="%238a298a"/>
+
+        <circle cx="15" cy="-38" r="6.5" fill="%23f7941d"/>
+        <circle cx="32" cy="-30" r="6" fill="%23f37032"/>
+        <circle cx="45" cy="-18" r="5.5" fill="%23ee4060"/>
+        <circle cx="52" cy="-4" r="5" fill="%23bb267c"/>
+        <circle cx="53" cy="12" r="4.5" fill="%2385287f"/>
+
+        <!-- PONTOS INFERIORES (CIANO / AZUIS / VERDES) -->
+        <circle cx="10" cy="45" r="7.5" fill="%2300a79d"/>
+        <circle cx="28" cy="56" r="8" fill="%2300958f"/>
+        <circle cx="48" cy="50" r="8.5" fill="%230075a9"/>
+        <circle cx="64" cy="38" r="8" fill="%232b4b9b"/>
+        <circle cx="74" cy="20" r="7.5" fill="%23662d91"/>
+
+        <circle cx="15" cy="30" r="5.5" fill="%2300b1a9"/>
+        <circle cx="30" cy="38" r="5.5" fill="%23008cb7"/>
+        <circle cx="45" cy="32" r="5" fill="%231f4196"/>
+        <circle cx="54" cy="18" r="4.5" fill="%23562681"/>
+      </g>
+    </svg>`;
+
+    // ESTADO
+    let offers = [];
+    let generatedClusters = [];
+    const offerImages = {};
+
+    // PALETAS VISUAIS HARMONIOSAS POR CATEGORIA (SEM POLUIÇÃO)
+    const TEMPLATES = {
+      burger: {
+        name: 'Hamburgueria / Lanches',
+        badge: 'HAMBURGUERIA ARTESANAL 🔥',
+        bgGradient: ['#120B08', '#07090F'],
+        accent: '#FF5500',
+        cardBg: '#1C120C',
+        baseHeat: 95
       },
-      pizzaria: {
-        name: 'Pizzarias & Massas',
+      pizza: {
+        name: 'Pizzaria',
         badge: 'FORNO A LENHA 🍕',
-        primaryColor: '#EF4444',
-        secondaryColor: '#FCA5A5',
-        bgGradient: ['#140B0B', '#090404'],
-        frameBorder: '#451A1A',
-        ctaBg: '#EF4444',
-        ctaTextColor: '#FFFFFF',
-        baseHeat: 92
+        bgGradient: ['#150906', '#09080E'],
+        accent: '#FF6B00',
+        cardBg: '#1F110B',
+        baseHeat: 90
       },
-      sobremesas: {
-        name: 'Açaí, Gelatos & Doces',
-        badge: 'GELADOS & DOCES 🍨',
-        primaryColor: '#D946EF',
-        secondaryColor: '#F5D0FE',
-        bgGradient: ['#150917', '#09030A'],
-        frameBorder: '#3F1A45',
-        ctaBg: '#D946EF',
-        ctaTextColor: '#FFFFFF',
-        baseHeat: 89
+      acai: {
+        name: 'Açaí & Sobremesas',
+        badge: 'REFRESCANTE & PREMIUM 🍧',
+        bgGradient: ['#140816', '#080811'],
+        accent: '#D946EF',
+        cardBg: '#1F0D24',
+        baseHeat: 88
       },
-      beleza: {
-        name: 'Beleza, Barba & Estética',
-        badge: 'CUIDADO PESSOAL ✨',
-        primaryColor: '#EAB308',
-        secondaryColor: '#FEF08A',
-        bgGradient: ['#12110D', '#080705'],
-        frameBorder: '#3B3213',
-        ctaBg: '#EAB308',
-        ctaTextColor: '#000000',
-        baseHeat: 78
+      sushi: {
+        name: 'Culinária Oriental',
+        badge: 'COMBINADO SELECIONADO 🍣',
+        bgGradient: ['#140E0A', '#060A10'],
+        accent: '#F59E0B',
+        cardBg: '#1E150F',
+        baseHeat: 84
       },
-      servicos: {
-        name: 'Automotivo & Serviços',
-        badge: 'SERVIÇOS DE CONFIANÇA 🚗',
-        primaryColor: '#0EA5E9',
-        secondaryColor: '#BAE6FD',
-        bgGradient: ['#0A1118', '#04070A'],
-        frameBorder: '#163147',
-        ctaBg: '#0EA5E9',
-        ctaTextColor: '#FFFFFF',
-        baseHeat: 74
+      auto: {
+        name: 'Automotivo / Lavacar',
+        badge: 'ESTÉTICA AUTOMOTIVA 🚗',
+        bgGradient: ['#08121E', '#060B12'],
+        accent: '#38BDF8',
+        cardBg: '#0C1B2E',
+        baseHeat: 68
       },
-      varejo: {
-        name: 'Moda, Óticas & Varejo',
-        badge: 'TENDÊNCIA & ESTILO 🛍️',
-        primaryColor: '#A855F7',
-        secondaryColor: '#E9D5FF',
-        bgGradient: ['#100D16', '#06040A'],
-        frameBorder: '#2E1E47',
-        ctaBg: '#A855F7',
-        ctaTextColor: '#FFFFFF',
-        baseHeat: 70
+      beauty: {
+        name: 'Barbearia / Beleza',
+        badge: 'CUIDADO & ESTILO ✂️',
+        bgGradient: ['#15120C', '#0A0B10'],
+        accent: '#EAB308',
+        cardBg: '#211B10',
+        baseHeat: 75
+      },
+      fashion: {
+        name: 'Moda & Acessórios',
+        badge: 'COLEÇÃO EXCLUSIVA ✨',
+        bgGradient: ['#121017', '#08080E'],
+        accent: '#A855F7',
+        cardBg: '#1C1826',
+        baseHeat: 65
+      },
+      fitness: {
+        name: 'Fitness & Saúde',
+        badge: 'ALTA PERFORMANCE 💪',
+        bgGradient: ['#0A1512', '#060D10'],
+        accent: '#10B981',
+        cardBg: '#0E221D',
+        baseHeat: 72
       }
     };
 
-    // 10 Ofertas Iniciais Modelo Marília
-    const SAMPLE_MARILIA = [
-      { id: 1, store: "Hamburgueria Central", title: "Combo Smash Duplo + Batata Rústica", category: "gastronomia", price: 38.00, salesEst: 25 },
-      { id: 2, store: "Pizzaria Bella Marília", title: "Pizza Grande Tradicional 8 Fatias", category: "pizzaria", price: 62.00, salesEst: 16 },
-      { id: 3, store: "Açaí Tropical Tiradentes", title: "Copo 500ml Turbinado c/ Nutella", category: "sobremesas", price: 24.00, salesEst: 35 },
-      { id: 4, store: "Lavacar Cascata Express", title: "Lavagem Completa c/ Cera e Secagem", category: "servicos", price: 65.00, salesEst: 12 },
-      { id: 5, store: "Barbearia Dom Marília", title: "Corte Degradê + Barboterapia", category: "beleza", price: 55.00, salesEst: 15 },
-      { id: 6, store: "Sushi Prime Marília", title: "Combo 24 Peças Especiais Salmão", category: "gastronomia", price: 79.90, salesEst: 14 },
-      { id: 7, store: "Pastelaria da Avenida", title: "Super Pastel Especial 30cm", category: "gastronomia", price: 28.00, salesEst: 30 },
-      { id: 8, store: "Gelateria Itália Centro", title: "Taça Suprema Dupla Artesanal", category: "sobremesas", price: 32.00, salesEst: 20 },
-      { id: 9, store: "Ótica Esmeralda Marília", title: "Armação Solar Proteção UV400", category: "varejo", price: 119.00, salesEst: 8 },
-      { id: 10, store: "Troca de Óleo Confiança", title: "Óleo 100% Sintético + Filtro", category: "servicos", price: 160.00, salesEst: 6 }
-    ];
-
-    // App State
-    let offers = [];
-    let imageStore = {}; // id -> Base64
-    let generatedBlocks = [];
-    let activeBlockIndex = 0;
-
-    // Utilitário Financeiro
-    function formatMoney(val) {
-      return (val || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    function setHeaderLogo() {
+      const img = document.getElementById("headerBrandLogo");
+      if (img) img.src = officialLogoDataURL;
     }
 
-    // Carregar Ofertas Iniciais
-    function loadSampleOffers() {
-      offers = JSON.parse(JSON.stringify(SAMPLE_MARILIA));
-      renderOffersTable();
-      recalculateAll();
-      clusterBalancedFive();
-    }
-
-    function addEmptyOffer() {
-      const nextId = offers.length ? Math.max(...offers.map(o => o.id)) + 1 : 1;
-      offers.push({
-        id: nextId,
-        store: `Loja Marília #${nextId}`,
-        title: "Nome da Oferta Imperdível",
-        category: "gastronomia",
-        price: 49.90,
-        salesEst: 15
-      });
-      renderOffersTable();
-      recalculateAll();
-    }
-
-    function removeOffer(id) {
-      offers = offers.filter(o => o.id !== id);
-      delete imageStore[id];
-      renderOffersTable();
-      recalculateAll();
-      if (offers.length >= 5) clusterBalancedFive();
-    }
-
-    function updateOfferField(id, field, val) {
-      const item = offers.find(o => o.id === id);
-      if (!item) return;
-      if (field === 'price' || field === 'salesEst') {
-        item[field] = parseFloat(val) || 0;
-      } else {
-        item[field] = val;
-      }
-      recalculateAll();
-    }
-
-    // Upload de Imagem e Armazenamento Local
-    function handlePhotoUpload(id, file) {
+    function changeCustomLogo(file) {
       if (!file) return;
       const reader = new FileReader();
       reader.onload = function(e) {
-        imageStore[id] = e.target.result;
-        renderOffersTable();
-        renderClusterSlides();
+        officialLogoDataURL = e.target.result;
+        setHeaderLogo();
+        if (generatedClusters.length > 0) renderClusters();
+        alert("Logo personalizada aplicada com sucesso!");
       };
       reader.readAsDataURL(file);
     }
 
-    // Cálculo da Temperatura Dinâmica
-    function calculateHeat(offer, audience) {
-      const tpl = CATEGORY_TEMPLATES[offer.category] || CATEGORY_TEMPLATES.gastronomia;
-      let score = tpl.baseHeat;
-
-      if (audience === 'gastronomia' && (offer.category === 'gastronomia' || offer.category === 'pizzaria')) score += 10;
-      if (audience === 'jovens' && (offer.category === 'gastronomia' || offer.category === 'sobremesas')) score += 8;
-      if (audience === 'servicos' && (offer.category === 'servicos' || offer.category === 'beleza')) score += 12;
-
-      // Ofertas isca com preço acessível têm maior CTR
-      if (offer.price <= 35) score += 8;
-      if (offer.price >= 120) score -= 8;
-
-      return Math.min(99, Math.max(25, score));
+    // 10 OFERTAS REAIS DE MARÍLIA
+    function loadSampleOffers() {
+      offers = [
+        { id: 1, store: "Hamburgueria Central", title: "Combo Smash Duplo + Batata Frita", category: "burger", price: 38.00, salesEst: 20 },
+        { id: 2, store: "Pizzaria Bella Marília", title: "Pizza Grande Especial 8 Fatias", category: "pizza", price: 65.00, salesEst: 15 },
+        { id: 3, store: "Açaí Tropical Tiradentes", title: "Copo 500ml Turbinado", category: "acai", price: 24.00, salesEst: 30 },
+        { id: 4, store: "Lavacar Cascata Express", title: "Ducha Completa + Cera Líquida", category: "auto", price: 60.00, salesEst: 12 },
+        { id: 5, store: "Barbearia Dom Marília", title: "Corte Degradê + Barba Terapia", category: "beauty", price: 55.00, salesEst: 14 },
+        { id: 6, store: "Sushi Marília Premium", title: "Combo 30 Peças Tradicional", category: "sushi", price: 89.00, salesEst: 10 },
+        { id: 7, store: "Pastelaria da Avenida", title: "Super Pastel 30cm + Caldo", category: "burger", price: 28.00, salesEst: 25 },
+        { id: 8, store: "Marília Fitness Suplementos", title: "Whey Concentrado 900g Refil", category: "fitness", price: 95.00, salesEst: 8 },
+        { id: 9, store: "Ótica Esmeralda", title: "Armação Solar Proteção UV", category: "fashion", price: 120.00, salesEst: 6 },
+        { id: 10, store: "Troca de Óleo Confiança", title: "Revisão Básica + Troca Filtro", category: "auto", price: 150.00, salesEst: 5 }
+      ];
+      renderOffersTable();
+      calculate();
+      runBalancedClustering();
     }
 
+    function handleImageUpload(offerId, file) {
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        offerImages[offerId] = e.target.result;
+        renderOffersTable();
+        if (generatedClusters.length > 0) renderClusters();
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function addEmptyOffer() {
+      const newId = offers.length > 0 ? Math.max(...offers.map(o => o.id)) + 1 : 1;
+      offers.push({
+        id: newId,
+        store: "Nova Loja Marília",
+        title: "Oferta Especial",
+        category: "burger",
+        price: 49.90,
+        salesEst: 10
+      });
+      renderOffersTable();
+      calculate();
+    }
+
+    function removeOffer(id) {
+      offers = offers.filter(o => o.id !== id);
+      delete offerImages[id];
+      renderOffersTable();
+      calculate();
+    }
+
+    function updateOffer(id, field, value) {
+      const item = offers.find(o => o.id === id);
+      if (item) {
+        if (field === 'price' || field === 'salesEst') {
+          item[field] = parseFloat(value) || 0;
+        } else {
+          item[field] = value;
+        }
+        calculate();
+      }
+    }
+
+    function getHeatScore(offer, audience) {
+      const t = TEMPLATES[offer.category] || { baseHeat: 70 };
+      let heat = t.baseHeat;
+
+      if (audience === 'gastronomia' && ['burger', 'pizza', 'acai', 'sushi'].includes(offer.category)) heat += 10;
+      if (audience === 'jovens' && ['burger', 'acai', 'fitness'].includes(offer.category)) heat += 8;
+      if (audience === 'servicos' && ['auto', 'beauty'].includes(offer.category)) heat += 15;
+
+      if (offer.price <= 35) heat += 6;
+      if (offer.price >= 110) heat -= 8;
+
+      return Math.min(Math.max(heat, 30), 99);
+    }
 
     function renderOffersTable() {
-      const tbody = document.getElementById("tbodyOffers");
-      const badge = document.getElementById("badgeCountOffers");
-      badge.textContent = `${offers.length} ofertas`;
+      const tbody = document.getElementById("offersTableBody");
+      document.getElementById("offersCountBadge").textContent = `${offers.length} ofertas`;
 
-      if (!offers.length) {
-        tbody.innerHTML = `<tr><td colspan="9" class="py-8 text-center text-slate-500">Nenhuma oferta adicionada. Clique em "+ Nova Oferta" ou "10 Ofertas Modelo".</td></tr>`;
+      if (offers.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" class="py-8 text-center text-slate-500 text-xs">Nenhuma oferta cadastrada. Clique em "Carregar 10 Ofertas Reais de Marília".</td></tr>`;
         return;
       }
 
-      const audience = document.getElementById("selAudience").value;
+      const audience = document.getElementById("targetAudience").value;
 
       tbody.innerHTML = offers.map(o => {
-        const gross = o.price * o.salesEst;
-        const feeCC = gross * 0.12;
-        const feeStaff = gross * 0.03;
-        const heat = calculateHeat(o, audience);
-        const hasImg = imageStore[o.id];
+        const platformShare = (o.price * o.salesEst * 0.12);
+        const staffShare = (o.price * o.salesEst * 0.03);
+        const heat = getHeatScore(o, audience);
+        const hasImg = offerImages[o.id];
+
+        const imgThumb = hasImg 
+          ? `<img src="${hasImg}" class="w-11 h-11 object-cover rounded-xl border border-brand-orange shadow">`
+          : `<div class="w-11 h-11 bg-slate-800 flex flex-col items-center justify-center rounded-xl border border-slate-700 text-[9px] text-slate-400 font-bold hover:border-brand-orange transition">
+               <span>+ FOTO</span>
+             </div>`;
 
         return `
-          <tr class="hover:bg-slate-900/60 transition">
-            <td class="py-2 px-3">
-              <label class="cursor-pointer block group relative">
-                ${hasImg 
-                  ? `<img src="${hasImg}" class="w-11 h-11 object-cover rounded-xl border border-brand-border group-hover:border-brand-orange">`
-                  : `<div class="w-11 h-11 rounded-xl bg-slate-800 border border-slate-700 flex flex-col items-center justify-center text-[9px] text-slate-400 group-hover:border-brand-orange group-hover:text-brand-orange transition">
-                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                      <span>Foto</span>
-                    </div>`
-                }
-                <input type="file" accept="image/*" class="hidden" onchange="handlePhotoUpload(${o.id}, this.files[0])">
+          <tr class="hover:bg-brand-card/40 transition">
+            <td class="py-2.5 px-3">
+              <label class="cursor-pointer block relative">
+                ${imgThumb}
+                <input type="file" accept="image/*" class="hidden" onchange="handleImageUpload(${o.id}, this.files[0])">
               </label>
             </td>
-
-            <td class="py-2 px-3">
-              <input type="text" value="${o.store}" onchange="updateOfferField(${o.id}, 'store', this.value)" class="w-full font-bold text-white bg-transparent focus:bg-brand-dark rounded px-1.5 py-0.5 text-xs outline-none">
-              <input type="text" value="${o.title}" onchange="updateOfferField(${o.id}, 'title', this.value)" class="w-full text-slate-400 bg-transparent focus:bg-brand-dark rounded px-1.5 py-0.5 text-xs outline-none">
+            <td class="py-2.5 px-3">
+              <input type="text" value="${o.store}" onchange="updateOffer(${o.id}, 'store', this.value)" class="block w-full font-bold text-slate-200 bg-transparent focus:bg-brand-input focus:outline-none rounded px-1.5 py-0.5 text-xs">
+              <input type="text" value="${o.title}" onchange="updateOffer(${o.id}, 'title', this.value)" class="block w-full text-slate-400 bg-transparent focus:bg-brand-input focus:outline-none rounded px-1.5 py-0.5 text-xs">
             </td>
-
-            <td class="py-2 px-3">
-              <select onchange="updateOfferField(${o.id}, 'category', this.value)" class="bg-brand-dark border border-brand-border rounded-lg px-2 py-1 text-slate-300 text-xs outline-none">
-                ${Object.keys(CATEGORY_TEMPLATES).map(k => `
-                  <option value="${k}" ${o.category === k ? 'selected' : ''}>${CATEGORY_TEMPLATES[k].name}</option>
-                `).join('')}
+            <td class="py-2.5 px-3">
+              <select onchange="updateOffer(${o.id}, 'category', this.value)" class="bg-brand-input border border-brand-cardBorder rounded-lg px-2 py-1 text-xs text-slate-300 focus:outline-none">
+                ${Object.keys(TEMPLATES).map(k => `<option value="${k}" ${k === o.category ? 'selected' : ''}>${TEMPLATES[k].name}</option>`).join('')}
               </select>
             </td>
-
-            <td class="py-2 px-3 font-mono">
+            <td class="py-2.5 px-3">
               <div class="flex items-center gap-1">
-                <span class="text-slate-500">R$</span>
-                <input type="number" step="0.5" value="${o.price}" oninput="updateOfferField(${o.id}, 'price', this.value)" class="w-16 bg-brand-dark border border-brand-border rounded px-2 py-1 text-right text-white">
+                <span class="text-xs text-slate-500">R$</span>
+                <input type="number" step="0.5" value="${o.price}" oninput="updateOffer(${o.id}, 'price', this.value)" class="w-20 bg-brand-input border border-brand-cardBorder rounded px-2 py-1 text-xs text-white text-right">
               </div>
             </td>
-
-            <td class="py-2 px-3 text-center font-mono">
-              <input type="number" value="${o.salesEst}" oninput="updateOfferField(${o.id}, 'salesEst', this.value)" class="w-14 bg-brand-dark border border-brand-border rounded px-2 py-1 text-center text-white">
+            <td class="py-2.5 px-3">
+              <input type="number" value="${o.salesEst}" oninput="updateOffer(${o.id}, 'salesEst', this.value)" class="w-16 bg-brand-input border border-brand-cardBorder rounded px-2 py-1 text-xs text-white text-center">
             </td>
-
-            <td class="py-2 px-3 font-mono font-bold text-brand-orange">
-              ${formatMoney(feeCC)}
+            <td class="py-2.5 px-3 text-xs">
+              <div class="font-bold text-brand-orange">CC 12%: R$ ${platformShare.toFixed(2)}</div>
+              <div class="text-[11px] text-amber-400 font-semibold">Equipe 3%: R$ ${staffShare.toFixed(2)}</div>
             </td>
-
-            <td class="py-2 px-3 font-mono text-amber-400">
-              ${formatMoney(feeStaff)}
-            </td>
-
-            <td class="py-2 px-3">
-              <span class="px-2 py-0.5 rounded text-[10px] font-bold ${heat >= 85 ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'}">
+            <td class="py-2.5 px-3">
+              <span class="text-[11px] font-bold px-2 py-0.5 rounded-full ${heat >= 85 ? 'bg-red-500/20 text-red-400 border border-red-500/30' : 'bg-slate-800 text-slate-300'}">
                 ${heat}%
               </span>
             </td>
-
-            <td class="py-2 px-3 text-right">
-              <button onclick="removeOffer(${o.id})" class="text-slate-500 hover:text-rose-400 transition p-1">
+            <td class="py-2.5 px-3 text-right">
+              <button onclick="removeOffer(${o.id})" class="text-slate-500 hover:text-red-400 transition p-1">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
               </button>
             </td>
@@ -555,556 +534,510 @@
       }).join('');
     }
 
-    // Recálculo Geral
-    function recalculateAll() {
-      const reinvestPct = parseInt(document.getElementById("rangeReinvest").value) / 100;
-      document.getElementById("txtReinvest").textContent = `${Math.round(reinvestPct * 100)}%`;
-      document.getElementById("kpiReinvestLabel").textContent = `${Math.round(reinvestPct * 100)}% do Lucro CC`;
+    function calculate() {
+      const reinvestPct = parseInt(document.getElementById("reinvestRate").value) / 100;
+      document.getElementById("reinvestRateLabel").textContent = `${Math.round(reinvestPct * 100)}%`;
+      document.getElementById("kpiReinvestRatio").textContent = `${Math.round(reinvestPct * 100)}% do lucro CupomClic`;
 
       let totalGross = 0;
       let totalUnits = 0;
-      let totalFeeCC = 0;
+      let totalFeePlatform = 0;
       let totalFeeStaff = 0;
 
       offers.forEach(o => {
         const rev = (o.price || 0) * (o.salesEst || 0);
         totalGross += rev;
         totalUnits += (o.salesEst || 0);
-        totalFeeCC += rev * 0.12;
+        totalFeePlatform += rev * 0.12;
         totalFeeStaff += rev * 0.03;
       });
 
-      const totalMedia = totalFeeCC * reinvestPct;
-      const netProfit = totalFeeCC - totalMedia;
+      const totalAds = totalFeePlatform * reinvestPct;
+      const netProfit = totalFeePlatform - totalAds;
 
-      document.getElementById("kpiGrossRev").textContent = formatMoney(totalGross);
-      document.getElementById("kpiCouponsCount").textContent = `${totalUnits} cupons estimados`;
-      document.getElementById("kpiFeeCC").textContent = formatMoney(totalFeeCC);
-      document.getElementById("kpiFeeStaff").textContent = formatMoney(totalFeeStaff);
-      document.getElementById("kpiMediaInvest").textContent = formatMoney(totalMedia);
-      document.getElementById("kpiNetProfit").textContent = formatMoney(netProfit);
-      document.getElementById("kpiNetMargin").textContent = totalFeeCC > 0 ? `Sobra líquida de ${((netProfit / totalFeeCC) * 100).toFixed(0)}%` : 'Sobra após tráfego';
+      document.getElementById("kpiGrossRevenue").textContent = `R$ ${totalGross.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+      document.getElementById("kpiTotalUnits").textContent = `${totalUnits} cupons estimados`;
+      document.getElementById("kpiPlatformProfit").textContent = `R$ ${totalFeePlatform.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+      document.getElementById("kpiStaffProfit").textContent = `R$ ${totalFeeStaff.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+      document.getElementById("kpiTotalAds").textContent = `R$ ${totalAds.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+      document.getElementById("kpiNetProfit").textContent = `R$ ${netProfit.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+      document.getElementById("kpiNetMargin").textContent = totalFeePlatform > 0 ? `Sobra de ${((netProfit / totalFeePlatform) * 100).toFixed(0)}% da comissão` : `Sobra líquida segura`;
     }
 
-    // Algoritmo Snake para Balancear 5 Ofertas
-    function clusterBalancedFive() {
+    // CLUSTERING BALANCEADO (SNAKE)
+    function runBalancedClustering() {
       if (offers.length < 5) {
-        showCustomAlert("Cadastre pelo menos 5 ofertas para gerar o carrossel.");
+        alert("Cadastre pelo menos 5 ofertas para estruturar um carrossel.");
         return;
       }
 
-      const audience = document.getElementById("selAudience").value;
-      const reinvestPct = parseInt(document.getElementById("rangeReinvest").value) / 100;
+      const audience = document.getElementById("targetAudience").value;
+      const reinvestPct = parseInt(document.getElementById("reinvestRate").value) / 100;
 
-      // 1. Pondera e ordena do maior calor para o menor
-      const sorted = [...offers].map(o => ({
+      const sortedOffers = [...offers].map(o => ({
         ...o,
-        heat: calculateHeat(o, audience),
-        feeCC: (o.price * o.salesEst * 0.12),
+        heat: getHeatScore(o, audience),
+        feePlatform: (o.price * o.salesEst * 0.12),
         feeStaff: (o.price * o.salesEst * 0.03)
       })).sort((a, b) => b.heat - a.heat);
 
-      const numBlocks = Math.floor(sorted.length / 5);
-      const blocks = Array.from({ length: numBlocks }, () => []);
+      const numClusters = Math.floor(sortedOffers.length / 5);
+      const clusters = Array.from({ length: numClusters }, () => []);
 
-      let bIdx = 0;
-      let goingRight = true;
+      let clusterIndex = 0;
+      let forward = true;
 
-      sorted.slice(0, numBlocks * 5).forEach(item => {
-        blocks[bIdx].push(item);
-        if (goingRight) {
-          if (bIdx === numBlocks - 1) goingRight = false;
-          else bIdx++;
+      sortedOffers.slice(0, numClusters * 5).forEach((item) => {
+        clusters[clusterIndex].push(item);
+        if (forward) {
+          if (clusterIndex === numClusters - 1) forward = false;
+          else clusterIndex++;
         } else {
-          if (bIdx === 0) goingRight = true;
-          else bIdx--;
+          if (clusterIndex === 0) forward = true;
+          else clusterIndex--;
         }
       });
 
-      // 2. Ordena cada bloco: Slide 1 é sempre o mais forte (Âncora de cliques)
-      generatedBlocks = blocks.map((items, i) => {
-        items.sort((a, b) => b.heat - a.heat);
-        const blockFeeCC = items.reduce((sum, curr) => sum + curr.feeCC, 0);
-        const blockFeeStaff = items.reduce((sum, curr) => sum + curr.feeStaff, 0);
-        const blockGross = items.reduce((sum, curr) => sum + (curr.price * curr.salesEst), 0);
-        const blockMedia = blockFeeCC * reinvestPct;
+      generatedClusters = clusters.map((block, idx) => {
+        block.sort((a, b) => b.heat - a.heat);
+        
+        const totalBlockFeePlatform = block.reduce((acc, curr) => acc + curr.feePlatform, 0);
+        const totalBlockFeeStaff = block.reduce((acc, curr) => acc + curr.feeStaff, 0);
+        const totalBlockRev = block.reduce((acc, curr) => acc + (curr.price * curr.salesEst), 0);
+        const avgHeat = Math.round(block.reduce((acc, curr) => acc + curr.heat, 0) / block.length);
+        const recommendedAds = totalBlockFeePlatform * reinvestPct;
 
         return {
-          id: `Bloco ${String.fromCharCode(65 + i)}`,
-          items: items,
-          gross: blockGross,
-          feeCC: blockFeeCC,
-          feeStaff: blockFeeStaff,
-          media: blockMedia
+          id: `Bloco ${String.fromCharCode(65 + idx)}`,
+          offers: block,
+          totalRev: totalBlockRev,
+          totalFeePlatform: totalBlockFeePlatform,
+          totalFeeStaff: totalBlockFeeStaff,
+          recommendedAds: recommendedAds,
+          avgHeat: avgHeat,
+          anchor: block[0]
         };
       });
 
-      activeBlockIndex = 0;
-      renderClusterTabs();
-      renderClusterSlides();
-      document.getElementById("batchDownloadContainer").classList.remove("hidden");
+      renderClusters();
     }
 
-    function renderClusterTabs() {
-      const container = document.getElementById("clusterTabsContainer");
-      container.innerHTML = generatedBlocks.map((blk, idx) => `
-        <button onclick="selectBlock(${idx})" class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 ${
-          idx === activeBlockIndex
-            ? 'bg-brand-orange text-white shadow-lg shadow-brand-orange/25'
-            : 'bg-brand-card text-slate-400 hover:text-white border border-brand-border'
-        }">
-          <span>${blk.id} (5 Lojas)</span>
-          <span class="text-[10px] px-1.5 py-0.2 rounded-full ${idx === activeBlockIndex ? 'bg-white/20' : 'bg-slate-800 text-slate-300'}">
-            Mídia: ${formatMoney(blk.media)}
-          </span>
-        </button>
-      `).join('');
-    }
+    // DESENHO OFICIAL DO SLIDE 4:5 COM A LOGO REAL EMBUTIDA
+    function renderCanvas4x5(item, idx, blockId, callback) {
+      const isAnchor = idx === 0;
+      const t = TEMPLATES[item.category] || TEMPLATES.burger;
 
-    function selectBlock(idx) {
-      activeBlockIndex = idx;
-      renderClusterTabs();
-      renderClusterSlides();
-    }
-
-
-    // Desenho Oficial do Logo CupomClic no Canvas
-    function drawCupomClicLogo(ctx, x, y, scale = 1.0) {
-      ctx.save();
-      ctx.translate(x, y);
-      ctx.scale(scale, scale);
-
-      // 'cupom' (Azul Marinho)
-      ctx.font = '900 68px "Plus Jakarta Sans"';
-      ctx.fillStyle = '#0E274D';
-      ctx.textAlign = 'left';
-      ctx.textBaseline = 'middle';
-      ctx.fillText('cupom', 0, 40);
-
-      // 'clic' (Laranja vibrante)
-      ctx.font = '800 68px "Plus Jakarta Sans"';
-      ctx.fillStyle = '#F57011';
-      ctx.fillText('clic', 242, 40);
-
-      // Espiral de pontos coloridos
-      const cx = 358;
-      const cy = 40;
-
-      const outerDots = [
-        { x: 26, y: -34, c: '#E65100', r: 3.8 },
-        { x: 38, y: -16, c: '#F57C00', r: 3.8 },
-        { x: 42, y: 8,   c: '#FB8C00', r: 3.8 },
-        { x: 36, y: 28,  c: '#D81B60', r: 3.8 },
-        { x: 20, y: 42,  c: '#8E24AA', r: 3.8 },
-        { x: -4, y: 46,  c: '#5E35B1', r: 3.8 },
-        { x: -26, y: 38, c: '#1E88E5', r: 3.8 },
-        { x: -42, y: 20, c: '#00ACC1', r: 3.8 }
-      ];
-
-      const midDots = [
-        { x: 16, y: -22, c: '#FFA726', r: 3.0 },
-        { x: 26, y: -8,  c: '#FF7043', r: 3.0 },
-        { x: 28, y: 8,   c: '#EC407A', r: 3.0 },
-        { x: 22, y: 22,  c: '#AB47BC', r: 3.0 },
-        { x: 8,  y: 30,  c: '#7E57C2', r: 3.0 },
-        { x: -8, y: 31,  c: '#42A5F5', r: 3.0 }
-      ];
-
-      outerDots.concat(midDots).forEach(dot => {
-        ctx.beginPath();
-        ctx.arc(cx + dot.x, cy + dot.y, dot.r, 0, Math.PI * 2);
-        ctx.fillStyle = dot.c;
-        ctx.fill();
-      });
-
-      ctx.restore();
-    }
-
-    // Gerador do Canvas 4:5 em Alta Resolução (1080 x 1350)
-    function renderSlideToCanvas(item, slideIndex, totalSlides = 5) {
       const canvas = document.createElement('canvas');
       canvas.width = 1080;
-      canvas.height = 1350; // EXATO 4:5 Feed do Instagram
+      canvas.height = 1350; // Proporção perfeita 4:5
       const ctx = canvas.getContext('2d');
 
-      const tpl = CATEGORY_TEMPLATES[item.category] || CATEGORY_TEMPLATES.gastronomia;
-      const isAnchor = slideIndex === 0;
-
-      // 1. Fundo Gradiente Elegante
-      const bg = ctx.createLinearGradient(0, 0, 0, 1350);
-      bg.addColorStop(0, tpl.bgGradient[0]);
-      bg.addColorStop(1, tpl.bgGradient[1]);
-      ctx.fillStyle = bg;
+      // 1. FUNDO COM O TEMA HARMONIOSO DA CATEGORIA
+      const bgGrad = ctx.createLinearGradient(0, 0, 0, 1350);
+      bgGrad.addColorStop(0, t.bgGradient[0]);
+      bgGrad.addColorStop(1, t.bgGradient[1]);
+      ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, 1080, 1350);
 
-      // Brilho ambiente sutil
-      const radial = ctx.createRadialGradient(540, 600, 100, 540, 600, 700);
-      radial.addColorStop(0, tpl.primaryColor + '18'); // 10% opacity
-      radial.addColorStop(1, 'transparent');
-      ctx.fillStyle = radial;
-      ctx.fillRect(0, 0, 1080, 1350);
-
-      // 2. Header Superior (Container Branco Macio para o Logo Oficial)
+      // 2. CABEÇALHO SUPERIOR (CONTAINER DA LOGO OFICIAL)
+      // Base branca arredondada para máxima visibilidade do CupomClic
       ctx.fillStyle = '#FFFFFF';
       ctx.beginPath();
-      ctx.roundRect(80, 70, 390, 80, 22);
+      ctx.roundRect(80, 75, 420, 100, 24);
       ctx.fill();
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.35)';
+      ctx.shadowBlur = 20;
 
-      // Logo Oficial CupomClic
-      drawCupomClicLogo(ctx, 95, 70, 0.88);
+      // Desenha a LOGO REAL CupomClic anexada
+      const logoImg = new Image();
+      logoImg.src = officialLogoDataURL;
+      logoImg.onload = () => {
+        // Enquadra a logo oficial perfeitamente
+        ctx.drawImage(logoImg, 95, 87, 390, 76);
 
-      // Tag Marília • SP
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
-      ctx.beginPath();
-      ctx.roundRect(490, 82, 175, 56, 16);
-      ctx.fill();
+        // BADGE DO SLIDE / ANÚNCIO (Canto Superior Direito)
+        ctx.shadowBlur = 0;
+        ctx.fillStyle = isAnchor ? '#FF5500' : '#1E293B';
+        ctx.beginPath();
+        ctx.roundRect(690, 85, 310, 64, 16);
+        ctx.fill();
 
-      ctx.fillStyle = '#CBD5E1';
-      ctx.font = 'bold 20px "Plus Jakarta Sans"';
-      ctx.textAlign = 'center';
-      ctx.fillText('MARÍLIA • SP', 577, 117);
-
-      // Badge de Posição / Lâmina
-      ctx.fillStyle = isAnchor ? '#F57011' : '#1E293B';
-      ctx.beginPath();
-      ctx.roundRect(790, 82, 210, 56, 16);
-      ctx.fill();
-
-      ctx.fillStyle = '#FFFFFF';
-      ctx.font = '800 20px "Plus Jakarta Sans"';
-      ctx.textAlign = 'center';
-      ctx.fillText(isAnchor ? 'OFERTA ÂNCORA 🔥' : `SLIDE ${slideIndex + 1} DE ${totalSlides}`, 895, 117);
-
-      // 3. Moldura Central Nobre para a Foto (80, 180 até 1000, 860)
-      const frameX = 80;
-      const frameY = 180;
-      const frameW = 920;
-      const frameH = 680;
-
-      ctx.save();
-      ctx.beginPath();
-      ctx.roundRect(frameX, frameY, frameW, frameH, 32);
-      ctx.clip();
-
-      const userPhoto = imageStore[item.id];
-      if (userPhoto) {
-        const img = new Image();
-        img.src = userPhoto;
-        // Desenha imagem proporcional
-        ctx.drawImage(img, frameX, frameY, frameW, frameH);
-      } else {
-        // Placeholder editorial convidativo
-        ctx.fillStyle = '#111726';
-        ctx.fillRect(frameX, frameY, frameW, frameH);
-        
-        ctx.fillStyle = '#334155';
-        ctx.font = 'bold 28px "Plus Jakarta Sans"';
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = 'bold 24px "Plus Jakarta Sans"';
         ctx.textAlign = 'center';
-        ctx.fillText('📸 CLIQUE PARA ENVIAR A FOTO DO PRODUTO', 540, 500);
+        ctx.fillText(isAnchor ? 'OFERTA ÂNCORA 🔥' : `OFERTA #${idx + 1} DE 5 ⭐`, 845, 126);
 
-        ctx.font = '20px "Plus Jakarta Sans"';
+        // SUB-BADGE CIDADE & CATEGORIA
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+        ctx.beginPath();
+        ctx.roundRect(80, 200, 920, 48, 12);
+        ctx.fill();
+
+        ctx.fillStyle = '#94A3B8';
+        ctx.font = 'bold 18px "Plus Jakarta Sans"';
+        ctx.textAlign = 'left';
+        ctx.fillText('MARÍLIA • SP', 105, 232);
+
+        ctx.fillStyle = t.accent;
+        ctx.textAlign = 'right';
+        ctx.fillText(t.badge, 975, 232);
+
+        // 3. FOTO DO PRODUTO (Upload Real do Lojista)
+        const photoSrc = offerImages[item.id];
+        if (photoSrc) {
+          const prodImg = new Image();
+          prodImg.src = photoSrc;
+          prodImg.onload = () => {
+            drawProductAndBottom(prodImg);
+          };
+        } else {
+          drawProductAndBottom(null);
+        }
+      };
+
+      function drawProductAndBottom(prodImg) {
+        // Área nobre da foto: 920px x 680px
+        const photoX = 80;
+        const photoY = 270;
+        const photoW = 920;
+        const photoH = 680;
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.roundRect(photoX, photoY, photoW, photoH, 28);
+        ctx.clip();
+
+        if (prodImg) {
+          // Preenchimento mantendo proporção (cover)
+          const imgRatio = prodImg.width / prodImg.height;
+          const targetRatio = photoW / photoH;
+          let sW, sH, sX, sY;
+
+          if (imgRatio > targetRatio) {
+            sH = prodImg.height;
+            sW = prodImg.height * targetRatio;
+            sX = (prodImg.width - sW) / 2;
+            sY = 0;
+          } else {
+            sW = prodImg.width;
+            sH = prodImg.width / targetRatio;
+            sX = 0;
+            sY = (prodImg.height - sH) / 2;
+          }
+          ctx.drawImage(prodImg, sX, sY, sW, sH, photoX, photoY, photoW, photoH);
+        } else {
+          // Sem foto cadastrada
+          ctx.fillStyle = '#111827';
+          ctx.fillRect(photoX, photoY, photoW, photoH);
+
+          ctx.fillStyle = '#374151';
+          ctx.font = 'bold 36px "Plus Jakarta Sans"';
+          ctx.textAlign = 'center';
+          ctx.fillText('CLIQUE EM "+ FOTO" NA TABELA', photoX + photoW / 2, photoY + photoH / 2 - 20);
+          ctx.font = '500 24px "Plus Jakarta Sans"';
+          ctx.fillStyle = '#6B7280';
+          ctx.fillText('Envie a foto real do prato ou produto', photoX + photoW / 2, photoY + photoH / 2 + 30);
+        }
+        ctx.restore();
+
+        // Borda elegante no card da foto
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.roundRect(photoX, photoY, photoW, photoH, 28);
+        ctx.stroke();
+
+        // 4. INFORMAÇÕES DA OFERTA (RODAPÉ TOTALMENTE BLINDADO CONTRA SOBREPOSIÇÃO)
+        const textY = 1010;
+
+        // Nome do Estabelecimento
+        ctx.fillStyle = '#94A3B8';
+        ctx.font = 'bold 32px "Plus Jakarta Sans"';
+        ctx.textAlign = 'left';
+        ctx.fillText(item.store.toUpperCase(), 80, textY);
+
+        // Título do Produto / Prato (com quebra de linha se for muito longo)
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = '800 48px "Plus Jakarta Sans"';
+        let titleText = item.title;
+        if (titleText.length > 32) titleText = titleText.substring(0, 30) + '...';
+        ctx.fillText(titleText, 80, textY + 65);
+
+        // 5. PREÇO EM DESTAQUE (LADO ESQUERDO)
+        ctx.fillStyle = '#FF5500';
+        ctx.font = '900 86px "Plus Jakarta Sans"';
+        ctx.fillText(`R$ ${item.price.toFixed(2).replace('.', ',')}`, 80, 1260);
+
         ctx.fillStyle = '#64748B';
-        ctx.fillText('Alta definição recomendada • Enquadramento 4:5', 540, 545);
+        ctx.font = 'bold 22px "Plus Jakarta Sans"';
+        ctx.fillText('Preço com Desconto no CupomClic', 80, 1300);
+
+        // 6. BOTÃO DE AÇÃO "RESGATAR NO APP" (LADO DIREITO - SEPARADO)
+        const btnW = 340;
+        const btnH = 110;
+        const btnX = 1080 - 80 - btnW; // 660
+        const btnY = 1180;
+
+        ctx.fillStyle = '#059669';
+        ctx.beginPath();
+        ctx.roundRect(btnX, btnY, btnW, btnH, 24);
+        ctx.fill();
+
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = '900 30px "Plus Jakarta Sans"';
+        ctx.textAlign = 'center';
+        ctx.fillText('RESGATAR NO APP', btnX + btnW / 2, btnY + 54);
+
+        ctx.font = 'bold 18px "Plus Jakarta Sans"';
+        ctx.fillStyle = '#A7F3D0';
+        ctx.fillText('BAIXE GRÁTIS', btnX + btnW / 2, btnY + 86);
+
+        if (callback) callback(canvas);
       }
-      ctx.restore();
-
-      // Borda Nobre da Foto
-      ctx.strokeStyle = tpl.frameBorder;
-      ctx.lineWidth = 4;
-      ctx.beginPath();
-      ctx.roundRect(frameX, frameY, frameW, frameH, 32);
-      ctx.stroke();
-
-      // Selo de Categoria sobreposto na foto
-      ctx.fillStyle = tpl.primaryColor;
-      ctx.beginPath();
-      ctx.roundRect(110, 210, 260, 48, 12);
-      ctx.fill();
-
-      ctx.fillStyle = tpl.ctaTextColor;
-      ctx.font = '800 18px "Plus Jakarta Sans"';
-      ctx.textAlign = 'center';
-      ctx.fillText(tpl.badge, 240, 241);
-
-      // 4. Painel de Informações Inferior (Sem cortes ou sobreposição)
-      // Estabelecimento
-      ctx.fillStyle = '#94A3B8';
-      ctx.font = 'bold 28px "Plus Jakarta Sans"';
-      ctx.textAlign = 'left';
-      ctx.fillText(item.store.toUpperCase(), 85, 925);
-
-      // Título da Oferta
-      ctx.fillStyle = '#FFFFFF';
-      ctx.font = '800 46px "Plus Jakarta Sans"';
-      
-      // Quebra de texto inteligente se título for muito longo
-      const titleWords = item.title;
-      if (titleWords.length > 36) {
-        ctx.font = '800 38px "Plus Jakarta Sans"';
-      }
-      ctx.fillText(item.title, 85, 985);
-
-      // Divisor Sutil
-      ctx.strokeStyle = '#1E293B';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(85, 1030);
-      ctx.lineTo(995, 1030);
-      ctx.stroke();
-
-      // 5. Bloco de Preço & Botão CTA 100% Contidos
-      // Preço em Destaque
-      ctx.fillStyle = '#64748B';
-      ctx.font = 'bold 20px "Plus Jakarta Sans"';
-      ctx.fillText('POR APENAS', 85, 1080);
-
-      ctx.fillStyle = tpl.primaryColor;
-      ctx.font = '900 82px "Plus Jakarta Sans"';
-      ctx.fillText(formatMoney(item.price), 85, 1160);
-
-      // Botão CTA 'RESGATAR NO APP' (Posicionado perfeitamente à direita, sem colisões)
-      const btnW = 380;
-      const btnH = 100;
-      const btnX = 615;
-      const btnY = 1075;
-
-      ctx.fillStyle = tpl.ctaBg;
-      ctx.beginPath();
-      ctx.roundRect(btnX, btnY, btnW, btnH, 24);
-      ctx.fill();
-
-      // Efeito de relevo / brilho suave no botão
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.roundRect(btnX, btnY, btnW, btnH, 24);
-      ctx.stroke();
-
-      ctx.fillStyle = tpl.ctaTextColor;
-      ctx.font = '900 30px "Plus Jakarta Sans"';
-      ctx.textAlign = 'center';
-      ctx.fillText('RESGATAR NO APP', btnX + (btnW / 2), btnY + 48);
-
-      ctx.font = 'bold 18px "Plus Jakarta Sans"';
-      ctx.fillStyle = tpl.ctaTextColor === '#FFFFFF' ? 'rgba(255,255,255,0.85)' : 'rgba(0,0,0,0.7)';
-      ctx.fillText('APRESENTE O CUPOM NA LOJA', btnX + (btnW / 2), btnY + 78);
-
-      // 6. Rodapé Legal / Margem Segura
-      ctx.fillStyle = '#475569';
-      ctx.font = '500 18px "Plus Jakarta Sans"';
-      ctx.textAlign = 'center';
-      ctx.fillText('Válido exclusivamente para Marília • Baixe o app CupomClic', 540, 1285);
-
-      return canvas;
     }
 
-    // Download do Slide Individual 1080 x 1350
+    // BAIXAR SLIDE INDIVIDUAL
     function downloadSingleSlide(item, idx, blockId) {
-      const canvas = renderSlideToCanvas(item, idx, 5);
-      const link = document.createElement('a');
-      link.download = `CupomClic_4x5_${blockId}_Slide${idx + 1}_${item.store.replace(/\s+/g, '_')}.png`;
-      link.href = canvas.toDataURL('image/png');
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-
-    // Download em Lote dos 5 Slides
-    function downloadAllInActiveBlock() {
-      if (!generatedBlocks[activeBlockIndex]) return;
-      const block = generatedBlocks[activeBlockIndex];
-      
-      block.items.forEach((item, idx) => {
-        setTimeout(() => {
-          downloadSingleSlide(item, idx, block.id);
-        }, idx * 400); // Intervalo para não bloquear no navegador
+      renderCanvas4x5(item, idx, blockId, (canvas) => {
+        const link = document.createElement('a');
+        link.download = `${blockId}_Slide${idx + 1}_${item.store.replace(/\s+/g, '_')}_4x5.png`;
+        link.href = canvas.toDataURL('image/png');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
       });
     }
 
-    // Renderiza a Grade Visual dos Slides do Bloco Selecionado
-    function renderClusterSlides() {
-      const container = document.getElementById("clusterSlidesGrid");
-      if (!generatedBlocks.length || !generatedBlocks[activeBlockIndex]) {
-        container.innerHTML = `<div class="col-span-5 text-center py-12 text-slate-500 text-xs">Nenhum bloco balanceado ativo.</div>`;
+    // BAIXAR TODAS AS 5 LÂMINAS DE UMA VEZ
+    function downloadClusterSlides(cluster) {
+      cluster.offers.forEach((item, idx) => {
+        setTimeout(() => {
+          downloadSingleSlide(item, idx, cluster.id);
+        }, idx * 600);
+      });
+    }
+
+    // RENDERIZAÇÃO DOS CARROSSEIS
+    function renderClusters() {
+      const container = document.getElementById("balancedClustersContainer");
+
+      if (generatedClusters.length === 0) {
+        container.innerHTML = `<div class="col-span-2 text-center py-10 text-slate-500 text-xs">Nenhum bloco gerado. Clique em "Gerar Carrosséis de 5 Lojas".</div>`;
         return;
       }
 
-      const block = generatedBlocks[activeBlockIndex];
-
-      container.innerHTML = block.items.map((item, idx) => {
-        const tpl = CATEGORY_TEMPLATES[item.category] || CATEGORY_TEMPLATES.gastronomia;
-        const isAnchor = idx === 0;
-        const hasImg = imageStore[item.id];
-
+      container.innerHTML = generatedClusters.map(cluster => {
         return `
-          <div class="bg-brand-card border ${isAnchor ? 'border-brand-orange ring-1 ring-brand-orange/40' : 'border-brand-border'} rounded-2xl p-3 flex flex-col justify-between space-y-3 relative group">
-            
-            <!-- Header do Mini Card -->
-            <div class="flex items-center justify-between text-[11px]">
-              <span class="font-extrabold font-mono px-2 py-0.5 rounded ${isAnchor ? 'bg-brand-orange text-white' : 'bg-slate-800 text-slate-300'}">
-                Slide #${idx + 1} ${isAnchor ? '• ÂNCORA' : ''}
-              </span>
-              <span class="text-[10px] text-slate-400 font-semibold truncate max-w-[90px]">${tpl.name}</span>
+          <div class="bg-brand-card border border-brand-cardBorder rounded-2xl p-5 shadow-2xl flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between border-b border-brand-cardBorder pb-3 mb-4">
+                <div class="flex items-center gap-2">
+                  <span class="w-3 h-3 rounded-full bg-brand-orange"></span>
+                  <h3 class="font-extrabold text-white text-base">${cluster.id} • Carrossel de 5 Lojas</h3>
+                </div>
+                <button onclick='downloadClusterSlides(${JSON.stringify(cluster)})' class="text-xs font-bold px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition flex items-center gap-1 shadow">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                  <span>Baixar Todos (5 Imagens)</span>
+                </button>
+              </div>
+
+              <!-- FINANÇAS DO BLOCO -->
+              <div class="grid grid-cols-4 gap-2 bg-brand-input p-3 rounded-xl mb-4 text-center">
+                <div>
+                  <div class="text-[9px] text-slate-500 font-bold uppercase">Previsão Fat.</div>
+                  <div class="text-xs font-extrabold text-white">R$ ${cluster.totalRev.toFixed(2)}</div>
+                </div>
+                <div>
+                  <div class="text-[9px] text-brand-orange font-bold uppercase">CupomClic 12%</div>
+                  <div class="text-xs font-extrabold text-brand-orange">R$ ${cluster.totalFeePlatform.toFixed(2)}</div>
+                </div>
+                <div>
+                  <div class="text-[9px] text-amber-400 font-bold uppercase">Equipe 3%</div>
+                  <div class="text-xs font-extrabold text-amber-400">R$ ${cluster.totalFeeStaff.toFixed(2)}</div>
+                </div>
+                <div>
+                  <div class="text-[9px] text-blue-400 font-bold uppercase">Mídia Ideal</div>
+                  <div class="text-xs font-extrabold text-blue-400">R$ ${cluster.recommendedAds.toFixed(2)}</div>
+                </div>
+              </div>
+
+              <div class="text-[11px] font-bold text-slate-400 mb-3 uppercase tracking-wide">Lâminas Prontas (Formato 4:5):</div>
+
+              <!-- LISTA DOS 5 SLIDES -->
+              <div class="space-y-3 mb-6">
+                ${cluster.offers.map((item, idx) => {
+                  const isAnchor = idx === 0;
+                  const t = TEMPLATES[item.category] || TEMPLATES.burger;
+                  const hasPhoto = offerImages[item.id];
+
+                  return `
+                    <div class="p-3 rounded-xl border flex items-center justify-between gap-3 ${isAnchor ? 'bg-brand-orange/10 border-brand-orange/40' : 'bg-slate-900/60 border-brand-cardBorder'}">
+                      <div class="flex items-center gap-3">
+                        <span class="w-7 h-7 rounded-xl ${isAnchor ? 'bg-brand-orange text-white' : 'bg-slate-800 text-slate-400'} text-xs font-extrabold flex items-center justify-center">
+                          #${idx + 1}
+                        </span>
+                        <div>
+                          <div class="text-xs font-bold text-slate-200 flex items-center gap-2">
+                            ${item.store}${isAnchor ? '<span class="text-[9px] bg-brand-orange text-white px-1.5 py-0.2 rounded font-black tracking-wider uppercase">Slide Âncora</span>' : ''}
+                            <span class="text-[10px] font-semibold text-slate-400 font-mono">(${t.name})</span>
+                          </div>
+                          <div class="text-[11px] text-slate-400 mt-0.5">${item.title} • <strong class="text-white">R$ ${item.price.toFixed(2)}</strong>${hasPhoto ? '<span class="text-emerald-400 text-[10px]">✓ Foto carregada</span>' : '<span class="text-amber-400/80 text-[10px]">⚠ Sem foto</span>'}</div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <button onclick='downloadSingleSlide(${JSON.stringify(item)}, ${idx}, "${cluster.id}")' class="text-xs font-bold px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1.5">
+                          <svg class="w-3.5 h-3.5 text-brand-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                          <span>Baixar 4:5</span>
+                        </button>
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
             </div>
 
-            <!-- Preview 4:5 da Imagem -->
-            <div class="aspect-[4/5] bg-brand-dark rounded-xl border border-brand-border overflow-hidden relative group/img flex flex-col items-center justify-center">
-              ${hasImg 
-                ? `<img src="${hasImg}" class="w-full h-full object-cover">`
-                : `<div class="p-3 text-center text-slate-500 space-y-1">
-                     <svg class="w-8 h-8 mx-auto text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                     <span class="text-[10px] block font-bold">Sem Foto</span>
-                   </div>`
-              }
-
-              <!-- Botão Sobreposto para Trocar Foto -->
-              <label class="absolute inset-0 bg-brand-dark/75 opacity-0 group-hover/img:opacity-100 flex flex-col items-center justify-center cursor-pointer transition p-2 text-center">
-                <svg class="w-6 h-6 text-brand-orange mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/></svg>
-                <span class="text-[10px] font-bold text-white">${hasImg ? 'Trocar Foto' : 'Subir Foto 4:5'}</span>
-                <input type="file" accept="image/*" class="hidden" onchange="handlePhotoUpload(${item.id}, this.files[0])">
-              </label>
+            <!-- RODA DO BLOCO -->
+            <div class="pt-3 border-t border-brand-cardBorder flex items-center justify-between">
+              <span class="text-[11px] text-slate-500">Mídia diária: <strong>R$ ${(cluster.recommendedAds / 4).toFixed(2)} / dia</strong> (4 dias)</span>
+              <a href="https://adsmanager.facebook.com" target="_blank" rel="noopener noreferrer" class="text-xs font-extrabold px-3 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white transition">
+                Impulsionar no Meta Ads ➔
+              </a>
             </div>
-
-            <!-- Dados Textuais do Slide -->
-            <div class="space-y-1">
-              <div class="text-[11px] font-black text-white truncate" title="${item.store}">${item.store}</div>
-              <div class="text-[10px] text-slate-400 truncate" title="${item.title}">${item.title}</div>
-              <div class="text-xs font-mono font-black text-brand-orange pt-1">${formatMoney(item.price)}</div>
-            </div>
-
-            <!-- Botão Download Individual -->
-            <button onclick='downloadSingleSlide(${JSON.stringify(item)}, ${idx}, "${block.id}")' class="w-full py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-brand-orange hover:text-white text-slate-200 border border-brand-border transition flex items-center justify-center gap-1.5 shadow-sm">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-              <span>Baixar Slide 4:5</span>
-            </button>
-
           </div>
         `;
       }).join('');
     }
 
-    // Auditoria de Tráfego / Retroalimentação IA
-    function runAuditML() {
-      const spend = parseFloat(document.getElementById("mlSpend").value) || 0;
-      const clicks = parseInt(document.getElementById("mlClicks").value) || 0;
-      const redeems = parseInt(document.getElementById("mlRedeems").value) || 0;
-      const rev = parseFloat(document.getElementById("mlRevenue").value) || 0;
+    // RETROALIMENTAÇÃO & MACHINE LEARNING
+    function analyzeFeedback() {
+      const spend = parseFloat(document.getElementById("realAdSpend").value) || 0;
+      const clicks = parseInt(document.getElementById("realLinkClicks").value) || 0;
+      const redeems = parseInt(document.getElementById("realCouponsRedeemed").value) || 0;
+      const rev = parseFloat(document.getElementById("realRevenue").value) || 0;
 
-      if (!spend || !clicks) {
-        showCustomAlert("Preencha gasto e cliques para auditar.");
+      if (spend <= 0 || clicks <= 0) {
+        alert("Preencha ao menos o valor gasto e a quantidade de cliques para gerar a análise.");
         return;
       }
 
       const cpc = spend / clicks;
-      const cpa = redeems ? (spend / redeems) : 0;
-      const convRate = clicks ? ((redeems / clicks) * 100) : 0;
-      const feeCC = rev * 0.12;
-      const feeStaff = rev * 0.03;
-      const netProfit = feeCC - spend;
+      const cpa = redeems > 0 ? (spend / redeems) : 0;
+      const platformFee = rev * 0.12;
+      const staffFee = rev * 0.03;
+      const roas = spend > 0 ? (rev / spend) : 0;
+      const conversionRate = clicks > 0 ? ((redeems / clicks) * 100) : 0;
+      const netProfit = platformFee - spend;
 
-      let tips = [];
-      if (cpc > 0.70) {
-        tips.push("⚠️ <strong>CPC Acima do Padrão de Marília (R$ " + cpc.toFixed(2) + "):</strong> Melhore o apelo visual da foto da Oferta Âncora (Slide #1) para aumentar o CTR inicial.");
+      let recommendations = [];
+
+      if (cpc > 0.80) {
+        recommendations.push("⚠️ <strong>CPC elevado para Marília (R$ " + cpc.toFixed(2) + "):</strong> O criativo do Slide #1 precisa de foto real mais apetitosa para baratear o clique no leilão.");
       } else {
-        tips.push("✅ <strong>Excelente Custo por Clique (R$ " + cpc.toFixed(2) + "):</strong> O anúncio gerou alto interesse na praça local.");
+        recommendations.push("✅ <strong>Excelente custo por clique (R$ " + cpc.toFixed(2) + "):</strong> A oferta âncora escolhida atraiu grande interesse local.");
       }
 
-      if (convRate < 12) {
-        tips.push("⚠️ <strong>Conversão de Resgate Baixa (" + convRate.toFixed(1) + "%):</strong> Muitos cliques sem gerar resgate no app. Considere reduzir o valor do item ou aumentar a percepção do desconto.");
+      if (conversionRate < 10) {
+        recommendations.push("⚠️ <strong>Taxa de Resgate Baixa (" + conversionRate.toFixed(1) + "%):</strong> As pessoas estão clicando, mas não finalizam o cupom. Verifique se o valor do desconto está suficientemente claro ou reduza o valor do cupom de entrada.");
       } else {
-        tips.push("🔥 <strong>Alta Ativação de Cupons (" + convRate.toFixed(1) + "%):</strong> Excelente taxa de retenção dos usuários no app.");
+        recommendations.push("🔥 <strong>Alta conversão no app (" + conversionRate.toFixed(1) + "%):</strong> A retenção e resgate em Marília estão acima da média de varejo.");
       }
 
-      tips.push("💰 <strong>Resultado Líquido CupomClic:</strong> Sobra de R$ " + netProfit.toFixed(2) + " (Equipe recebeu R$ " + feeStaff.toFixed(2) + " em comissões).");
+      if (netProfit > 0) {
+        recommendations.push("💰 <strong>Operação Lucrativa (CupomClic):</strong> Sobra líquida de R$ " + netProfit.toFixed(2) + " para a plataforma após pagar os anúncios (ROAS Bruto de " + roas.toFixed(2) + "x).");
+        recommendations.push("👥 <strong>Divisão de Sucesso:</strong> A comissão dos colaboradores bateu R$ " + staffFee.toFixed(2) + " (3% do total).");
+      } else {
+        recommendations.push("🚨 <strong>Alerta de Margem:</strong> O gasto com anúncios superou os 12% de comissão gerada do CupomClic. Recomendado calibrar o slider de reinvestimento para no máximo 40% na próxima rodada.");
+      }
 
-      const box = document.getElementById("mlAuditResultBox");
-      box.innerHTML = `
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 bg-slate-900 p-2.5 rounded-lg border border-slate-800 mb-2">
+      const contentBox = document.getElementById("feedbackAnalysisContent");
+      contentBox.innerHTML = `
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 bg-slate-900 p-3 rounded-lg border border-slate-800 mb-3">
           <div><span class="text-slate-500">CPC Real:</span> <strong class="text-white font-mono">R$ ${cpc.toFixed(2)}</strong></div>
           <div><span class="text-slate-500">CPA Cupom:</span> <strong class="text-white font-mono">R$ ${cpa.toFixed(2)}</strong></div>
-          <div><span class="text-slate-500">Taxa Resgate:</span> <strong class="text-amber-400 font-mono">${convRate.toFixed(1)}%</strong></div>
-          <div><span class="text-slate-500">Lucro Líquido:</span> <strong class="text-emerald-400 font-mono">R$ ${netProfit.toFixed(2)}</strong></div>
+          <div><span class="text-slate-500">Taxa Conversão:</span> <strong class="text-amber-400 font-mono">${conversionRate.toFixed(1)}%</strong></div>
+          <div><span class="text-slate-500">ROAS Bruto:</span> <strong class="text-emerald-400 font-mono">${roas.toFixed(2)}x</strong></div>
         </div>
-        <div class="space-y-1">${tips.map(t => `<div>${t}</div>`).join('')}</div>
+        <div class="space-y-1.5">
+          ${recommendations.map(r => `<div>${r}</div>`).join('')}
+        </div>
       `;
     }
 
-    // Salvar e Limpar Dados (.JSON)
-    function saveToPCAndClean() {
-      if (!offers.length) {
-        showCustomAlert("Nenhum dado para salvar.");
+    // EXPORT (.JSON) COM FOTOS E LOGO
+    function saveAndReset() {
+      if (offers.length === 0) {
+        alert("Nenhum dado para salvar.");
         return;
       }
 
-      const payload = {
-        app: "CupomClic_Studio_Marilia_4x5",
-        date: new Date().toISOString(),
+      const exportPayload = {
+        app: "CupomClic_Marilia_4x5_OfficialLogo",
+        savedAt: new Date().toISOString(),
         settings: {
-          audience: document.getElementById("selAudience").value,
-          cpm: document.getElementById("inputCpm").value,
-          reinvest: document.getElementById("rangeReinvest").value
+          audience: document.getElementById("targetAudience").value,
+          cpm: document.getElementById("cpmInput").value,
+          reinvestRate: document.getElementById("reinvestRate").value
         },
         offers: offers,
-        images: imageStore
+        clusters: generatedClusters,
+        images: offerImages
       };
 
-      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = `CupomClic_Planejamento_${new Date().toISOString().slice(0, 10)}.json`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportPayload, null, 2));
+      const downloadAnchor = document.createElement('a');
+      const filename = `CupomClic_Marilia_${new Date().toISOString().slice(0, 10)}.json`;
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", filename);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
 
       // Limpeza imediata
       offers = [];
-      imageStore = {};
-      generatedBlocks = [];
+      generatedClusters = [];
+      Object.keys(offerImages).forEach(key => delete offerImages[key]);
       renderOffersTable();
-      renderClusterSlides();
-      recalculateAll();
-      document.getElementById("batchDownloadContainer").classList.add("hidden");
-      document.getElementById("clusterTabsContainer").innerHTML = '';
+      renderClusters();
+      calculate();
 
-      showCustomAlert("Cálculo e fotos salvos com sucesso! Área de trabalho limpa.");
+      alert(`Campanha e imagens salvas em ${filename}. Área de trabalho limpa para a próxima!`);
     }
 
-    // Recuperar Dados (.JSON)
-    function loadFromPC(event) {
+    // IMPORT (.JSON)
+    function importData(event) {
       const file = event.target.files[0];
       if (!file) return;
 
       const reader = new FileReader();
       reader.onload = function(e) {
         try {
-          const data = JSON.parse(e.target.result);
-          if (Array.isArray(data.offers)) {
-            offers = data.offers;
-            if (data.images) imageStore = data.images;
-            if (data.settings) {
-              if (data.settings.audience) document.getElementById("selAudience").value = data.settings.audience;
-              if (data.settings.cpm) document.getElementById("inputCpm").value = data.settings.cpm;
-              if (data.settings.reinvest) document.getElementById("rangeReinvest").value = data.settings.reinvest;
+          const imported = JSON.parse(e.target.result);
+          if (imported.offers && Array.isArray(imported.offers)) {
+            offers = imported.offers;
+            if (imported.images) Object.assign(offerImages, imported.images);
+            if (imported.settings) {
+              if (imported.settings.audience) document.getElementById("targetAudience").value = imported.settings.audience;
+              if (imported.settings.cpm) document.getElementById("cpmInput").value = imported.settings.cpm;
+              if (imported.settings.reinvestRate) document.getElementById("reinvestRate").value = imported.settings.reinvestRate;
             }
             renderOffersTable();
-            recalculateAll();
-            clusterBalancedFive();
-            showCustomAlert("Planejamento e imagens recuperados com sucesso!");
+            calculate();
+            runBalancedClustering();
+            alert("Planejamento e fotos recuperados com sucesso!");
+          } else {
+            alert("Arquivo JSON inválido.");
           }
         } catch (err) {
-          showCustomAlert("Erro ao ler arquivo .json.");
+          alert("Erro ao ler JSON.");
         }
       };
       reader.readAsText(file);
       event.target.value = '';
     }
 
-    function showCustomAlert(msg) {
-      alert(msg);
-    }
-
-    // Inicialização
     window.onload = () => {
+      setHeaderLogo();
       loadSampleOffers();
     };
   </script>
