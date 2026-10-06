@@ -7,7 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700;800&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
@@ -49,7 +49,7 @@
             <span class="font-extrabold tracking-tight text-lg text-white">Cupom<span class="text-brand-orange">Clic</span></span>
             <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-brand-orange/20 text-brand-orange border border-brand-orange/30">Marília • SP</span>
           </div>
-          <p class="text-xs text-slate-400">Algoritmo de Equilíbrio & Inteligência Meta Ads</p>
+          <p class="text-xs text-slate-400">Lucro de 12% CupomClic • 3% Colaboradores</p>
         </div>
       </div>
 
@@ -78,25 +78,30 @@
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
     
     <!-- DASHBOARD KPIs DE VISÃO GERAL -->
-    <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-      <div class="bg-brand-card border border-brand-cardBorder p-4 rounded-2xl relative overflow-hidden">
-        <div class="text-xs text-slate-400 font-semibold mb-1">FATURAMENTO PREVISTO</div>
-        <div class="text-2xl font-extrabold text-white" id="kpiGrossRevenue">R$ 0,00</div>
+    <section class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+      <div class="bg-brand-card border border-brand-cardBorder p-4 rounded-2xl">
+        <div class="text-[10px] text-slate-400 font-bold mb-1 uppercase">FATURAMENTO PREVISTO</div>
+        <div class="text-xl font-extrabold text-white" id="kpiGrossRevenue">R$ 0,00</div>
         <div class="text-[11px] text-slate-500 mt-1" id="kpiTotalUnits">0 cupons estimados</div>
       </div>
-      <div class="bg-brand-card border border-brand-cardBorder p-4 rounded-2xl relative overflow-hidden">
-        <div class="text-xs text-brand-orange font-semibold mb-1">COMISSÃO 15% (CUPOMCLIC)</div>
-        <div class="text-2xl font-extrabold text-brand-orange" id="kpiTotalFee">R$ 0,00</div>
-        <div class="text-[11px] text-slate-500 mt-1">Margem Bruta Garantida</div>
+      <div class="bg-brand-card border border-brand-cardBorder p-4 rounded-2xl">
+        <div class="text-[10px] text-[#FF5500] font-bold mb-1 uppercase">LUCRO CUPOMCLIC (12%)</div>
+        <div class="text-xl font-extrabold text-[#FF5500]" id="kpiPlatformProfit">R$ 0,00</div>
+        <div class="text-[11px] text-slate-500 mt-1">Margem Líquida Interna</div>
       </div>
-      <div class="bg-brand-card border border-brand-cardBorder p-4 rounded-2xl relative overflow-hidden">
-        <div class="text-xs text-blue-400 font-semibold mb-1">INVESTIMENTO SUGERIDO</div>
-        <div class="text-2xl font-extrabold text-blue-400" id="kpiTotalAds">R$ 0,00</div>
-        <div class="text-[11px] text-slate-500 mt-1" id="kpiReinvestRatio">50% da margem CupomClic</div>
+      <div class="bg-brand-card border border-brand-cardBorder p-4 rounded-2xl">
+        <div class="text-[10px] text-amber-400 font-bold mb-1 uppercase">EQUIPE / COLABORADORES (3%)</div>
+        <div class="text-xl font-extrabold text-amber-400" id="kpiStaffProfit">R$ 0,00</div>
+        <div class="text-[11px] text-slate-500 mt-1">Partilha do Comissionamento</div>
       </div>
-      <div class="bg-brand-card border border-brand-cardBorder p-4 rounded-2xl relative overflow-hidden">
-        <div class="text-xs text-emerald-400 font-semibold mb-1">LUCRO LÍQUIDO FINAL</div>
-        <div class="text-2xl font-extrabold text-emerald-400" id="kpiNetProfit">R$ 0,00</div>
+      <div class="bg-brand-card border border-brand-cardBorder p-4 rounded-2xl">
+        <div class="text-[10px] text-blue-400 font-bold mb-1 uppercase">INVESTIMENTO SUGERIDO</div>
+        <div class="text-xl font-extrabold text-blue-400" id="kpiTotalAds">R$ 0,00</div>
+        <div class="text-[11px] text-slate-500 mt-1" id="kpiReinvestRatio">50% do Lucro CupomClic</div>
+      </div>
+      <div class="bg-brand-card border border-brand-cardBorder p-4 rounded-2xl">
+        <div class="text-[10px] text-emerald-400 font-bold mb-1 uppercase">SOBRA LÍQUIDA FINAL</div>
+        <div class="text-xl font-extrabold text-emerald-400" id="kpiNetProfit">R$ 0,00</div>
         <div class="text-[11px] text-emerald-500/80 mt-1" id="kpiNetMargin">Sobra após mídia</div>
       </div>
     </section>
@@ -168,7 +173,8 @@
               <th class="py-2.5 px-3">Categoria</th>
               <th class="py-2.5 px-3">Preço (R$)</th>
               <th class="py-2.5 px-3">Vendas Previstas</th>
-              <th class="py-2.5 px-3">Comissão (15%)</th>
+              <th class="py-2.5 px-3">Parceria (15%)</th>
+              <th class="py-2.5 px-3">Partilha (12% | 3%)</th>
               <th class="py-2.5 px-3">Tração Estimada</th>
               <th class="py-2.5 px-3 text-right">Ação</th>
             </tr>
@@ -346,14 +352,16 @@
       badge.textContent = `${offers.length} ofertas`;
 
       if (offers.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-500 text-xs">Nenhuma oferta cadastrada. Clique em "+ Adicionar Oferta" ou "Carregar 10 Ofertas Exemplo".</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="8" class="py-8 text-center text-slate-500 text-xs">Nenhuma oferta cadastrada. Clique em "+ Adicionar Oferta" ou "Carregar 10 Ofertas Exemplo".</td></tr>`;
         return;
       }
 
       const audience = document.getElementById("targetAudience").value;
 
       tbody.innerHTML = offers.map(o => {
-        const fee = (o.price * o.salesEst * 0.15);
+        const totalPartnership = (o.price * o.salesEst * 0.15);
+        const platformShare = (o.price * o.salesEst * 0.12);
+        const staffShare = (o.price * o.salesEst * 0.03);
         const heat = getHeatScore(o, audience);
         const heatBadge = getHeatBadge(heat);
 
@@ -377,8 +385,12 @@
             <td class="py-2.5 px-3">
               <input type="number" value="${o.salesEst}" oninput="updateOffer(${o.id}, 'salesEst', this.value)" class="w-16 bg-brand-input border border-brand-cardBorder rounded px-2 py-1 text-xs text-white text-center">
             </td>
-            <td class="py-2.5 px-3 font-semibold text-brand-orange text-xs">
-              R$ ${fee.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            <td class="py-2.5 px-3 font-semibold text-slate-300 text-xs">
+              R$ ${totalPartnership.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            </td>
+            <td class="py-2.5 px-3 text-xs text-slate-400">
+              <div>CC (12%): <span class="font-semibold text-brand-orange">R$ ${platformShare.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></div>
+              <div class="text-[10px]">Equipe (3%): <span class="font-semibold text-amber-400">R$ ${staffShare.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></div>
             </td>
             <td class="py-2.5 px-3">
               <div class="flex items-center gap-2">
@@ -400,28 +412,31 @@
     function calculate() {
       const reinvestPct = parseInt(document.getElementById("reinvestRate").value) / 100;
       document.getElementById("reinvestRateLabel").textContent = `${Math.round(reinvestPct * 100)}%`;
-      document.getElementById("kpiReinvestRatio").textContent = `${Math.round(reinvestPct * 100)}% da comissão CupomClic`;
+      document.getElementById("kpiReinvestRatio").textContent = `${Math.round(reinvestPct * 100)}% do Lucro CupomClic`;
 
       let totalGross = 0;
       let totalUnits = 0;
-      let totalFee = 0;
+      let totalFeePlatform = 0;
+      let totalFeeStaff = 0;
 
       offers.forEach(o => {
         const rev = (o.price || 0) * (o.salesEst || 0);
         totalGross += rev;
         totalUnits += (o.salesEst || 0);
-        totalFee += rev * 0.15;
+        totalFeePlatform += rev * 0.12;
+        totalFeeStaff += rev * 0.03;
       });
 
-      const totalAds = totalFee * reinvestPct;
-      const netProfit = totalFee - totalAds;
+      const totalAds = totalFeePlatform * reinvestPct;
+      const netProfit = totalFeePlatform - totalAds;
 
       document.getElementById("kpiGrossRevenue").textContent = `R$ ${totalGross.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
       document.getElementById("kpiTotalUnits").textContent = `${totalUnits} cupons estimados`;
-      document.getElementById("kpiTotalFee").textContent = `R$ ${totalFee.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      document.getElementById("kpiPlatformProfit").textContent = `R$ ${totalFeePlatform.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      document.getElementById("kpiStaffProfit").textContent = `R$ ${totalFeeStaff.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
       document.getElementById("kpiTotalAds").textContent = `R$ ${totalAds.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
       document.getElementById("kpiNetProfit").textContent = `R$ ${netProfit.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-      document.getElementById("kpiNetMargin").textContent = totalFee > 0 ? `Sobra líquida de ${((netProfit / totalFee) * 100).toFixed(0)}%` : `Sobra após mídia`;
+      document.getElementById("kpiNetMargin").textContent = totalFeePlatform > 0 ? `Sobra líquida de ${((netProfit / totalFeePlatform) * 100).toFixed(0)}%` : `Sobra após mídia`;
     }
 
     // ALGORITMO SNAKE / BALANCED CLUSTERING (EQUILÍBRIO ENTRE BLOCOS)
@@ -438,7 +453,8 @@
       const sortedOffers = [...offers].map(o => ({
         ...o,
         heat: getHeatScore(o, audience),
-        fee: (o.price * o.salesEst * 0.15)
+        feePlatform: (o.price * o.salesEst * 0.12),
+        feeStaff: (o.price * o.salesEst * 0.03)
       })).sort((a, b) => b.heat - a.heat);
 
       const numClusters = Math.floor(sortedOffers.length / 5);
@@ -469,16 +485,18 @@
       generatedClusters = clusters.map((block, idx) => {
         block.sort((a, b) => b.heat - a.heat); // O primeiro do bloco é sempre o Slide 1 (Isca de cliques)
         
-        const totalBlockFee = block.reduce((acc, curr) => acc + curr.fee, 0);
+        const totalBlockFeePlatform = block.reduce((acc, curr) => acc + curr.feePlatform, 0);
+        const totalBlockFeeStaff = block.reduce((acc, curr) => acc + curr.feeStaff, 0);
         const totalBlockRev = block.reduce((acc, curr) => acc + (curr.price * curr.salesEst), 0);
         const avgHeat = Math.round(block.reduce((acc, curr) => acc + curr.heat, 0) / block.length);
-        const recommendedAds = totalBlockFee * reinvestPct;
+        const recommendedAds = totalBlockFeePlatform * reinvestPct;
 
         return {
           id: `Bloco ${String.fromCharCode(65 + idx)}`,
           offers: block,
           totalRev: totalBlockRev,
-          totalFee: totalBlockFee,
+          totalFeePlatform: totalBlockFeePlatform,
+          totalFeeStaff: totalBlockFeeStaff,
           recommendedAds: recommendedAds,
           avgHeat: avgHeat,
           anchor: block[0]
@@ -514,17 +532,21 @@
               </div>
 
               <!-- RESUMO FINANCEIRO DO BLOCO -->
-              <div class="grid grid-cols-3 gap-2 bg-brand-input p-3 rounded-xl mb-4 text-center">
+              <div class="grid grid-cols-4 gap-2 bg-brand-input p-3 rounded-xl mb-4 text-center">
                 <div>
-                  <div class="text-[10px] text-slate-500 font-bold uppercase">Fat. Previsto</div>
+                  <div class="text-[9px] text-slate-500 font-bold uppercase">Fat. Previsto</div>
                   <div class="text-xs font-extrabold text-white">R$ ${cluster.totalRev.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</div>
                 </div>
                 <div>
-                  <div class="text-[10px] text-brand-orange font-bold uppercase">Comissão 15%</div>
-                  <div class="text-xs font-extrabold text-brand-orange">R$ ${cluster.totalFee.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</div>
+                  <div class="text-[9px] text-[#FF5500] font-bold uppercase">CC 12%</div>
+                  <div class="text-xs font-extrabold text-[#FF5500]">R$ ${cluster.totalFeePlatform.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</div>
                 </div>
                 <div>
-                  <div class="text-[10px] text-blue-400 font-bold uppercase">Anúncio Ideal</div>
+                  <div class="text-[9px] text-amber-400 font-bold uppercase">Equipe 3%</div>
+                  <div class="text-xs font-extrabold text-amber-400">R$ ${cluster.totalFeeStaff.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</div>
+                </div>
+                <div>
+                  <div class="text-[9px] text-blue-400 font-bold uppercase">Mídia Recomendada</div>
                   <div class="text-xs font-extrabold text-blue-400">R$ ${cluster.recommendedAds.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</div>
                 </div>
               </div>
@@ -549,7 +571,7 @@
                       </div>
                       <div class="text-right">
                         <div class="text-xs font-bold text-slate-300">${item.heat}% Tração</div>
-                        <div class="text-[10px] text-brand-orange">R$ ${item.fee.toFixed(2)} fee</div>
+                        <div class="text-[10px] text-slate-500">12%: R$ ${item.feePlatform.toFixed(2)} | 3%: R$ ${item.feeStaff.toFixed(2)}</div>
                       </div>
                     </div>
                   `;
@@ -583,10 +605,11 @@
 
       const cpc = spend / clicks;
       const cpa = redeems > 0 ? (spend / redeems) : 0;
-      const realFee = rev * 0.15;
+      const platformFee = rev * 0.12;
+      const staffFee = rev * 0.03;
       const roas = spend > 0 ? (rev / spend) : 0;
       const conversionRate = clicks > 0 ? ((redeems / clicks) * 100) : 0;
-      const netProfit = realFee - spend;
+      const netProfit = platformFee - spend;
 
       let recommendations = [];
 
@@ -603,9 +626,10 @@
       }
 
       if (netProfit > 0) {
-        recommendations.push("💰 <strong>Operação Lucrativa:</strong> Sobra líquida de R$ " + netProfit.toFixed(2) + " para o CupomClic após pagar os anúncios (ROAS Bruto de " + roas.toFixed(2) + "x).");
+        recommendations.push("💰 <strong>Operação Lucrativa (CupomClic):</strong> Sobra líquida de R$ " + netProfit.toFixed(2) + " para a plataforma após pagar os anúncios (ROAS Bruto de " + roas.toFixed(2) + "x).");
+        recommendations.push("👥 <strong>Divisão de Sucesso:</strong> A comissão dos colaboradores bateu R$ " + staffFee.toFixed(2) + " (3% do total).");
       } else {
-        recommendations.push("🚨 <strong>Alerta de Margem:</strong> O gasto com anúncios superou os 15% de comissão gerada. Recomendado calibrar o slider de reinvestimento para no máximo 40% na próxima rodada.");
+        recommendations.push("🚨 <strong>Alerta de Margem:</strong> O gasto com anúncios superou os 12% de comissão gerada do CupomClic. Recomendado calibrar o slider de reinvestimento para no máximo 40% na próxima rodada.");
       }
 
       const contentBox = document.getElementById("feedbackAnalysisContent");
@@ -630,7 +654,7 @@
       }
 
       const exportPayload = {
-        app: "CupomClic_Marilia",
+        app: "CupomClic_Marilia_12pct_3pct",
         savedAt: new Date().toISOString(),
         settings: {
           audience: document.getElementById("targetAudience").value,
