@@ -3,240 +3,222 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CupomClic Marília • Studio de Tráfego & Gerador Viral 4:5</title>
-  
-  <!-- Tailwind CSS & Google Fonts -->
+  <title>CupomClic • Inteligência de Tráfego & Gerador Viral 4:5</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- JSZip para compactar as 5 lâminas em 1 clique -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-            mono: ['"JetBrains Mono"', 'monospace']
-          },
+          fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
           colors: {
             brand: {
-              navy: '#0E274D',
-              orange: '#F57011',
-              dark: '#080C16',
-              card: '#101726',
-              cardBorder: '#1E293B',
-              input: '#090D18'
+              navy: '#0b1e42',
+              orange: '#f26522',
+              bg: '#0B0F19',
+              card: '#131A2A',
+              cardBorder: '#202B42',
+              input: '#0E1422'
             }
           }
         }
       }
     }
   </script>
-
   <style>
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #080C16; }
-    ::-webkit-scrollbar-thumb { background: #1E293B; border-radius: 999px; }
-    ::-webkit-scrollbar-thumb:hover { background: #334155; }
-    input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { 
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { 
       -webkit-appearance: none; 
       margin: 0; 
     }
   </style>
 </head>
-<body class="bg-brand-dark text-slate-100 min-h-screen font-sans pb-24 selection:bg-brand-orange selection:text-white">
+<body class="bg-brand-bg text-slate-100 min-h-screen font-sans pb-24">
 
-  <header class="border-b border-brand-cardBorder bg-brand-card/90 backdrop-blur-md sticky top-0 z-40">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-4">
-      
-      <!-- Logo e Identificação Regional -->
+  <!-- TOPBAR -->
+  <header class="border-b border-brand-cardBorder bg-brand-card/90 backdrop-blur sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
       <div class="flex items-center gap-4">
-        <div class="bg-white/95 px-3.5 py-1.5 rounded-xl shadow-md flex items-center h-12 border border-white/20">
-          <img id="navLogoPreview" src="./logo.png" alt="CupomClic" onerror="this.onerror=null; this.src='https://placehold.co/240x70/ffffff/0E274D?text=CupomClic';" class="h-8 object-contain">
+        <!-- LOGO OFICIAL VIA GITHUB (./logo.png) -->
+        <div class="bg-white px-4 py-1.5 rounded-xl shadow-sm flex items-center h-12">
+          <img id="headerBrandLogo" src="./logo.png" alt="CupomClic" onerror="this.src='https://via.placeholder.com/220x60?text=CupomClic'" class="h-8 object-contain">
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <span class="text-xs uppercase font-extrabold tracking-wider px-2.5 py-0.5 rounded-full bg-brand-orange/15 text-brand-orange border border-brand-orange/30">
-              MARÍLIA • SP
-            </span>
-            <span class="text-xs text-slate-400 font-medium hidden sm:inline">• Studio 4:5 Feed</span>
+            <span class="text-[11px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md bg-brand-orange/20 text-brand-orange border border-brand-orange/30">Marília • SP</span>
+            <span class="text-xs text-slate-400 font-medium hidden sm:inline">• Gerador de Lâminas Virais 4:5</span>
           </div>
-          <p class="text-xs text-slate-400 mt-0.5">Margem Operacional: <strong class="text-brand-orange font-bold">12% de Lucro CupomClic</strong></p>
+          <p class="text-xs text-slate-300 font-semibold mt-0.5">Margem Operacional: <span class="text-brand-orange font-bold">12% Lucro CupomClic</span></p>
         </div>
       </div>
 
-      <!-- Ações Rápidas -->
+      <!-- BOTÕES DE AÇÃO -->
       <div class="flex items-center gap-2 sm:gap-3">
         <a href="https://adsmanager.facebook.com" target="_blank" rel="noopener noreferrer" 
-           class="inline-flex items-center gap-2 text-xs font-bold px-3.5 py-2.5 rounded-xl bg-blue-600/20 text-blue-400 border border-blue-500/30 hover:bg-blue-600/30 transition shadow-sm">
+           class="inline-flex items-center gap-1.5 text-xs font-bold px-3.5 py-2 rounded-xl bg-blue-600/20 text-blue-400 border border-blue-500/30 hover:bg-blue-600/30 transition">
           <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/></svg>
           <span class="hidden md:inline">Meta Ads</span>
         </a>
 
-        <label class="cursor-pointer inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-2.5 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 transition">
-          <svg class="w-3.5 h-3.5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-          <span class="hidden md:inline">Recuperar</span> (.json)
-          <input type="file" id="inputLoadJson" accept=".json" class="hidden" onchange="loadFromPC(event)">
+        <label class="cursor-pointer inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-2 rounded-xl bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+          <span>Recuperar (.json)</span>
+          <input type="file" id="importFileInput" accept=".json" class="hidden" onchange="importData(event)">
         </label>
 
-        <button onclick="saveToPCAndClean()" class="inline-flex items-center gap-1.5 text-xs font-bold px-3.5 py-2.5 rounded-xl bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/25 transition">
+        <button onclick="saveAndReset()" class="inline-flex items-center gap-1.5 text-xs font-bold px-3.5 py-2 rounded-xl bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-600/30 transition">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
           <span>Salvar & Limpar</span>
         </button>
       </div>
-
     </div>
   </header>
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 pt-6 space-y-6">
-
-    <section class="grid grid-cols-2 md:grid-cols-4 gap-4">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+    
+    <!-- DASHBOARD FINANCEIRO (12% EXCLUSIVO) -->
+    <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
       <div class="bg-brand-card border border-brand-cardBorder p-4 rounded-2xl">
-        <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Faturamento Previsto</span>
-        <div class="text-2xl font-extrabold text-white mt-1 font-mono" id="kpiGrossRevenue">R$ 0,00</div>
-        <span class="text-[11px] text-slate-500" id="kpiTotalUnits">0 cupons estimados</span>
+        <div class="text-[10px] text-slate-400 font-bold mb-1 uppercase tracking-wide">FATURAMENTO PREVISTO</div>
+        <div class="text-2xl font-extrabold text-white" id="kpiGrossRevenue">R$ 0,00</div>
+        <div class="text-[11px] text-slate-500 mt-1" id="kpiTotalUnits">0 cupons estimados</div>
       </div>
-
-      <div class="bg-brand-card border border-brand-cardBorder p-4 rounded-2xl border-l-4 border-l-brand-orange relative overflow-hidden">
-        <span class="text-[10px] text-brand-orange font-bold uppercase tracking-wider block">Lucro CupomClic (12%)</span>
-        <div class="text-2xl font-extrabold text-brand-orange mt-1 font-mono" id="kpiPlatformProfit">R$ 0,00</div>
-        <span class="text-[11px] text-slate-500">Margem Líquida da Plataforma</span>
+      <div class="bg-brand-card border border-brand-cardBorder p-4 rounded-2xl border-l-4 border-l-brand-orange">
+        <div class="text-[10px] text-brand-orange font-bold mb-1 uppercase tracking-wide">LUCRO CUPOMCLIC (12%)</div>
+        <div class="text-2xl font-extrabold text-brand-orange" id="kpiPlatformProfit">R$ 0,00</div>
+        <div class="text-[11px] text-slate-400 mt-1">Margem Líquida da Plataforma</div>
       </div>
-
       <div class="bg-brand-card border border-brand-cardBorder p-4 rounded-2xl">
-        <span class="text-[10px] text-sky-400 font-bold uppercase tracking-wider block">Mídia Recomendada (Meta)</span>
-        <div class="text-2xl font-extrabold text-sky-400 mt-1 font-mono" id="kpiTotalAds">R$ 0,00</div>
-        <span class="text-[11px] text-slate-500" id="kpiReinvestLabel">50% do Lucro CupomClic</span>
+        <div class="text-[10px] text-blue-400 font-bold mb-1 uppercase tracking-wide">INVESTIMENTO RECOMENDADO</div>
+        <div class="text-2xl font-extrabold text-blue-400" id="kpiTotalAds">R$ 0,00</div>
+        <div class="text-[11px] text-slate-500 mt-1" id="kpiReinvestRatio">50% do lucro CupomClic</div>
       </div>
-
       <div class="bg-brand-card border border-brand-cardBorder p-4 rounded-2xl border-l-4 border-l-emerald-400">
-        <span class="text-[10px] text-emerald-400 font-bold uppercase tracking-wider block">Sobra Líquida Final</span>
-        <div class="text-2xl font-extrabold text-emerald-400 mt-1 font-mono" id="kpiNetProfit">R$ 0,00</div>
-        <span class="text-[11px] text-emerald-500/90 font-medium" id="kpiNetMargin">Sobra após tráfego pago</span>
+        <div class="text-[10px] text-emerald-400 font-bold mb-1 uppercase tracking-wide">SOBRA LÍQUIDA FINAL</div>
+        <div class="text-2xl font-extrabold text-emerald-400" id="kpiNetProfit">R$ 0,00</div>
+        <div class="text-[11px] text-emerald-400/80 mt-1" id="kpiNetMargin">Sobra após tráfego</div>
       </div>
     </section>
 
-    <section class="bg-brand-card border border-brand-cardBorder p-5 rounded-2xl">
+    <!-- CONFIGURAÇÕES DE CAMPANHA -->
+    <section class="bg-brand-card border border-brand-cardBorder p-5 rounded-2xl mb-6">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
         <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1.5">Segmentação em Marília</label>
-          <select id="targetAudience" onchange="calculate()" class="w-full bg-brand-input border border-brand-cardBorder rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-orange">
-            <option value="gastronomia">Gastronomia Noturna, Delivery & Lanches</option>
-            <option value="geral">Geral Urbano • Promoções & Varejo Marília</option>
-            <option value="jovens">Universitários (Unimar, Univem, Famema)</option>
-            <option value="servicos">Serviços, Beleza & Automotivo</option>
+          <label class="block text-xs font-bold text-slate-300 mb-1">Público-Alvo em Marília</label>
+          <select id="targetAudience" onchange="calculate()" class="w-full bg-brand-input border border-brand-cardBorder rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-orange">
+            <option value="gastronomia">Gastronomia & Delivery Noturno</option>
+            <option value="geral">Geral / Varejo Urbano & Promoções</option>
+            <option value="jovens">Jovens / Universitários (Univem, Unimar, Famema)</option>
+            <option value="servicos">Serviços & Automotivo</option>
           </select>
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1.5">CPM Médio Marília (Meta)</label>
+          <label class="block text-xs font-bold text-slate-300 mb-1">CPM Estimado Marília (Meta)</label>
           <div class="relative">
-            <span class="absolute left-3 top-2 text-xs text-slate-500 font-bold">R$</span>
-            <input type="number" id="cpmInput" value="18.00" step="0.5" oninput="calculate()" class="w-full bg-brand-input border border-brand-cardBorder rounded-xl pl-8 pr-3 py-2 text-xs text-white focus:outline-none focus:border-brand-orange">
+            <span class="absolute left-3 top-2 text-xs text-slate-500">R$</span>
+            <input type="number" id="cpmInput" value="18.00" step="0.50" oninput="calculate()" class="w-full bg-brand-input border border-brand-cardBorder rounded-xl pl-9 pr-3 py-2 text-sm text-white focus:outline-none">
           </div>
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1.5">Reinvestimento em Tráfego (sobre 12%)</label>
+          <label class="block text-xs font-bold text-slate-300 mb-1">Reinvestimento em Tráfego</label>
           <div class="flex items-center gap-3">
-            <input type="range" id="reinvestRate" min="20" max="70" value="50" step="5" oninput="calculate()" class="w-full accent-brand-orange">
-            <span id="reinvestRateLabel" class="text-xs font-bold text-brand-orange w-10 text-right">50%</span>
+            <input type="range" id="reinvestRate" min="20" max="70" value="50" oninput="calculate()" class="w-full accent-brand-orange">
+            <span class="text-sm font-bold text-brand-orange w-12 text-right" id="reinvestRateLabel">50%</span>
           </div>
         </div>
 
         <div class="flex items-end">
-          <button onclick="loadSampleOffers()" class="w-full py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-brand-cardBorder transition">
-            ⚡ Carregar 10 Ofertas Modelo
+          <button onclick="loadSampleOffers()" class="w-full text-xs font-bold py-2.5 px-3 rounded-xl bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 transition">
+            Carregar 10 Ofertas Exemplo
           </button>
         </div>
       </div>
     </section>
 
-    <section class="bg-brand-card border border-brand-cardBorder p-5 rounded-2xl">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-brand-cardBorder">
+    <!-- TABELA DE OFERTAS COM PREÇO ÂNCORA "DE / POR" -->
+    <section class="bg-brand-card border border-brand-cardBorder p-5 rounded-2xl mb-8">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4">
         <div>
-          <h2 class="text-base font-extrabold text-white flex items-center gap-2">
+          <h2 class="text-lg font-extrabold text-white flex items-center gap-2">
             Base de Ofertas Cadastradas
-            <span id="offersCountBadge" class="text-xs font-mono font-bold px-2 py-0.5 rounded-full bg-brand-orange/20 text-brand-orange">0 ofertas</span>
+            <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-brand-orange/20 text-brand-orange" id="offersCountBadge">0 ofertas</span>
           </h2>
-          <p class="text-xs text-slate-400 mt-0.5">Faça o upload da foto apetitosa de cada produto. As lâminas 4:5 são montadas em tempo real com o background geométrico.</p>
+          <p class="text-xs text-slate-400">Insira a foto, o preço original (De) e o promocional (Por) para ativar a ancoragem visual com desconto real.</p>
         </div>
-
         <div class="flex items-center gap-2">
-          <button onclick="addEmptyOffer()" class="text-xs font-bold px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-brand-cardBorder transition">
+          <button onclick="addEmptyOffer()" class="text-xs font-bold px-3 py-2 rounded-xl bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 transition">
             + Nova Oferta
           </button>
-          <button onclick="runBalancedClustering()" class="text-xs font-extrabold px-4 py-2 rounded-xl bg-gradient-to-r from-brand-orange to-amber-500 text-white shadow-md shadow-brand-orange/20 hover:brightness-110 transition flex items-center gap-1.5">
+          <button onclick="runBalancedClustering()" class="text-xs font-extrabold px-4 py-2 rounded-xl bg-gradient-to-r from-brand-orange to-amber-500 text-white shadow-lg shadow-brand-orange/25 hover:brightness-110 transition flex items-center gap-1.5">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
-            <span>Gerar Blocos de 5 Balanceados</span>
+            <span>Gerar Carrosséis Balanceados (5 Lojas)</span>
           </button>
         </div>
       </div>
 
       <div class="overflow-x-auto">
-        <table class="w-full text-left text-xs">
+        <table class="w-full text-left text-sm">
           <thead>
-            <tr class="text-slate-400 uppercase tracking-wider border-b border-brand-cardBorder/80 text-[10px]">
-              <th class="py-2.5 px-3">Foto 4:5</th>
-              <th class="py-2.5 px-3">Estabelecimento & Título da Oferta</th>
-              <th class="py-2.5 px-3">Preço (R$)</th>
-              <th class="py-2.5 px-3">Vendas Previstas</th>
+            <tr class="text-slate-500 border-b border-brand-cardBorder text-xs uppercase">
+              <th class="py-2.5 px-3">Foto Real</th>
+              <th class="py-2.5 px-3">Loja & Título da Oferta</th>
+              <th class="py-2.5 px-3">Preço De (R$)</th>
+              <th class="py-2.5 px-3">Preço Por (R$)</th>
+              <th class="py-2.5 px-3">Vendas Est.</th>
               <th class="py-2.5 px-3">Lucro CC (12%)</th>
               <th class="py-2.5 px-3">Tração</th>
               <th class="py-2.5 px-3 text-right">Ação</th>
             </tr>
           </thead>
-          <tbody id="offersTableBody" class="divide-y divide-brand-cardBorder/40">
-            <!-- Linhas dinâmicas -->
+          <tbody id="offersTableBody" class="divide-y divide-brand-cardBorder/60">
+            <!-- Dinâmico -->
           </tbody>
         </table>
       </div>
     </section>
 
-    <section class="space-y-6">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+    <!-- CARROSSEIS 4:5 COM VISUAL VIRAL PROFISSIONAL & DOWNLOAD EM .ZIP -->
+    <section class="mb-10">
+      <div class="flex items-center justify-between mb-4">
         <div>
-          <h2 class="text-lg font-black text-white flex items-center gap-2">
-            Carrosséis Prontos • Formato 4:5 (1080 x 1350 px)
+          <h2 class="text-lg font-extrabold text-white flex items-center gap-2">
+            Lâminas de Carrossel 4:5 (1080 x 1350 px) • Visual de Alta Conversão
           </h2>
-          <p class="text-xs text-slate-400">Background geométrico vibrante, logo oficial sem distorção e chamada direcionada para a sacola do Instagram.</p>
+          <p class="text-xs text-slate-400">Layout cinematográfico com fundo geométrico vibrante, logo oficial com margem ampla, preço âncora DE/POR e exportação em .ZIP.</p>
         </div>
       </div>
 
       <div id="balancedClustersContainer" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <!-- Blocos gerados via script -->
+        <!-- Render dos blocos -->
       </div>
     </section>
 
   </main>
 
   <script>
-    // ESTADO GLOBAL
     let offers = [];
     let generatedClusters = [];
     const offerImages = {};
 
-    // 10 OFERTAS REAIS DE MARÍLIA
-    const SAMPLE_MARILIA = [
-      { id: 1, store: "Hamburgueria Central", title: "Combo Smash Duplo + Fritas", price: 38.00, salesEst: 25 },
-      { id: 2, store: "Pizzaria Bella Marília", title: "Pizza Grande Especial 8 Fatias", price: 65.00, salesEst: 16 },
-      { id: 3, store: "Açaí Tropical Tiradentes", title: "Copo 500ml Turbinado c/ Nutella", price: 24.00, salesEst: 35 },
-      { id: 4, store: "Lavacar Cascata Express", title: "Ducha Completa + Cera Líquida", price: 60.00, salesEst: 12 },
-      { id: 5, store: "Barbearia Dom Marília", title: "Corte Degradê + Barba Terapia", price: 55.00, salesEst: 15 },
-      { id: 6, store: "Sushi Marília Premium", title: "Combo 24 Peças Especiais Salmão", price: 79.90, salesEst: 14 },
-      { id: 7, store: "Pastelaria da Avenida", title: "Super Pastel Especial 30cm", price: 28.00, salesEst: 30 },
-      { id: 8, store: "Marília Fitness Suplementos", title: "Whey Concentrado 900g Refil", price: 95.00, salesEst: 8 },
-      { id: 9, store: "Ótica Esmeralda", title: "Armação Solar Proteção UV400", price: 119.00, salesEst: 6 },
-      { id: 10, store: "Troca de Óleo Confiança", title: "Revisão Básica + Troca de Filtro", price: 150.00, salesEst: 6 }
-    ];
-
-    function formatMoney(val) {
-      return (val || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-    }
-
     function loadSampleOffers() {
-      offers = JSON.parse(JSON.stringify(SAMPLE_MARILIA));
+      offers = [
+        { id: 1, store: "Hamburgueria Central", title: "Combo Smash Duplo + Fritas", originalPrice: 48.00, price: 38.00, salesEst: 20 },
+        { id: 2, store: "Pizzaria Bella Marília", title: "Pizza Grande Especial 8 Fatias", originalPrice: 85.00, price: 65.00, salesEst: 15 },
+        { id: 3, store: "Açaí Tropical Tiradentes", title: "Copo 500ml Turbinado", originalPrice: 32.00, price: 24.00, salesEst: 30 },
+        { id: 4, store: "Lavacar Cascata Express", title: "Ducha Completa + Cera Líquida", originalPrice: 80.00, price: 60.00, salesEst: 12 },
+        { id: 5, store: "Barbearia Dom Marília", title: "Corte Degradê + Barba Terapia", originalPrice: 75.00, price: 55.00, salesEst: 14 },
+        { id: 6, store: "Sushi Marília Premium", title: "Combo 30 Peças Tradicional", originalPrice: 119.00, price: 89.00, salesEst: 10 },
+        { id: 7, store: "Pastelaria da Avenida", title: "Super Pastel 30cm + Caldo", originalPrice: 38.00, price: 28.00, salesEst: 25 },
+        { id: 8, store: "Marília Fitness Suplementos", title: "Whey Concentrado 900g Refil", originalPrice: 129.00, price: 95.00, salesEst: 8 },
+        { id: 9, store: "Ótica Esmeralda", title: "Armação Solar Proteção UV", originalPrice: 160.00, price: 120.00, salesEst: 6 },
+        { id: 10, store: "Troca de Óleo Confiança", title: "Revisão Básica + Troca Filtro", originalPrice: 190.00, price: 150.00, salesEst: 5 }
+      ];
       renderOffersTable();
       calculate();
       runBalancedClustering();
@@ -254,13 +236,14 @@
     }
 
     function addEmptyOffer() {
-      const nextId = offers.length ? Math.max(...offers.map(o => o.id)) + 1 : 1;
+      const newId = offers.length > 0 ? Math.max(...offers.map(o => o.id)) + 1 : 1;
       offers.push({
-        id: nextId,
-        store: `Loja Marília #${nextId}`,
+        id: newId,
+        store: "Loja Parceira Marília",
         title: "Nome do Produto em Oferta",
+        originalPrice: 65.00,
         price: 49.90,
-        salesEst: 12
+        salesEst: 10
       });
       renderOffersTable();
       calculate();
@@ -271,13 +254,12 @@
       delete offerImages[id];
       renderOffersTable();
       calculate();
-      if (offers.length >= 5) runBalancedClustering();
     }
 
     function updateOffer(id, field, value) {
       const item = offers.find(o => o.id === id);
       if (item) {
-        if (field === 'price' || field === 'salesEst') {
+        if (field === 'price' || field === 'originalPrice' || field === 'salesEst') {
           item[field] = parseFloat(value) || 0;
         } else {
           item[field] = value;
@@ -286,13 +268,11 @@
       }
     }
 
-    function getHeatScore(offer, audience) {
+    function getHeatScore(offer) {
       let heat = 75;
-      if (offer.price <= 35) heat += 14;
+      if (offer.price <= 35) heat += 15;
       else if (offer.price <= 60) heat += 8;
-      else if (offer.price >= 120) heat -= 10;
-
-      if (audience === 'gastronomia' && offer.price < 50) heat += 6;
+      else if (offer.price >= 110) heat -= 10;
       return Math.min(Math.max(heat, 30), 99);
     }
 
@@ -301,26 +281,23 @@
       document.getElementById("offersCountBadge").textContent = `${offers.length} ofertas`;
 
       if (offers.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-500">Nenhuma oferta adicionada. Clique em "+ Nova Oferta" ou "Carregar 10 Ofertas Modelo".</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="8" class="py-8 text-center text-slate-500 text-xs">Nenhuma oferta cadastrada. Clique em "Carregar 10 Ofertas Exemplo".</td></tr>`;
         return;
       }
 
-      const audience = document.getElementById("targetAudience").value;
-
       tbody.innerHTML = offers.map(o => {
         const platformShare = (o.price * o.salesEst * 0.12);
-        const heat = getHeatScore(o, audience);
+        const heat = getHeatScore(o);
         const hasImg = offerImages[o.id];
 
         const imgThumb = hasImg 
-          ? `<img src="${hasImg}" class="w-12 h-12 object-cover rounded-xl border border-brand-orange shadow-md">`
-          : `<div class="w-12 h-12 rounded-xl bg-slate-800 border border-slate-700 flex flex-col items-center justify-center text-[9px] text-slate-400 font-bold hover:border-brand-orange hover:text-brand-orange transition">
-               <svg class="w-4 h-4 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-               <span>FOTO</span>
+          ? `<img src="${hasImg}" class="w-12 h-12 object-cover rounded-xl border-2 border-brand-orange shadow-md">`
+          : `<div class="w-12 h-12 bg-slate-800 flex flex-col items-center justify-center rounded-xl border border-slate-700 text-[9px] text-slate-400 font-bold hover:border-brand-orange transition">
+               <span>+ FOTO</span>
              </div>`;
 
         return `
-          <tr class="hover:bg-slate-900/60 transition">
+          <tr class="hover:bg-brand-card/40 transition">
             <td class="py-2.5 px-3">
               <label class="cursor-pointer block relative">
                 ${imgThumb}
@@ -328,23 +305,29 @@
               </label>
             </td>
             <td class="py-2.5 px-3">
-              <input type="text" value="${o.store}" onchange="updateOffer(${o.id}, 'store', this.value)" class="w-full font-bold text-white bg-transparent focus:bg-brand-input rounded px-1.5 py-0.5 text-xs outline-none">
-              <input type="text" value="${o.title}" onchange="updateOffer(${o.id}, 'title', this.value)" class="w-full text-slate-400 bg-transparent focus:bg-brand-input rounded px-1.5 py-0.5 text-xs outline-none">
-            </td>
-            <td class="py-2.5 px-3 font-mono">
-              <div class="flex items-center gap-1">
-                <span class="text-slate-500">R$</span>
-                <input type="number" step="0.5" value="${o.price}" oninput="updateOffer(${o.id}, 'price', this.value)" class="w-16 bg-brand-input border border-brand-cardBorder rounded px-2 py-1 text-right text-white">
-              </div>
-            </td>
-            <td class="py-2.5 px-3 text-center font-mono">
-              <input type="number" value="${o.salesEst}" oninput="updateOffer(${o.id}, 'salesEst', this.value)" class="w-14 bg-brand-input border border-brand-cardBorder rounded px-2 py-1 text-center text-white">
-            </td>
-            <td class="py-2.5 px-3 font-mono font-bold text-brand-orange">
-              ${formatMoney(platformShare)}
+              <input type="text" value="${o.store}" onchange="updateOffer(${o.id}, 'store', this.value)" class="block w-full font-bold text-slate-200 bg-transparent focus:bg-brand-input focus:outline-none rounded px-1.5 py-0.5 text-xs">
+              <input type="text" value="${o.title}" onchange="updateOffer(${o.id}, 'title', this.value)" class="block w-full text-slate-400 bg-transparent focus:bg-brand-input focus:outline-none rounded px-1.5 py-0.5 text-xs">
             </td>
             <td class="py-2.5 px-3">
-              <span class="px-2 py-0.5 rounded text-[10px] font-bold ${heat >= 85 ? 'bg-red-500/20 text-red-400 border border-red-500/30' : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'}">
+              <div class="flex items-center gap-1">
+                <span class="text-xs text-slate-500">R$</span>
+                <input type="number" step="0.5" value="${o.originalPrice || (o.price * 1.25)}" oninput="updateOffer(${o.id}, 'originalPrice', this.value)" class="w-20 bg-brand-input border border-brand-cardBorder rounded px-2 py-1 text-xs text-slate-400 text-right">
+              </div>
+            </td>
+            <td class="py-2.5 px-3">
+              <div class="flex items-center gap-1">
+                <span class="text-xs text-slate-500">R$</span>
+                <input type="number" step="0.5" value="${o.price}" oninput="updateOffer(${o.id}, 'price', this.value)" class="w-20 bg-brand-input border border-brand-cardBorder rounded px-2 py-1 text-xs text-white font-bold text-right">
+              </div>
+            </td>
+            <td class="py-2.5 px-3">
+              <input type="number" value="${o.salesEst}" oninput="updateOffer(${o.id}, 'salesEst', this.value)" class="w-16 bg-brand-input border border-brand-cardBorder rounded px-2 py-1 text-xs text-white text-center">
+            </td>
+            <td class="py-2.5 px-3 text-xs font-bold text-brand-orange">
+              R$ ${platformShare.toFixed(2)}
+            </td>
+            <td class="py-2.5 px-3">
+              <span class="text-[11px] font-bold px-2 py-0.5 rounded-full ${heat >= 85 ? 'bg-red-500/20 text-red-400 border border-red-500/30' : 'bg-slate-800 text-slate-300'}">
                 ${heat}%
               </span>
             </td>
@@ -361,7 +344,7 @@
     function calculate() {
       const reinvestPct = parseInt(document.getElementById("reinvestRate").value) / 100;
       document.getElementById("reinvestRateLabel").textContent = `${Math.round(reinvestPct * 100)}%`;
-      document.getElementById("kpiReinvestLabel").textContent = `${Math.round(reinvestPct * 100)}% do Lucro CC`;
+      document.getElementById("kpiReinvestRatio").textContent = `${Math.round(reinvestPct * 100)}% do lucro CupomClic`;
 
       let totalGross = 0;
       let totalUnits = 0;
@@ -371,32 +354,31 @@
         const rev = (o.price || 0) * (o.salesEst || 0);
         totalGross += rev;
         totalUnits += (o.salesEst || 0);
-        totalFeePlatform += rev * 0.12;
+        totalFeePlatform += rev * 0.12; // 12% fixo CupomClic
       });
 
       const totalAds = totalFeePlatform * reinvestPct;
       const netProfit = totalFeePlatform - totalAds;
 
-      document.getElementById("kpiGrossRevenue").textContent = formatMoney(totalGross);
+      document.getElementById("kpiGrossRevenue").textContent = `R$ ${totalGross.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
       document.getElementById("kpiTotalUnits").textContent = `${totalUnits} cupons estimados`;
-      document.getElementById("kpiPlatformProfit").textContent = formatMoney(totalFeePlatform);
-      document.getElementById("kpiTotalAds").textContent = formatMoney(totalAds);
-      document.getElementById("kpiNetProfit").textContent = formatMoney(netProfit);
-      document.getElementById("kpiNetMargin").textContent = totalFeePlatform > 0 ? `Sobra de ${((netProfit / totalFeePlatform) * 100).toFixed(0)}% da comissão` : `Sobra líquida segura`;
+      document.getElementById("kpiPlatformProfit").textContent = `R$ ${totalFeePlatform.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+      document.getElementById("kpiTotalAds").textContent = `R$ ${totalAds.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+      document.getElementById("kpiNetProfit").textContent = `R$ ${netProfit.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+      document.getElementById("kpiNetMargin").textContent = totalFeePlatform > 0 ? `Sobra de ${((netProfit / totalFeePlatform) * 100).toFixed(0)}%` : `Sobra após tráfego`;
     }
 
     function runBalancedClustering() {
       if (offers.length < 5) {
-        alert("Cadastre pelo menos 5 ofertas para estruturar um carrossel completo.");
+        alert("Cadastre pelo menos 5 ofertas para estruturar um carrossel.");
         return;
       }
 
-      const audience = document.getElementById("targetAudience").value;
       const reinvestPct = parseInt(document.getElementById("reinvestRate").value) / 100;
 
       const sortedOffers = [...offers].map(o => ({
         ...o,
-        heat: getHeatScore(o, audience),
+        heat: getHeatScore(o),
         feePlatform: (o.price * o.salesEst * 0.12)
       })).sort((a, b) => b.heat - a.heat);
 
@@ -422,7 +404,6 @@
         
         const totalBlockFeePlatform = block.reduce((acc, curr) => acc + curr.feePlatform, 0);
         const totalBlockRev = block.reduce((acc, curr) => acc + (curr.price * curr.salesEst), 0);
-        const avgHeat = Math.round(block.reduce((acc, curr) => acc + curr.heat, 0) / block.length);
         const recommendedAds = totalBlockFeePlatform * reinvestPct;
 
         return {
@@ -430,198 +411,110 @@
           offers: block,
           totalRev: totalBlockRev,
           totalFeePlatform: totalBlockFeePlatform,
-          recommendedAds: recommendedAds,
-          avgHeat: avgHeat
+          recommendedAds: recommendedAds
         };
       });
 
       renderClusters();
     }
 
-    function drawGeometricBackground(ctx, width, height) {
-      // 1. Gradiente Base Diagonal: Amarelo Dourado (canto inferior esquerdo) para Carmesim/Vermelho Intenso (topo direito)
-      const grad = ctx.createLinearGradient(0, height, width, 0);
-      grad.addColorStop(0.0, '#F59E0B'); // Amarelo Dourado
-      grad.addColorStop(0.25, '#FB923C'); // Laranja Quente
-      grad.addColorStop(0.55, '#FF5500'); // Laranja Oficial CupomClic
-      grad.addColorStop(0.85, '#DC2626'); // Vermelho Vibrante
-      grad.addColorStop(1.0, '#991B1B'); // Carmesim Profundo
+    // DESENHO PROCEDURAL DO FUNDO GEOMÉTRICO (INSPIRADO EM back.jpg)
+    function drawGeometricBackground(ctx, w, h) {
+      // 1. Gradiente Base Dinâmico (Amarelo Ouro -> Laranja CupomClic -> Vermelho)
+      const grad = ctx.createLinearGradient(0, h, w, 0);
+      grad.addColorStop(0, '#FFA800');   // Amarelo dourado vivo
+      grad.addColorStop(0.35, '#FF5500'); // Laranja vibrante oficial
+      grad.addColorStop(0.75, '#E02600'); // Vermelho alaranjado
+      grad.addColorStop(1, '#B30B00');    // Carmesim profundo
       ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, width, height);
+      ctx.fillRect(0, 0, w, h);
 
-      // 2. Composição de Polígonos Geométricos e Quadrados Rotacionados a 45 Graus (Losangos Glassmorphism)
-      const squares = [
-        // x, y, size, fillAlpha, strokeAlpha, lineWidth
-        { x: 880, y: 220, s: 380, fill: 0.18, stroke: 0.45, lw: 2.5 },
-        { x: 740, y: 380, s: 290, fill: 0.12, stroke: 0.50, lw: 3.0 },
-        { x: 920, y: 520, s: 220, fill: 0.16, stroke: 0.60, lw: 2.0 },
-        { x: 620, y: 260, s: 240, fill: 0.08, stroke: 0.35, lw: 2.0 },
-        { x: 520, y: 150, s: 180, fill: 0.10, stroke: 0.40, lw: 2.0 },
-        { x: 800, y: 680, s: 260, fill: 0.15, stroke: 0.55, lw: 2.5 },
-        { x: 950, y: 840, s: 210, fill: 0.12, stroke: 0.40, lw: 2.0 },
-        { x: 680, y: 820, s: 310, fill: 0.14, stroke: 0.50, lw: 2.5 },
-        { x: 420, y: 340, s: 260, fill: 0.06, stroke: 0.30, lw: 1.8 },
-        { x: 320, y: 190, s: 190, fill: 0.05, stroke: 0.25, lw: 1.5 },
-        { x: 250, y: 460, s: 220, fill: 0.04, stroke: 0.20, lw: 1.5 },
-        { x: 560, y: 960, s: 240, fill: 0.10, stroke: 0.35, lw: 2.0 },
-        { x: 840, y: 1040, s: 180, fill: 0.12, stroke: 0.45, lw: 2.0 },
-        { x: 1020, y: 340, s: 160, fill: 0.20, stroke: 0.65, lw: 2.5 }
-      ];
-
-      squares.forEach(sq => {
+      // 2. Camadas de Losangos / Quadrados Rotacionados Translúcidos (Glassmorphism)
+      function drawGlassRhombus(cx, cy, size, alpha, fillAlpha, strokeWidth) {
         ctx.save();
-        ctx.translate(sq.x, sq.y);
+        ctx.translate(cx, cy);
         ctx.rotate(45 * Math.PI / 180);
 
-        // Preenchimento de vidro branco translúcido
-        if (sq.fill > 0) {
-          ctx.fillStyle = `rgba(255, 255, 255, ${sq.fill})`;
-          ctx.fillRect(-sq.s / 2, -sq.s / 2, sq.s, sq.s);
+        if (fillAlpha > 0) {
+          ctx.fillStyle = `rgba(255, 255, 255, ${fillAlpha})`;
+          ctx.fillRect(-size / 2, -size / 2, size, size);
         }
 
-        // Borda luminosa em wireframe
-        ctx.strokeStyle = `rgba(255, 255, 255, ${sq.stroke})`;
-        ctx.lineWidth = sq.lw;
-        ctx.strokeRect(-sq.s / 2, -sq.s / 2, sq.s, sq.s);
-
+        ctx.strokeStyle = `rgba(255, 255, 255, ${alpha})`;
+        ctx.lineWidth = strokeWidth;
+        ctx.strokeRect(-size / 2, -size / 2, size, size);
         ctx.restore();
-      });
-
-      // 3. Brilho radial superior para realçar o efeito translúcido
-      const radialGlow = ctx.createRadialGradient(850, 350, 50, 850, 350, 600);
-      radialGlow.addColorStop(0, 'rgba(255, 255, 255, 0.25)');
-      radialGlow.addColorStop(1, 'transparent');
-      ctx.fillStyle = radialGlow;
-      ctx.fillRect(0, 0, width, height);
-    }
-
-    function drawAccurateLogo(ctx, logoImg, boxX, boxY, boxW, boxH) {
-      if (!logoImg || !logoImg.width || !logoImg.height) return;
-
-      const imgW = logoImg.naturalWidth || logoImg.width;
-      const imgH = logoImg.naturalHeight || logoImg.height;
-      const imgRatio = imgW / imgH;
-      const boxRatio = boxW / boxH;
-
-      let drawW, drawH;
-      if (imgRatio > boxRatio) {
-        drawW = boxW;
-        drawH = boxW / imgRatio;
-      } else {
-        drawH = boxH;
-        drawW = boxH * imgRatio;
       }
 
-      const drawX = boxX + (boxW - drawW) / 2;
-      const drawY = boxY + (boxH - drawH) / 2;
-
-      ctx.drawImage(logoImg, drawX, drawY, drawW, drawH);
+      // Geometrias no canto superior direito e espalhadas pelo fundo
+      drawGlassRhombus(900, 180, 280, 0.40, 0.08, 3);
+      drawGlassRhombus(820, 260, 200, 0.50, 0.15, 3.5);
+      drawGlassRhombus(980, 320, 160, 0.35, 0.06, 2.5);
+      drawGlassRhombus(740, 160, 130, 0.30, 0.05, 2);
+      drawGlassRhombus(860, 420, 240, 0.35, 0.10, 3);
+      drawGlassRhombus(1020, 480, 180, 0.25, 0.04, 2);
+      drawGlassRhombus(680, 380, 150, 0.20, 0.04, 2);
+      
+      // Geometrias sutis no centro e canto inferior esquerdo
+      drawGlassRhombus(320, 920, 220, 0.25, 0.05, 2);
+      drawGlassRhombus(180, 1050, 260, 0.30, 0.08, 3);
+      drawGlassRhombus(480, 1180, 190, 0.20, 0.04, 2);
     }
 
+    // MOTOR GRÁFICO VIRAL 4:5 COM TODOS OS 4 REFINAMENTOS
     function renderCanvasViral4x5(item, idx, blockId, callback) {
       const canvas = document.createElement('canvas');
       canvas.width = 1080;
-      canvas.height = 1350; // Resolução nativa Feed 4:5
+      canvas.height = 1350;
       const ctx = canvas.getContext('2d');
 
-      // 1. Renderiza o Fundo Geométrico Idêntico a back.jpg
+      // 1. FUNDO GEOMÉTRICO DINÂMICO
       drawGeometricBackground(ctx, 1080, 1350);
 
-      // Carregamento da Logo Oficial './logo.png' com Aspect Ratio Preservado
-      const brandLogo = new Image();
-      brandLogo.crossOrigin = "anonymous";
-      brandLogo.src = "./logo.png";
+      // Carrega Logo Oficial com fallback
+      const logoImg = new Image();
+      logoImg.crossOrigin = "anonymous";
+      logoImg.src = "./logo.png";
 
-      brandLogo.onload = () => buildSlide(brandLogo);
-      brandLogo.onerror = () => {
-        // Fallback visual caso o arquivo ainda não esteja commitado
+      logoImg.onload = () => drawSlideElements(logoImg);
+      logoImg.onerror = () => {
         const fallback = new Image();
         fallback.crossOrigin = "anonymous";
-        fallback.src = "https://placehold.co/400x120/ffffff/0E274D?text=CupomClic";
-        fallback.onload = () => buildSlide(fallback);
+        fallback.src = "https://via.placeholder.com/320x80?text=CupomClic";
+        fallback.onload = () => drawSlideElements(fallback);
       };
 
-      function buildSlide(logoImage) {
-        // 2. HEADER SUPERIOR EM PÍLULA GLASSMORPHISM BRANCA TRANSLÚCIDA
-        const pillX = 60;
-        const pillY = 50;
-        const pillW = 400;
-        const pillH = 92;
+      function drawSlideElements(brandLogo) {
+        // 2. FOTO PRINCIPAL CENTRALIZADA
+        const photoX = 60;
+        const photoY = 175;
+        const photoW = 960;
+        const photoH = 780;
 
+        // Sombra suave na moldura da foto
         ctx.save();
-        ctx.shadowColor = 'rgba(0, 0, 0, 0.16)';
-        ctx.shadowBlur = 24;
-        ctx.shadowOffsetY = 8;
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.94)';
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.35)';
+        ctx.shadowBlur = 30;
+        ctx.shadowOffsetY = 15;
         ctx.beginPath();
-        ctx.roundRect(pillX, pillY, pillW, pillH, 26);
-        ctx.fill();
-        ctx.restore();
-
-        // Borda sutil de vidro na pílula
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.roundRect(pillX, pillY, pillW, pillH, 26);
-        ctx.stroke();
-
-        // Desenha a Logo Oficial VAZADA preservando proporção matemática exata
-        drawAccurateLogo(ctx, logoImage, pillX + 24, pillY + 14, pillW - 48, pillH - 28);
-
-        // Pílula da Cidade (Direita Superior)
-        const cityPillX = 810;
-        const cityPillY = 52;
-        const cityPillW = 210;
-        const cityPillH = 88;
-
-        ctx.save();
-        ctx.shadowColor = 'rgba(0, 0, 0, 0.12)';
-        ctx.shadowBlur = 20;
-        ctx.shadowOffsetY = 6;
-        ctx.fillStyle = 'rgba(15, 23, 42, 0.88)';
-        ctx.beginPath();
-        ctx.roundRect(cityPillX, cityPillY, cityPillW, cityPillH, 24);
-        ctx.fill();
-        ctx.restore();
-
+        ctx.roundRect(photoX, photoY, photoW, photoH, 32);
         ctx.fillStyle = '#FFFFFF';
-        ctx.font = '800 20px "Plus Jakarta Sans"';
-        ctx.textAlign = 'center';
-        ctx.fillText('MARÍLIA • SP', cityPillX + (cityPillW / 2), cityPillY + 42);
-        ctx.font = 'bold 13px "Plus Jakarta Sans"';
-        ctx.fillStyle = '#FB923C';
-        ctx.fillText('OFERTA EXCLUSIVA', cityPillX + (cityPillW / 2), cityPillY + 64);
-
-        // 3. CARD CENTRAL VITRINE PARA A FOTO DO PRODUTO (780px de Altura)
-        const photoCardX = 60;
-        const photoCardY = 175;
-        const photoCardW = 960;
-        const photoCardH = 780;
-
-        // Sombra de elevação e profundidade
-        ctx.save();
-        ctx.shadowColor = 'rgba(15, 23, 42, 0.35)';
-        ctx.shadowBlur = 40;
-        ctx.shadowOffsetY = 20;
-        ctx.fillStyle = '#FFFFFF';
-        ctx.beginPath();
-        ctx.roundRect(photoCardX, photoCardY, photoCardW, photoCardH, 36);
         ctx.fill();
         ctx.restore();
 
-        // Enquadramento da Foto com corte suave
+        // Enquadramento da foto (cover com clipping)
         ctx.save();
         ctx.beginPath();
-        ctx.roundRect(photoCardX, photoCardY, photoCardW, photoCardH, 36);
+        ctx.roundRect(photoX, photoY, photoW, photoH, 32);
         ctx.clip();
 
-        const userPhotoSrc = offerImages[item.id];
-        if (userPhotoSrc) {
+        const photoSrc = offerImages[item.id];
+        if (photoSrc) {
           const prodImg = new Image();
-          prodImg.src = userPhotoSrc;
+          prodImg.src = photoSrc;
           prodImg.onload = () => {
             const imgRatio = prodImg.width / prodImg.height;
-            const targetRatio = photoCardW / photoCardH;
+            const targetRatio = photoW / photoH;
             let sW, sH, sX, sY;
 
             if (imgRatio > targetRatio) {
@@ -635,123 +528,186 @@
               sX = 0;
               sY = (prodImg.height - sH) / 2;
             }
-            ctx.drawImage(prodImg, sX, sY, sW, sH, photoCardX, photoCardY, photoCardW, photoCardH);
+            ctx.drawImage(prodImg, sX, sY, sW, sH, photoX, photoY, photoW, photoH);
             ctx.restore();
-            drawOverlayAndBottom();
+            continueDrawing();
           };
         } else {
-          // Placeholder Estilizado caso não tenha subido foto
-          ctx.fillStyle = '#1E293B';
-          ctx.fillRect(photoCardX, photoCardY, photoCardW, photoCardH);
-          ctx.fillStyle = '#64748B';
-          ctx.font = 'bold 32px "Plus Jakarta Sans"';
-          ctx.textAlign = 'center';
-          ctx.fillText('📸 CLIQUE EM "+ FOTO" NA TABELA', photoCardX + photoCardW / 2, photoCardY + photoCardH / 2);
-          ctx.font = '500 20px "Plus Jakarta Sans"';
+          ctx.fillStyle = '#F8FAFC';
+          ctx.fillRect(photoX, photoY, photoW, photoH);
           ctx.fillStyle = '#94A3B8';
-          ctx.fillText('Envie uma foto em alta definição do produto', photoCardX + photoCardW / 2, photoCardY + photoCardH / 2 + 45);
+          ctx.font = 'bold 34px "Plus Jakarta Sans"';
+          ctx.textAlign = 'center';
+          ctx.fillText('ENVIE UMA FOTO DA OFERTA NA TABELA', photoX + photoW / 2, photoY + photoH / 2);
           ctx.restore();
-          drawOverlayAndBottom();
+          continueDrawing();
         }
 
-        function drawOverlayAndBottom() {
-          // Borda de vidro branco luminoso contornando o card
-          ctx.strokeStyle = 'rgba(255, 255, 255, 0.85)';
-          ctx.lineWidth = 4;
+        function continueDrawing() {
+          // Borda translúcida moderna sobre a foto
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
+          ctx.lineWidth = 3;
           ctx.beginPath();
-          ctx.roundRect(photoCardX, photoCardY, photoCardW, photoCardH, 36);
+          ctx.roundRect(photoX, photoY, photoW, photoH, 32);
           ctx.stroke();
 
-          // 4. SELO DE PREÇO VIRAL EM DESTAQUE (Overlay Flutuante dentro do Card)
-          const priceBadgeW = 340;
-          const priceBadgeH = 110;
-          const priceBadgeX = photoCardX + photoCardW - priceBadgeW - 32;
-          const priceBadgeY = photoCardY + 32;
+          // 3. REFINAMENTO 1: CABEÇALHO COM PÍLULA AMPLA (Sem cortar a espiral à direita)
+          const pillW = 420;
+          const pillH = 92;
+          const pillX = 60;
+          const pillY = 50;
 
           ctx.save();
-          ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+          ctx.shadowColor = 'rgba(0, 0, 0, 0.18)';
           ctx.shadowBlur = 24;
-          ctx.shadowOffsetY = 10;
-          ctx.fillStyle = '#0F172A'; // Fundo Preto Azulado Noturno
+          ctx.shadowOffsetY = 6;
+          ctx.fillStyle = '#FFFFFF';
           ctx.beginPath();
-          ctx.roundRect(priceBadgeX, priceBadgeY, priceBadgeW, priceBadgeH, 26);
+          ctx.roundRect(pillX, pillY, pillW, pillH, 26);
           ctx.fill();
           ctx.restore();
 
-          // Borda Laranja Neon no Selo de Preço
-          ctx.strokeStyle = '#FF5500';
-          ctx.lineWidth = 3;
-          ctx.beginPath();
-          ctx.roundRect(priceBadgeX, priceBadgeY, priceBadgeW, priceBadgeH, 26);
-          ctx.stroke();
+          // Desenho rigorosamente proporcional da logo oficial
+          const logoMaxW = 340;
+          const logoMaxH = 64;
+          const logoNaturalW = brandLogo.naturalWidth || 760;
+          const logoNaturalH = brandLogo.naturalHeight || 220;
+          const logoRatio = logoNaturalW / logoNaturalH;
 
-          ctx.fillStyle = '#FB923C';
-          ctx.font = '800 16px "Plus Jakarta Sans"';
-          ctx.textAlign = 'center';
-          ctx.fillText('COM CUPOM EXCLUSIVO', priceBadgeX + (priceBadgeW / 2), priceBadgeY + 34);
+          let renderW = logoMaxW;
+          let renderH = logoMaxW / logoRatio;
+
+          if (renderH > logoMaxH) {
+            renderH = logoMaxH;
+            renderW = logoMaxH * logoRatio;
+          }
+
+          const logoDrawX = pillX + 35;
+          const logoDrawY = pillY + (pillH - renderH) / 2;
+          ctx.drawImage(brandLogo, logoDrawX, logoDrawY, renderW, renderH);
+
+          // Pílula da Cidade (Direita)
+          ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
+          ctx.beginPath();
+          ctx.roundRect(810, 52, 210, 84, 22);
+          ctx.fill();
 
           ctx.fillStyle = '#FFFFFF';
-          ctx.font = '900 52px "Plus Jakarta Sans"';
-          ctx.fillText(`R$ ${item.price.toFixed(2).replace('.', ',')}`, priceBadgeX + (priceBadgeW / 2), priceBadgeY + 88);
+          ctx.font = '800 22px "Plus Jakarta Sans"';
+          ctx.textAlign = 'center';
+          ctx.fillText('MARÍLIA • SP', 915, 88);
 
-          // 5. BLOCO INFORMATIVO: LOJA E NOME DO PRODUTO (Fundo Branco Macio)
-          const infoBoxX = 60;
-          const infoBoxY = 980;
-          const infoBoxW = 960;
-          const infoBoxH = 160;
+          ctx.fillStyle = '#F59E0B';
+          ctx.font = '700 13px "Plus Jakarta Sans"';
+          ctx.fillText('OFERTA EXCLUSIVA', 915, 114);
+
+          // 4. REFINAMENTO 2: PREÇO ÂNCORA COM GATILHO "DE / POR" & % OFF
+          const origPrice = item.originalPrice && item.originalPrice > item.price ? item.originalPrice : (item.price * 1.30);
+          const discountPct = Math.round(((origPrice - item.price) / origPrice) * 100);
+
+          const badgeW = 340;
+          const badgeH = 118;
+          const badgeX = photoX + photoW - badgeW - 25;
+          const badgeY = photoY + 25;
+
+          ctx.save();
+          ctx.shadowColor = 'rgba(0, 0, 0, 0.35)';
+          ctx.shadowBlur = 24;
+          ctx.shadowOffsetY = 8;
+          ctx.fillStyle = '#0B1E42'; // Azul Marinho Oficial CupomClic
+          ctx.beginPath();
+          ctx.roundRect(badgeX, badgeY, badgeW, badgeH, 24);
+          ctx.fill();
+
+          // Borda decorativa laranja sutil
+          ctx.strokeStyle = '#f26522';
+          ctx.lineWidth = 3;
+          ctx.stroke();
+          ctx.restore();
+
+          // Linha "DE R$ XX,XX" (Riscado) + Badge "-XX%"
+          ctx.fillStyle = '#94A3B8';
+          ctx.font = '700 20px "Plus Jakarta Sans"';
+          ctx.textAlign = 'left';
+          const deText = `DE R$ ${origPrice.toFixed(2).replace('.', ',')}`;
+          ctx.fillText(deText, badgeX + 25, badgeY + 40);
+
+          // Traço riscando o preço original
+          const deTextWidth = ctx.measureText(deText).width;
+          ctx.strokeStyle = '#EF4444';
+          ctx.lineWidth = 2.5;
+          ctx.beginPath();
+          ctx.moveTo(badgeX + 23, badgeY + 34);
+          ctx.lineTo(badgeX + 27 + deTextWidth, badgeY + 34);
+          ctx.stroke();
+
+          // Selo com porcentagem de desconto
+          ctx.fillStyle = '#EF4444';
+          ctx.beginPath();
+          ctx.roundRect(badgeX + 25 + deTextWidth + 12, badgeY + 20, 80, 28, 8);
+          ctx.fill();
+
+          ctx.fillStyle = '#FFFFFF';
+          ctx.font = '800 15px "Plus Jakarta Sans"';
+          ctx.textAlign = 'center';
+          ctx.fillText(`-${discountPct}%`, badgeX + 25 + deTextWidth + 52, badgeY + 39);
+
+          // Linha "POR R$ XX,XX" em grande destaque
+          ctx.fillStyle = '#FFFFFF';
+          ctx.textAlign = 'left';
+          ctx.font = '900 50px "Plus Jakarta Sans"';
+          ctx.fillText(`POR R$ ${item.price.toFixed(2).replace('.', ',')}`, badgeX + 22, badgeY + 96);
+
+          // 5. CAIXA BRANCA DO PRODUTO (Sem colisão)
+          const textCardX = 60;
+          const textCardY = 980;
+          const textCardW = 960;
+          const textCardH = 150;
 
           ctx.save();
           ctx.shadowColor = 'rgba(0, 0, 0, 0.15)';
-          ctx.shadowBlur = 25;
-          ctx.shadowOffsetY = 10;
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+          ctx.shadowBlur = 20;
+          ctx.shadowOffsetY = 8;
+          ctx.fillStyle = '#FFFFFF';
           ctx.beginPath();
-          ctx.roundRect(infoBoxX, infoBoxY, infoBoxW, infoBoxH, 28);
+          ctx.roundRect(textCardX, textCardY, textCardW, textCardH, 26);
           ctx.fill();
           ctx.restore();
 
-          // Nome da Loja (Em Laranja vibrante corporativo)
-          ctx.fillStyle = '#EA580C';
+          // Nome do Estabelecimento
+          ctx.fillStyle = '#f26522';
           ctx.font = '800 24px "Plus Jakarta Sans"';
           ctx.textAlign = 'left';
-          ctx.fillText(item.store.toUpperCase(), infoBoxX + 36, infoBoxY + 52);
+          ctx.fillText(item.store.toUpperCase(), textCardX + 35, textCardY + 48);
 
-          // Título da Oferta (Azul Marinho Noturno Nítido e Sem Quebra Estranha)
-          ctx.fillStyle = '#0E274D';
+          // Título do Produto
+          ctx.fillStyle = '#0B1E42';
           ctx.font = '900 44px "Plus Jakarta Sans"';
-
-          let prodTitle = item.title;
-          if (ctx.measureText(prodTitle).width > (infoBoxW - 80)) {
-            ctx.font = '900 36px "Plus Jakarta Sans"';
+          let title = item.title;
+          if (ctx.measureText(title).width > 880) {
+            ctx.font = '900 38px "Plus Jakarta Sans"';
           }
-          ctx.fillText(prodTitle, infoBoxX + 36, infoBoxY + 112);
+          ctx.fillText(title, textCardX + 35, textCardY + 104);
 
-          // 6. BARRA INFERIOR DE CONVERSÃO • SACOLA DO INSTAGRAM
+          // 6. REFINAMENTO 3: BARRA DA SACOLA DO INSTAGRAM COM GATILHO DE ESCASSEZ LOCAL
           const barX = 60;
-          const barY = 1165;
+          const barY = 1155;
           const barW = 960;
-          const barH = 135;
+          const barH = 145;
 
           ctx.save();
           ctx.shadowColor = 'rgba(0, 0, 0, 0.25)';
-          ctx.shadowBlur = 30;
-          ctx.shadowOffsetY = 12;
-          ctx.fillStyle = '#0E274D'; // Azul Escuro Oficial CupomClic
+          ctx.shadowBlur = 24;
+          ctx.shadowOffsetY = 8;
+          ctx.fillStyle = '#0B1E42';
           ctx.beginPath();
           ctx.roundRect(barX, barY, barW, barH, 28);
           ctx.fill();
           ctx.restore();
 
-          // Borda luminosa no container da sacola
-          ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
-          ctx.lineWidth = 2;
-          ctx.beginPath();
-          ctx.roundRect(barX, barY, barW, barH, 28);
-          ctx.stroke();
-
-          // ÍCONE VETORIAL PRECISO DA SACOLA DO INSTAGRAM
-          const bagX = barX + 40;
-          const bagY = barY + 36;
+          // ÍCONE VETORIAL DA SACOLA DO INSTAGRAM
+          const bagX = barX + 35;
+          const bagY = barY + 38;
 
           ctx.strokeStyle = '#FFFFFF';
           ctx.lineWidth = 4.5;
@@ -760,42 +716,48 @@
 
           // Corpo da sacola
           ctx.beginPath();
-          ctx.roundRect(bagX, bagY + 14, 52, 54, 12);
+          ctx.roundRect(bagX, bagY + 16, 52, 54, 10);
           ctx.stroke();
 
           // Alça da sacola
           ctx.beginPath();
-          ctx.arc(bagX + 26, bagY + 14, 16, Math.PI, 0);
+          ctx.arc(bagX + 26, bagY + 16, 16, Math.PI, 0);
           ctx.stroke();
 
-          // SETA DIRECIONAL LARANJA APONTANDO PARA A SACOLA
-          ctx.strokeStyle = '#FF5500';
+          // Seta animada apontando para a sacola
+          ctx.strokeStyle = '#f26522';
           ctx.lineWidth = 6;
           ctx.beginPath();
-          ctx.moveTo(bagX + 120, bagY + 22);
+          ctx.moveTo(bagX + 120, bagY + 24);
           ctx.lineTo(bagX + 96, bagY + 48);
-          ctx.lineTo(bagX + 120, bagY + 74);
+          ctx.lineTo(bagX + 120, bagY + 72);
           ctx.stroke();
 
-          // Textos da Ação no Instagram
+          // Textos da Sacola + Escassez Local
           ctx.fillStyle = '#FFFFFF';
           ctx.font = '900 28px "Plus Jakarta Sans"';
           ctx.textAlign = 'left';
-          ctx.fillText('TOQUE NA SACOLA PARA COMPRAR', bagX + 145, barY + 58);
+          ctx.fillText('TOQUE NA SACOLA PARA COMPRAR', bagX + 145, barY + 54);
 
-          ctx.fillStyle = '#CBD5E1';
+          ctx.fillStyle = '#94A3B8';
           ctx.font = '600 20px "Plus Jakarta Sans"';
-          ctx.fillText('Clique no produto marcado e resgate no app CupomClic', bagX + 145, barY + 95);
+          ctx.fillText('Clique no produto marcado e resgate no app CupomClic', bagX + 145, barY + 86);
+
+          // Micro-tag de escassez e exclusividade local
+          ctx.fillStyle = '#F59E0B';
+          ctx.font = '800 15px "Plus Jakarta Sans"';
+          ctx.fillText('⚡ EXCLUSIVO MARÍLIA • CUPONS LIMITADOS', bagX + 145, barY + 118);
 
           if (callback) callback(canvas);
         }
       }
     }
 
+    // BAIXAR LÂMINA INDIVIDUAL (PNG)
     function downloadSingleSlide(item, idx, blockId) {
       renderCanvasViral4x5(item, idx, blockId, (canvas) => {
         const link = document.createElement('a');
-        link.download = `CupomClic_${blockId}_Slide${idx + 1}_${item.store.replace(/\s+/g, '_')}_4x5.png`;
+        link.download = `${blockId}_Slide${idx + 1}_${item.store.replace(/\s+/g, '_')}_Viral4x5.png`;
         link.href = canvas.toDataURL('image/png');
         document.body.appendChild(link);
         link.click();
@@ -803,11 +765,41 @@
       });
     }
 
-    function downloadClusterSlides(cluster) {
-      cluster.offers.forEach((item, idx) => {
-        setTimeout(() => {
-          downloadSingleSlide(item, idx, cluster.id);
-        }, idx * 600);
+    // REFINAMENTO 4: BAIXAR TODAS AS 5 LÂMINAS COMPACTADAS EM UM ÚNICO ARQUIVO .ZIP
+    async function downloadClusterZip(cluster) {
+      if (!window.JSZip) {
+        alert("Biblioteca de compactação não carregou. Tentando download individual...");
+        cluster.offers.forEach((item, idx) => setTimeout(() => downloadSingleSlide(item, idx, cluster.id), idx * 600));
+        return;
+      }
+
+      const zip = new JSZip();
+      const folderName = `CupomClic_Marilia_${cluster.id.replace(/\s+/g, '_')}_5_Laminas`;
+      const imgFolder = zip.folder(folderName);
+
+      // Renderiza cada canvas e adiciona ao ZIP como base64
+      let completed = 0;
+      for (let i = 0; i < cluster.offers.length; i++) {
+        const item = cluster.offers[i];
+        await new Promise((resolve) => {
+          renderCanvasViral4x5(item, i, cluster.id, (canvas) => {
+            const dataUrl = canvas.toDataURL('image/png');
+            const base64Data = dataUrl.replace(/^data:image\/png;base64,/, "");
+            imgFolder.file(`Slide_${i + 1}_${item.store.replace(/\s+/g, '_')}_4x5.png`, base64Data, { base64: true });
+            completed++;
+            resolve();
+          });
+        });
+      }
+
+      // Gera e baixa o arquivo .zip final
+      zip.generateAsync({ type: "blob" }).then(function(content) {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(content);
+        link.download = `${folderName}.zip`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
       });
     }
 
@@ -815,7 +807,7 @@
       const container = document.getElementById("balancedClustersContainer");
 
       if (generatedClusters.length === 0) {
-        container.innerHTML = `<div class="col-span-2 text-center py-10 text-slate-500 text-xs">Nenhum bloco gerado. Clique em "Gerar Blocos de 5 Balanceados".</div>`;
+        container.innerHTML = `<div class="col-span-2 text-center py-10 text-slate-500 text-xs">Nenhum carrossel gerado. Clique em "Gerar Carrosséis Balanceados".</div>`;
         return;
       }
 
@@ -828,9 +820,10 @@
                   <span class="w-3 h-3 rounded-full bg-brand-orange"></span>
                   <h3 class="font-extrabold text-white text-base">${cluster.id} • Carrossel de 5 Lojas</h3>
                 </div>
-                <button onclick='downloadClusterSlides(${JSON.stringify(cluster)})' class="text-xs font-bold px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition flex items-center gap-1 shadow">
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                  <span>Baixar Todos (5 Imagens)</span>
+                <!-- BOTÃO 1-CLIQUE .ZIP -->
+                <button onclick='downloadClusterZip(${JSON.stringify(cluster)})' class="text-xs font-bold px-3.5 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:brightness-110 text-white transition flex items-center gap-1.5 shadow-lg shadow-emerald-600/20">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                  <span>Baixar Pacote .ZIP (5 Lâminas)</span>
                 </button>
               </div>
 
@@ -845,34 +838,37 @@
                   <div class="text-xs font-extrabold text-brand-orange">R$ ${cluster.totalFeePlatform.toFixed(2)}</div>
                 </div>
                 <div>
-                  <div class="text-[9px] text-sky-400 font-bold uppercase">Mídia Ideal</div>
-                  <div class="text-xs font-extrabold text-sky-400">R$ ${cluster.recommendedAds.toFixed(2)}</div>
+                  <div class="text-[9px] text-blue-400 font-bold uppercase">Mídia Ideal</div>
+                  <div class="text-xs font-extrabold text-blue-400">R$ ${cluster.recommendedAds.toFixed(2)}</div>
                 </div>
               </div>
 
-              <div class="text-[11px] font-bold text-slate-400 mb-3 uppercase tracking-wide">Slides 4:5 com Background Geométrico:</div>
+              <div class="text-[11px] font-bold text-slate-400 mb-3 uppercase tracking-wide">Lâminas Prontas para o Meta Ads:</div>
 
               <div class="space-y-3 mb-6">
                 ${cluster.offers.map((item, idx) => {
                   const hasPhoto = offerImages[item.id];
+                  const orig = item.originalPrice || (item.price * 1.3);
                   return `
                     <div class="p-3 rounded-xl border bg-slate-900/60 border-brand-cardBorder flex items-center justify-between gap-3">
                       <div class="flex items-center gap-3">
-                        <span class="w-7 h-7 rounded-xl bg-slate-800 text-slate-300 text-xs font-extrabold flex items-center justify-center font-mono">
+                        <span class="w-7 h-7 rounded-xl bg-slate-800 text-slate-300 text-xs font-extrabold flex items-center justify-center">
                           #${idx + 1}
                         </span>
                         <div>
                           <div class="text-xs font-bold text-slate-200">
                             ${item.store}
                           </div>
-                          <div class="text-[11px] text-slate-400 mt-0.5">${item.title} • <strong class="text-white">R$ ${item.price.toFixed(2)}</strong> ${hasPhoto ? '<span class="text-emerald-400 text-[10px]">✓ Foto Anexada</span>' : '<span class="text-amber-400/80 text-[10px]">⚠ Sem foto</span>'}</div>
+                          <div class="text-[11px] text-slate-400 mt-0.5">
+                            ${item.title} • <span class="line-through text-slate-500">R$ ${orig.toFixed(2)}</span> <strong class="text-white">R$ ${item.price.toFixed(2)}</strong>${hasPhoto ? '<span class="text-emerald-400 text-[10px]">✓ Foto Anexada</span>' : '<span class="text-amber-400/80 text-[10px]">⚠ Sem foto</span>'}
+                          </div>
                         </div>
                       </div>
 
                       <div>
                         <button onclick='downloadSingleSlide(${JSON.stringify(item)}, ${idx}, "${cluster.id}")' class="text-xs font-bold px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1.5">
                           <svg class="w-3.5 h-3.5 text-brand-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                          <span>Baixar 4:5</span>
+                          <span>PNG</span>
                         </button>
                       </div>
                     </div>
@@ -892,14 +888,14 @@
       }).join('');
     }
 
-    function saveToPCAndClean() {
+    function saveAndReset() {
       if (offers.length === 0) {
         alert("Nenhum dado para salvar.");
         return;
       }
 
       const exportPayload = {
-        app: "CupomClic_Marilia_Geometric_12Pct",
+        app: "CupomClic_Marilia_Refinado_ZIP_12pct",
         savedAt: new Date().toISOString(),
         settings: {
           audience: document.getElementById("targetAudience").value,
@@ -920,7 +916,6 @@
       downloadAnchor.click();
       downloadAnchor.remove();
 
-      // Limpeza Imediata
       offers = [];
       generatedClusters = [];
       Object.keys(offerImages).forEach(key => delete offerImages[key]);
@@ -928,10 +923,10 @@
       renderClusters();
       calculate();
 
-      alert(`Campanha e fotos salvas em ${filename}. Área de trabalho limpa para a próxima!`);
+      alert(`Campanha salva em ${filename}. Área de trabalho limpa.`);
     }
 
-    function loadFromPC(event) {
+    function importData(event) {
       const file = event.target.files[0];
       if (!file) return;
 
@@ -950,7 +945,7 @@
             renderOffersTable();
             calculate();
             runBalancedClustering();
-            alert("Planejamento e imagens recuperados com sucesso!");
+            alert("Planejamento recuperado!");
           } else {
             alert("Arquivo JSON inválido.");
           }
@@ -962,7 +957,6 @@
       event.target.value = '';
     }
 
-    // Inicialização
     window.onload = () => {
       loadSampleOffers();
     };
